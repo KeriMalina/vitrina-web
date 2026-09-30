@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Витрина — сайты для мастеров и малого бизнеса</title>
+  <meta name="description" content="Делаю одностраничные сайты для мастеров красоты, фотографов и малого бизнеса: услуги, цены, работы и онлайн-запись. От $20, готово за 2–7 дней.">
+  <!-- Черновик: убрать noindex при запуске -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236c7bff'/%3E%3Crect x='15' y='15' width='34' height='26' rx='7' fill='none' stroke='%23fff' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #121217;
+      --surface: #1c1c24;
+      --surface-2: #26262f;
+      --ink: #f3f2f7;
+      --muted: #a09fad;
+      --line: #2e2e39;
+      --accent: #6c7bff;
+      --accent-dark: #5463f2;
+      --accent-soft: rgba(108, 123, 255, .16);
+      --radius: 22px;
+      --shadow: 0 24px 60px -24px rgba(0, 0, 0, .8);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 400 17px/1.6 Manrope, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: Unbounded, sans-serif; font-weight: 700; line-height: 1.15; margin: 0; letter-spacing: -.01em; }
+    .container { width: min(1160px, 100% - 32px); margin-inline: auto; }
+    .section { padding: 96px 0; }
+    .eyebrow { display: inline-block; font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .section-head { max-width: 640px; margin-bottom: 48px; }
+    .section-head h2 { font-size: clamp(28px, 4vw, 42px); }
+    .section-head p { color: var(--muted); margin: 16px 0 0; }
+
+    .draft-bar { background: var(--accent-soft); color: var(--ink); text-align: center; font-size: 13px; padding: 8px 16px; }
+
+    /* Кнопки */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 48px; padding: 12px 26px; border-radius: 999px;
+      font: 700 16px Manrope, sans-serif; text-decoration: none; cursor: pointer;
+      border: 1.5px solid transparent; transition: transform .2s, background .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 12px 28px -12px rgba(61, 77, 245, .7); }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-ghost { background: transparent; border-color: var(--ink); color: var(--ink); }
+    .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+
+    /* Шапка */
+    .header { position: sticky; top: 0; z-index: 10; background: rgba(18, 18, 23, .85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .header .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; }
+    .logo { font: 700 20px Unbounded, sans-serif; text-decoration: none; display: flex; align-items: center; gap: 10px; min-height: 44px; }
+    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); position: relative; }
+    .logo-mark::after { content: ""; position: absolute; inset: 7px 7px 11px; border: 2.5px solid #fff; border-radius: 4px; }
+    .nav { display: flex; gap: 28px; }
+    .nav a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--muted); }
+    .nav a:hover { color: var(--ink); }
+    .header-end { display: flex; align-items: center; gap: 14px; }
+
+    /* Переключатель языка */
+    .lang { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+    .lang button { min-width: 44px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 700 13px Manrope, sans-serif; cursor: pointer; }
+    .lang button:hover { color: var(--ink); }
+    .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+    .lang button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    /* Первый экран */
+    .hero { padding: 88px 0 96px; }
+    .hero .container { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+    .hero h1 { font-size: clamp(34px, 5.4vw, 64px); }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-lead { font-size: 19px; color: var(--muted); max-width: 520px; margin: 24px 0 36px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 36px; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .hero-facts b { display: block; font: 700 26px Unbounded, sans-serif; }
+    .hero-facts span { color: var(--muted); font-size: 14px; }
+    .hero-visual { position: relative; }
+    .browser { background: var(--surface); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--line); }
+    .browser-bar { display: flex; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+    .hero-visual .browser:nth-child(2) { position: absolute; width: 62%; right: -18px; bottom: -48px; transform: rotate(3deg); }
+
+    /* Портфолио */
+    .works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .work { background: var(--surface); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; }
+    .work img { aspect-ratio: 1000 / 645; object-fit: cover; border-bottom: 1px solid var(--line); }
+    .work-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .work-tag { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--accent-soft); color: #b3bbff; }
+    .work-tag.demo { background: var(--surface-2); color: var(--muted); }
+    .work h3 { font-size: 20px; }
+    .work p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* Цены */
+    .prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+    .price { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 30px; display: flex; flex-direction: column; }
+    .price.featured { background: linear-gradient(160deg, #2a2f63 0%, var(--surface) 70%); border-color: var(--accent); position: relative; box-shadow: 0 24px 60px -28px rgba(108, 123, 255, .6); }
+    .price.featured .price-note, .price.featured li::before { color: #a9b1ff; }
+    .price-badge { position: absolute; top: -14px; left: 30px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+    .price h3 { font-size: 20px; }
+    .price-sum { font: 700 48px Unbounded, sans-serif; margin: 18px 0 4px; }
+    .price-note { color: var(--muted); font-size: 14px; }
+    .price ul { list-style: none; padding: 0; margin: 26px 0 32px; display: grid; gap: 12px; flex: 1; }
+    .price li { padding-left: 28px; position: relative; font-size: 15px; }
+    .price li::before { content: "✓"; position: absolute; left: 0; font-weight: 700; color: var(--accent); }
+    .work-btn { align-self: flex-start; margin-top: auto; min-height: 44px; padding: 10px 22px; font-size: 15px; }
+    .work-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+    .work-actions .work-btn { margin-top: 0; }
+    .work-link { display: block; overflow: hidden; }
+    .work-link img { transition: transform .5s cubic-bezier(.2, .8, .2, 1), filter .3s; }
+    .work-link:hover img { transform: scale(1.03); filter: brightness(1.08); }
+    .work-soon { font-size: 13px !important; font-style: italic; }
+    .templates-more { color: var(--muted); font-size: 15px; margin: 28px 0 0; text-align: center; }
+    .extras { margin-top: 40px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; }
+    .extras h3 { font-size: 18px; margin-bottom: 18px; }
+    .extras ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+    .extras li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+    .extras b { color: var(--accent); white-space: nowrap; }
+    .prices-foot { color: var(--muted); font-size: 15px; margin-top: 28px; text-align: center; }
+
+    /* Как работаем */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: step; }
+    .step { border-top: 2px solid var(--ink); padding-top: 22px; }
+    .step::before { counter-increment: step; content: "0" counter(step); font: 700 14px Unbounded, sans-serif; color: var(--accent); }
+    .step h3 { font-size: 18px; margin: 12px 0 10px; }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* Вопросы */
+    .faq { display: grid; gap: 14px; max-width: 820px; }
+    .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 0 24px; }
+    .faq summary { cursor: pointer; font-weight: 700; padding: 20px 0; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--accent); transition: transform .2s; }
+    .faq details[open] summary::after { transform: rotate(45deg); }
+    .faq details p { margin: 0 0 20px; color: var(--muted); }
+
+    /* Контакты */
+    .cta { background: linear-gradient(135deg, #5463f2 0%, #7b5cf0 100%); color: #fff; border-radius: 32px; padding: 72px 48px; text-align: center; }
+    .cta h2 { font-size: clamp(28px, 4vw, 44px); }
+    .cta p { opacity: .85; max-width: 560px; margin: 18px auto 34px; }
+    .cta-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .cta .btn { background: #fff; color: var(--bg); }
+    .cta-note { font-size: 15px; margin: 22px 0 0; opacity: .8; }
+
+    /* Подвал */
+    .footer { padding: 48px 0; border-top: 1px solid var(--line); margin-top: 96px; }
+    .footer .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 0 12px; }
+    .footer-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; text-decoration: none; color: var(--muted); font-size: 15px; }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer-tg { color: var(--accent) !important; }
+    .footer small { color: var(--muted); }
+
+    @media (max-width: 960px) {
+      .nav { display: none; }
+      .hero .container { grid-template-columns: 1fr; }
+      .hero-visual { margin: 0 18px 48px 0; }
+      .works, .prices { grid-template-columns: 1fr; max-width: 560px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .section { padding: 72px 0; }
+      .hero { padding: 56px 0 72px; }
+      .header .container { gap: 12px; }
+      .header-end { gap: 8px; }
+      .header .btn { display: none; }
+      .steps { grid-template-columns: 1fr; }
+      .extras { padding: 24px 20px; }
+      .extras ul { grid-template-columns: 1fr; }
+      .cta { padding: 56px 22px; border-radius: 24px; }
+      .hero-facts { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="draft-bar" data-i18n="draft">Черновик · отзывы появятся после первых заказов</div>
+
+  <header class="header">
+    <div class="container">
+      <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"></span><span data-i18n="brand">Витрина</span></a>
+      <nav class="nav" aria-label="Разделы" data-i18n-label="aria.nav">
+        <a href="#works" data-i18n="nav.works">Работы</a>
+        <a href="#templates" data-i18n="nav.templates">Шаблоны</a>
+        <a href="#prices" data-i18n="nav.prices">Цены</a>
+        <a href="#process" data-i18n="nav.process">Как работаем</a>
+        <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+      </nav>
+      <div class="header-end">
+        <div class="lang" role="group" aria-label="Язык сайта" data-i18n-label="aria.lang">
+          <button type="button" data-lang="ru" lang="ru">RU</button>
+          <button type="button" data-lang="en" lang="en">EN</button>
+        </div>
+        <a href="#contact" class="btn btn-primary" data-i18n="cta.header">Обсудить сайт</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div>
+          <span class="eyebrow" data-i18n="hero.eyebrow">Сайты для мастеров, кафе и малого бизнеса</span>
+          <h1 data-i18n="hero.title">Сайт, который <em>приводит клиентов</em>, а&nbsp;не&nbsp;просто висит в&nbsp;сети</h1>
+          <p class="hero-lead" data-i18n="hero.lead">Одна понятная страница: ваши услуги, цены, работы и кнопка записи. Клиент за минуту понимает, что вы делаете, и сразу записывается.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary" data-i18n="hero.btn1">Хочу сайт</a>
+            <a href="#works" class="btn btn-ghost" data-i18n="hero.btn2">Посмотреть работы</a>
+          </div>
+          <div class="hero-facts">
+            <div><b data-i18n="fact1.n">от $20</b><span data-i18n="fact1.t">стоимость сайта</span></div>
+            <div><b data-i18n="fact2.n">2–7 дней</b><span data-i18n="fact2.t">от анкеты до запуска</span></div>
+            <div><b>$0</b><span data-i18n="fact3.t">плата за хостинг</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><img src="images/work-daria.jpg" alt="" width="1000" height="645"></div>
+          <div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><img src="images/work-tanya.jpg" alt="" width="1000" height="645"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="nav.works">Работы</span>
+          <h2 data-i18n="works.title">Сайты, которые я сделала</h2>
+          <p data-i18n="works.lead">Каждый сайт создаётся под стиль конкретного бизнеса: свои цвета, шрифты и фото, а не один шаблон на всех.</p>
+        </div>
+        <div class="works">
+          <article class="work">
+            <a href="work/lamidanova/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-daria.jpg" alt="Главный экран сайта LamiDanova" data-i18n-alt="alt.w1" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="tag.real">Реальный клиент</span>
+              <h3 data-i18n="w1.t">LamiDanova · ламинирование</h3>
+              <p data-i18n="w1.p">Мастер из Минска: три комбо-услуги с ценами, работы из Instagram, настоящие отзывы и онлайн-запись через DIKIDI.</p>
+              <a href="work/lamidanova/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.site">Открыть сайт ↗</a>
+            </div>
+          </article>
+          <article class="work">
+            <a href="work/artt-muse/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-tanya.jpg" alt="Главный экран сайта фотографа artt.muse" data-i18n-alt="alt.w2" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="tag.real">Реальный клиент</span>
+              <h3 data-i18n="w2.t">artt.muse · фотограф</h3>
+              <p data-i18n="w2.p">Фотограф из Аммана: портфолио с фильтром по жанрам, фото на весь экран, форматы съёмок и три языка — русский, английский и арабский.</p>
+              <a href="work/artt-muse/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.site">Открыть сайт ↗</a>
+            </div>
+          </article>
+          <article class="work">
+            <a href="demo/coffee/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-coffee.jpg" alt="Главный экран демо-сайта кофейни «Зерно»" data-i18n-alt="alt.w3" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag demo" data-i18n="tag.demo">Демо-концепт</span>
+              <h3 data-i18n="w3.t">«Зерно» · кофейня</h3>
+              <p data-i18n="w3.p">Тёплый уютный стиль: меню с ценами, фото зала и террасы, отзывы гостей, часы работы и кнопка «Открыть на карте».</p>
+              <a href="demo/coffee/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="templates">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="tpl.eyebrow">Готовые шаблоны</span>
+          <h2 data-i18n="tpl.title">Понравился дизайн? Сделаю такой же — с&nbsp;вашими фото и&nbsp;ценами</h2>
+          <p data-i18n="tpl.lead">Шаблон — это готовый сайт под вашу профессию. Выбираете, присылаете фото, тексты и цены, и через 2–3 дня сайт готов. Это пакет «Визитка» за $20.</p>
+        </div>
+        <div class="works">
+          <article class="work">
+            <a href="work/lamidanova/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-daria.jpg" alt="" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="t1.tag">Ресницы и брови</span>
+              <h3 data-i18n="t1.t">Шаблон «Пудра»</h3>
+              <p data-i18n="t1.p">Светлый и нежный: услуги с ценами, галерея работ, отзывы, адрес и кнопка онлайн-записи.</p>
+              <div class="work-actions">
+                <a href="work/lamidanova/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
+                <a href="#contact" class="btn btn-primary work-btn" data-i18n="btn.same">Хочу такой же</a>
+              </div>
+            </div>
+          </article>
+          <article class="work">
+            <a href="work/artt-muse/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-tanya.jpg" alt="" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="t2.tag">Фотографы</span>
+              <h3 data-i18n="t2.t">Шаблон «Журнал»</h3>
+              <p data-i18n="t2.p">Тёмный и выразительный: портфолио по жанрам, фото на весь экран, пакеты съёмки.</p>
+              <div class="work-actions">
+                <a href="work/artt-muse/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
+                <a href="#contact" class="btn btn-primary work-btn" data-i18n="btn.same">Хочу такой же</a>
+              </div>
+            </div>
+          </article>
+          <article class="work">
+            <a href="demo/coffee/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-coffee.jpg" alt="" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="t3.tag">Кофейни и кафе</span>
+              <h3 data-i18n="t3.t">Шаблон «Зерно»</h3>
+              <p data-i18n="t3.p">Тёплый и уютный: меню с ценами, атмосфера в фото, отзывы гостей, часы работы и доставка.</p>
+              <div class="work-actions">
+                <a href="demo/coffee/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
+                <a href="#contact" class="btn btn-primary work-btn" data-i18n="btn.same">Хочу такой же</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="templates-more" data-i18n="tpl.more">Нет вашей профессии? Новые шаблоны появляются с каждым клиентом, а дизайн под вас можно заказать в пакете «Стандарт».</p>
+      </div>
+    </section>
+
+    <section class="section" id="prices">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="prices.eyebrow">Цены для первых клиентов</span>
+          <h2 data-i18n="prices.title">Три пакета без скрытых доплат</h2>
+          <p data-i18n="prices.lead">Пока я собираю портфолио, цены ниже обычных. Оплата в два этапа: 50% перед началом работы, 50% после того, как вам всё понравилось.</p>
+        </div>
+        <div class="prices">
+          <article class="price">
+            <h3 data-i18n="pk1.t">Визитка</h3>
+            <div class="price-sum">$20</div>
+            <div class="price-note" data-i18n="pk1.note">готово за 2–3 дня</div>
+            <ul>
+              <li data-i18n="pk1.l1">Готовый шаблон под вашу профессию</li>
+              <li data-i18n="pk1.l2">Ваши услуги, цены и до 6 фото</li>
+              <li data-i18n="pk1.l3">Кнопки записи и мессенджеров</li>
+              <li data-i18n="pk1.l4">Удобно смотреть с телефона</li>
+              <li data-i18n="pk1.l5">1 круг правок до запуска</li>
+              <li data-i18n="pk.week">Неделя бесплатных правок после запуска</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost" data-i18n="btn.choose">Выбрать</a>
+          </article>
+          <article class="price featured">
+            <span class="price-badge" data-i18n="pk2.badge">Чаще выбирают</span>
+            <h3 data-i18n="pk2.t">Стандарт</h3>
+            <div class="price-sum">$50</div>
+            <div class="price-note" data-i18n="pk2.note">готово за 4–5 дней</div>
+            <ul>
+              <li data-i18n="pk2.l1">Дизайн под ваш стиль и цвета</li>
+              <li data-i18n="pk2.l2">Разделы: услуги, работы, «Обо мне», отзывы, вопросы, адрес на карте</li>
+              <li data-i18n="pk2.l3">Галерея с увеличением фото</li>
+              <li data-i18n="pk2.l4">Помогу с текстами</li>
+              <li data-i18n="pk2.l5">2 круга правок до запуска</li>
+              <li data-i18n="pk.week">Неделя бесплатных правок после запуска</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" data-i18n="btn.choose">Выбрать</a>
+          </article>
+          <article class="price">
+            <h3 data-i18n="pk3.t">Под ключ</h3>
+            <div class="price-sum">$100</div>
+            <div class="price-note" data-i18n="pk3.note">готово за 5–7 дней</div>
+            <ul>
+              <li data-i18n="pk3.l1">Всё из пакета «Стандарт»</li>
+              <li data-i18n="pk3.l2">Подключу ваш домен и защищённое соединение</li>
+              <li data-i18n="pk3.l3">Добавлю сайт в Яндекс и Google</li>
+              <li data-i18n="pk3.l4">Настрою, как сайт выглядит в поиске и в мессенджерах</li>
+              <li data-i18n="pk3.l5">Месяц бесплатных правок после запуска</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost" data-i18n="btn.choose">Выбрать</a>
+          </article>
+        </div>
+        <div class="extras">
+          <h3 data-i18n="ex.title">Можно добавить к любому пакету</h3>
+          <ul>
+            <li><span data-i18n="ex.1">Подключение домена (в «Под ключ» уже входит)</span><b>$10</b></li>
+            <li><span data-i18n="ex.2">Текстовый логотип</span><b>$10</b></li>
+            <li><span data-i18n="ex.3">Дополнительная страница</span><b>$15</b></li>
+            <li><span data-i18n="ex.4">Срочно — за 1 день</span><b>+50%</b></li>
+            <li><span data-i18n="ex.5">Разовая правка после бесплатного периода</span><b>$3–5</b></li>
+            <li><span data-i18n="ex.6">Поддержка: до 5 правок в месяц</span><b data-i18n="ex.6p">$10/мес</b></li>
+          </ul>
+        </div>
+        <p class="prices-foot" data-i18n="prices.foot">Домен (адрес сайта) оплачивается отдельно — около $10–15 в год — и оформляется на ваше имя.</p>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="nav.process">Как работаем</span>
+          <h2 data-i18n="process.title">От первого сообщения до запуска</h2>
+          <p data-i18n="process.lead">Всё общение — в переписке, без звонков. Пишете, когда вам удобно, а я отвечаю и присылаю результат.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><h3 data-i18n="s1.t">Анкета</h3><p data-i18n="s1.p">Отвечаете на 10 простых вопросов и присылаете фото. Или даёте ссылку на Instagram — остальное соберу сама.</p></div>
+          <div class="step"><h3 data-i18n="s2.t">Черновик</h3><p data-i18n="s2.p">Через пару дней присылаю ссылку на готовый сайт. Откройте его с телефона и посмотрите глазами клиента.</p></div>
+          <div class="step"><h3 data-i18n="s3.t">Правки</h3><p data-i18n="s3.p">Пишете, что поменять: цену, фото, цвет. Вношу правки и показываю снова.</p></div>
+          <div class="step"><h3 data-i18n="s4.t">Запуск</h3><p data-i18n="s4.p">Сайт открыт для всех. Ставите ссылку в Instagram, на карты и в сервис записи.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="nav.faq">Вопросы</span>
+          <h2 data-i18n="faq.title">Частые вопросы</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary data-i18n="q1">Мне нужно покупать хостинг или сервер?</summary>
+            <p data-i18n="a1">Нет. Такие сайты размещаются бесплатно. Платить нужно только за домен, если хотите свой адрес вида вашеимя.com.</p>
+          </details>
+          <details>
+            <summary data-i18n="q2">Кому будут принадлежать сайт и домен?</summary>
+            <p data-i18n="a2">Вам. Домен оформляется на ваше имя, а все файлы сайта я передаю после запуска.</p>
+          </details>
+          <details>
+            <summary data-i18n="q3">Зачем сайт, если у меня есть Instagram?</summary>
+            <p data-i18n="a3">Сайт находят в Яндексе и Google, его не заблокируют и не удалят вместе с аккаунтом, а цены и запись в нём видны сразу — без листания ленты и вопросов в директ.</p>
+          </details>
+          <details>
+            <summary data-i18n="q4">Сколько стоят правки после запуска?</summary>
+            <p data-i18n="a4">Первую неделю после запуска правки бесплатные (в пакете «Под ключ» — целый месяц). Дальше можно платить за каждую мелкую правку $3–5 или взять поддержку за $10 в месяц — до 5 правок. Мелкая правка — это поменять цену, текст, телефон, фото или добавить отзыв. Новый раздел или смена дизайна оцениваются отдельно. Правки присылайте одним списком — сделаю за 1–2 дня.</p>
+          </details>
+          <details>
+            <summary data-i18n="q5">Как мы будем общаться?</summary>
+            <p data-i18n="a5">Только в переписке в Telegram, без звонков и созвонов. Всё онлайн, поэтому неважно, в какой стране вы находитесь.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta">
+          <h2 data-i18n="cta.title">Обсудим ваш сайт?</h2>
+          <p data-i18n="cta.lead">Напишите в Telegram, чем вы занимаетесь, и пришлите ссылку на Instagram — отвечу, какой пакет подойдёт и когда смогу начать.</p>
+          <div class="cta-links">
+            <a href="https://t.me/vitrina_web" target="_blank" rel="noopener" class="btn" data-i18n="cta.tg">Написать в Telegram</a>
+          </div>
+          <p class="cta-note">@vitrina_web</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"></span><span data-i18n="brand">Витрина</span></a>
+      <nav class="footer-nav" aria-label="Разделы в подвале" data-i18n-label="aria.footer">
+        <a href="#works" data-i18n="nav.works">Работы</a>
+        <a href="#templates" data-i18n="nav.templates">Шаблоны</a>
+        <a href="#prices" data-i18n="nav.prices">Цены</a>
+        <a href="#process" data-i18n="nav.process">Как работаем</a>
+        <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+        <a href="#contact" data-i18n="nav.contact">Контакты</a>
+        <a href="https://t.me/vitrina_web" target="_blank" rel="noopener" class="footer-tg">Telegram @vitrina_web</a>
+      </nav>
+      <small data-i18n="footer.copy">© 2026 Витрина · сайты для малого бизнеса</small>
+    </div>
+  </footer>
+
+  <script>
+    // Английский перевод. Русский текст берётся прямо из страницы.
+    const EN = {
+      "meta.title": "Vitrina — websites for beauty pros and small businesses",
+      "meta.desc": "One-page websites for beauty pros, photographers and small businesses: services, prices, portfolio and online booking. From $20, ready in 2–7 days.",
+      "draft": "Draft · reviews will appear after the first orders",
+      "brand": "Vitrina",
+      "nav.works": "Portfolio", "nav.templates": "Templates", "nav.prices": "Prices", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact",
+      "cta.header": "Let's talk",
+      "hero.eyebrow": "Websites for beauty pros, cafés and small businesses",
+      "hero.title": "A website that <em>brings you clients</em> instead of just sitting online",
+      "hero.lead": "One clear page with your services, prices, work and a booking button. In a minute clients understand what you do — and book right away.",
+      "hero.btn1": "I want a website", "hero.btn2": "See my work",
+      "fact1.n": "from $20", "fact1.t": "per website", "fact2.n": "2–7 days", "fact2.t": "from brief to launch", "fact3.t": "hosting fees",
+      "works.title": "Websites I've made",
+      "works.lead": "Every site is built around the style of a specific business: its own colours, fonts and photos — not one template for everyone.",
+      "tag.real": "Real client", "tag.demo": "Demo concept",
+      "w1.t": "LamiDanova · lash lamination",
+      "w1.p": "A lash artist from Minsk: three combo services with prices, work from Instagram, real reviews and online booking via DIKIDI.",
+      "w2.t": "artt.muse · photographer",
+      "w2.p": "A photographer from Amman: portfolio filtered by genre, full-screen photos, session types and three languages — Russian, English and Arabic.",
+      "btn.site": "Open website ↗",
+      "w3.t": "Zerno · coffee shop",
+      "w3.p": "Warm, cosy style: menu with prices, photos of the hall and terrace, guest reviews, opening hours and an “Open in Maps” button.",
+      "tpl.eyebrow": "Ready-made templates",
+      "tpl.title": "Like a design? I'll make the same one with your photos and prices",
+      "tpl.lead": "A template is a ready-made website for your profession. Pick one, send your photos, texts and prices — and your site is ready in 2–3 days. That's the $20 “Starter” package.",
+      "t1.tag": "Lashes & brows", "t1.t": "“Powder” template", "t1.p": "Light and gentle: services with prices, work gallery, reviews, address and an online booking button.",
+      "t2.tag": "Photographers", "t2.t": "“Journal” template", "t2.p": "Dark and expressive: portfolio by genre, full-screen photos, session packages.",
+      "t3.tag": "Cafés & coffee shops", "t3.t": "“Zerno” template", "t3.p": "Warm and cosy: menu with prices, atmosphere in photos, guest reviews, opening hours and delivery.",
+      "btn.same": "I want this one",
+      "btn.open": "Open demo ↗",
+      "tpl.more": "Don't see your profession? New templates appear with every client, and a custom design is available in the “Standard” package.",
+      "prices.eyebrow": "Prices for first clients",
+      "prices.title": "Three packages, no hidden fees",
+      "prices.lead": "While I'm building my portfolio, prices are lower than usual. Payment in two parts: 50% before I start, 50% once you're happy with the result.",
+      "pk1.t": "Starter", "pk1.note": "ready in 2–3 days",
+      "pk1.l1": "Ready-made template for your profession", "pk1.l2": "Your services, prices and up to 6 photos", "pk1.l3": "Booking and messenger buttons", "pk1.l4": "Looks great on phones", "pk1.l5": "1 round of changes before launch",
+      "pk.week": "A week of free changes after launch",
+      "pk2.badge": "Most popular", "pk2.t": "Standard", "pk2.note": "ready in 4–5 days",
+      "pk2.l1": "Design in your style and colours", "pk2.l2": "Sections: services, work, “About me”, reviews, FAQ, map", "pk2.l3": "Gallery with photo zoom", "pk2.l4": "Help with the texts", "pk2.l5": "2 rounds of changes before launch",
+      "pk3.t": "All-inclusive", "pk3.note": "ready in 5–7 days",
+      "pk3.l1": "Everything in “Standard”", "pk3.l2": "Connect your domain and secure HTTPS", "pk3.l3": "Add the site to Google and Yandex", "pk3.l4": "Set up how the site looks in search and messengers", "pk3.l5": "A month of free changes after launch",
+      "btn.choose": "Choose",
+      "ex.title": "Add-ons for any package",
+      "ex.1": "Domain setup (included in “All-inclusive”)", "ex.2": "Text logo", "ex.3": "Extra page", "ex.4": "Rush — in 1 day", "ex.5": "One-off change after the free period", "ex.6": "Support: up to 5 changes a month", "ex.6p": "$10/mo",
+      "prices.foot": "The domain (your site's address) is paid separately — about $10–15 a year — and registered in your name.",
+      "process.title": "From the first message to launch",
+      "process.lead": "All communication is by text — no calls. Write whenever it suits you, and I'll reply and send you the result.",
+      "s1.t": "Brief", "s1.p": "Answer 10 simple questions and send your photos. Or just send your Instagram link — I'll gather the rest myself.",
+      "s2.t": "Draft", "s2.p": "In a couple of days I send you a link to the finished site. Open it on your phone and see it through your clients' eyes.",
+      "s3.t": "Changes", "s3.p": "Tell me what to change: a price, a photo, a colour. I make the changes and show you again.",
+      "s4.t": "Launch", "s4.p": "The site goes live. Add the link to your Instagram, maps and booking service.",
+      "faq.title": "Frequently asked questions",
+      "q1": "Do I need to buy hosting or a server?", "a1": "No. Sites like these are hosted for free. You only pay for a domain if you want your own address like yourname.com.",
+      "q2": "Who will own the site and the domain?", "a2": "You. The domain is registered in your name, and I hand over all the site files after launch.",
+      "q3": "Why a website if I already have Instagram?", "a3": "People find a website on Google, it can't be blocked or deleted along with an account, and your prices and booking are visible at once — no scrolling through posts or asking in DMs.",
+      "q4": "How much do changes cost after launch?", "a4": "Changes are free for the first week after launch (a whole month with “All-inclusive”). After that you can pay $3–5 per small change or take support for $10 a month — up to 5 changes. A small change means updating a price, text, phone number or photo, or adding a review. A new section or a redesign is quoted separately. Send changes as one list — I'll do them in 1–2 days.",
+      "q5": "How will we communicate?", "a5": "By text in Telegram only — no calls. Everything is online, so it doesn't matter which country you're in.",
+      "cta.title": "Shall we talk about your website?",
+      "cta.lead": "Message me on Telegram about what you do and send your Instagram link — I'll tell you which package fits and when I can start.",
+      "cta.tg": "Message me on Telegram",
+      "footer.copy": "© 2026 Vitrina · websites for small businesses",
+      "aria.nav": "Sections", "aria.lang": "Site language", "aria.footer": "Footer sections",
+      "alt.w1": "Home screen of the LamiDanova website",
+      "alt.w2": "Home screen of the artt.muse photographer website",
+      "alt.w3": "Home screen of the demo website for the Zerno coffee shop"
+    };
+
+    const nodes = document.querySelectorAll("[data-i18n]");
+    const metaDesc = document.querySelector('meta[name="description"]');
+    // Запоминаем русский текст из разметки, чтобы к нему можно было вернуться
+    const RU = { "meta.title": document.title, "meta.desc": metaDesc.content };
+    nodes.forEach((el) => { RU[el.dataset.i18n] ??= el.innerHTML; });
+    // Подписи для незрячих: alt у картинок и aria-label у блоков
+    const alts = document.querySelectorAll("[data-i18n-alt]");
+    const labels = document.querySelectorAll("[data-i18n-label]");
+    alts.forEach((el) => { RU[el.dataset.i18nAlt] ??= el.alt; });
+    labels.forEach((el) => { RU[el.dataset.i18nLabel] ??= el.getAttribute("aria-label"); });
+
+    function setLang(lang) {
+      const dict = lang === "en" ? EN : RU;
+      const t = (key) => dict[key] ?? RU[key];
+      nodes.forEach((el) => { el.innerHTML = t(el.dataset.i18n); });
+      alts.forEach((el) => { el.alt = t(el.dataset.i18nAlt); });
+      labels.forEach((el) => { el.setAttribute("aria-label", t(el.dataset.i18nLabel)); });
+      document.title = t("meta.title");
+      metaDesc.content = t("meta.desc");
+      document.documentElement.lang = lang;
+      document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    function initialLang() {
+      const fromUrl = new URLSearchParams(location.search).get("lang");
+      if (fromUrl === "ru" || fromUrl === "en") return fromUrl;
+      try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "en") return saved; } catch (e) {}
+      const browser = (navigator.language || "en").slice(0, 2);
+      return ["ru", "uk", "be", "kk"].includes(browser) ? "ru" : "en";
+    }
+
+    document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+    setLang(initialLang());
+  </script>
+</body>
+</html>

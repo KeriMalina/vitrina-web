@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Таня — фотограф в Аммане: портреты, love story, семейные съёмки</title>
+<meta name="description" content="Фотограф в Аммане: портретные, семейные и love story съёмки. Живые эмоции, естественный свет, чёрно-белая и цветная обработка.">
+<!-- Черновик: убрать noindex при запуске -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>">
+<style>
+  :root {
+    --bg: #111110;
+    --bg-soft: #1a1917;
+    --surface: #201f1c;
+    --text: #f2eee7;
+    --text-2: #b9b2a6;
+    --muted: #7d776d;
+    --border: #2f2d29;
+    --accent: #d4b483;
+    --radius: 14px;
+    --font: "Inter", system-ui, sans-serif;
+    --serif: "Playfair Display", Georgia, serif;
+  }
+  /* Арабский: свои шрифты, без курсива и разрядки — они ломают связность букв */
+  :root[lang="ar"] { --font: "Tajawal", system-ui, sans-serif; --serif: "Amiri", Georgia, serif; }
+  [lang="ar"] em { font-style: normal; }
+  [lang="ar"] .eyebrow, [lang="ar"] .shot figcaption { letter-spacing: 0; }
+  [lang="ar"] body { line-height: 1.8; }
+  [lang="ar"] h1, [lang="ar"] h2 { line-height: 1.3; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; height: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.08; margin: 0; }
+  .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 110px 0; }
+  .eyebrow { font-size: .74rem; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; }
+  .section-title { font-size: clamp(2.2rem, 5vw, 3.6rem); max-width: 720px; }
+  .section-title em { color: var(--accent); }
+  .section-lead { color: var(--text-2); max-width: 540px; margin: 18px 0 0; font-size: 1.05rem; }
+
+  .draft-bar { background: var(--accent); color: #111; text-align: center; font-size: .8rem; font-weight: 500; padding: 7px 16px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 14px 30px; border: 1px solid transparent; border-radius: 999px; font: inherit; font-weight: 500; cursor: pointer; transition: background .25s, color .25s, border-color .25s, transform .25s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: #111; }
+  .btn-primary:hover { background: var(--text); }
+  .btn-ghost { border-color: rgba(242, 238, 231, .35); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Шапка */
+  .header { position: sticky; top: 0; z-index: 30; background: rgba(17, 17, 16, .82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+  .logo { font-family: "Playfair Display", Georgia, serif; font-size: 1.5rem; letter-spacing: .02em; }
+  .logo em { color: var(--accent); font-style: italic; }
+  .nav { display: flex; gap: 30px; font-size: .92rem; color: var(--text-2); }
+  .nav a:hover { color: var(--accent); }
+  .header-end { display: flex; align-items: center; gap: 14px; }
+  .header .btn { min-height: 44px; padding: 10px 22px; font-size: .92rem; }
+
+  /* Переключатель языка */
+  .lang { display: flex; border: 1px solid var(--border); border-radius: 999px; padding: 3px; }
+  .lang button { min-width: 44px; min-height: 36px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; color: var(--text-2); font: 500 .82rem "Inter", "Tajawal", sans-serif; cursor: pointer; }
+  .lang button:hover { color: var(--text); }
+  .lang button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+
+  /* Первый экран */
+  .hero { position: relative; min-height: min(calc(100svh - 106px), 920px); display: flex; align-items: flex-end; padding: 0 0 80px; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,16,.1) 0%, rgba(17,17,16,.3) 40%, rgba(17,17,16,.95) 100%); }
+  .hero .container { position: relative; }
+  .hero h1 { font-size: clamp(3rem, 8vw, 6.4rem); max-width: 900px; letter-spacing: -.015em; }
+  [lang="ar"] .hero h1 { letter-spacing: 0; }
+  .hero h1 em { color: var(--accent); }
+  .hero-lead { font-size: 1.15rem; color: var(--text-2); max-width: 540px; margin: 22px 0 34px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-meta { position: absolute; inset-inline-end: 24px; bottom: 6px; color: var(--text-2); font-size: .85rem; text-align: end; }
+
+  /* Портфолио */
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 40px 0 32px; }
+  .filter { min-height: 44px; padding: 10px 20px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text-2); font: inherit; font-size: .92rem; cursor: pointer; transition: .2s; }
+  .filter:hover { border-color: var(--accent); color: var(--text); }
+  .filter.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .gallery { columns: 3; column-gap: 14px; }
+  .shot { break-inside: avoid; margin: 0 0 14px; position: relative; overflow: hidden; border-radius: var(--radius); cursor: zoom-in; background: var(--surface); }
+  .shot img { width: 100%; transition: transform .6s cubic-bezier(.2, .8, .2, 1), filter .4s; }
+  .shot:hover img { transform: scale(1.04); filter: brightness(.8); }
+  .shot figcaption { position: absolute; inset-inline-start: 16px; bottom: 14px; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; opacity: 0; transform: translateY(6px); transition: .3s; }
+  .shot:hover figcaption { opacity: 1; transform: none; }
+  .shot.hidden { display: none; }
+  .gallery-more { margin-top: 28px; color: var(--text-2); }
+  .gallery-more a { color: var(--accent); border-bottom: 1px solid currentColor; }
+
+  /* Лайтбокс */
+  .lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(8, 8, 7, .94); display: none; align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-height: 88vh; width: auto; border-radius: 8px; }
+  .lightbox-close { position: absolute; top: 18px; inset-inline-end: 22px; background: none; border: 0; color: var(--text); font-size: 2rem; cursor: pointer; min-width: 44px; min-height: 44px; }
+
+  /* Съёмки */
+  .packages { background: var(--bg-soft); }
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
+  .package { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; background: var(--surface); }
+  .package > img { aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; }
+  .package-body { padding: 30px; display: flex; flex-direction: column; flex: 1; }
+  .package h3 { font-size: 1.8rem; }
+  .package-price { font-family: var(--serif); font-size: 1.5rem; color: var(--accent); margin: 10px 0 0; }
+  .package ul { list-style: none; padding: 0; margin: 22px 0 28px; display: grid; gap: 12px; flex: 1; }
+  .package li { display: flex; gap: 10px; color: var(--text-2); }
+  .package li::before { content: "—"; color: var(--accent); }
+  .package .btn { width: 100%; }
+
+  /* Как проходит */
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 56px; }
+  .process-step { border-top: 1px solid var(--border); padding-top: 24px; }
+  .process-step span { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--accent); }
+  .process-step h3 { font-family: var(--font); font-weight: 600; font-size: 1.1rem; margin: 10px 0 8px; }
+  .process-step p { color: var(--text-2); margin: 0; font-size: .95rem; }
+
+  /* Обо мне */
+  .about { background: var(--bg-soft); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .about-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 20px; }
+  .about-text p { color: var(--text-2); font-size: 1.05rem; }
+  .about-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; padding-top: 30px; border-top: 1px solid var(--border); }
+  .about-facts strong { display: block; font-family: var(--serif); font-size: 2.1rem; color: var(--accent); line-height: 1.1; }
+  .about-facts span { color: var(--muted); font-size: .88rem; }
+
+  /* FAQ */
+  .faq-list { margin-top: 44px; max-width: 840px; }
+  .faq-list details { border-bottom: 1px solid var(--border); }
+  .faq-list summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 24px 0; font-size: 1.08rem; font-weight: 500; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after { content: "+"; color: var(--accent); font-size: 1.5rem; line-height: 1; transition: transform .25s; }
+  .faq-list details[open] summary::after { transform: rotate(45deg); }
+  .faq-list details p { color: var(--text-2); margin: 0 0 24px; max-width: 700px; }
+
+  /* Запись */
+  .booking { border-top: 1px solid var(--border); text-align: center; }
+  .booking .section-title, .booking .section-lead { margin-inline: auto; }
+  .booking-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
+  .booking-note { color: var(--muted); font-size: .9rem; margin: 22px 0 0; }
+
+  /* Подвал */
+  .footer { border-top: 1px solid var(--border); padding: 48px 0 36px; }
+  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }
+  .footer-nav { display: flex; flex-wrap: wrap; gap: 0 14px; color: var(--text-2); font-size: .92rem; }
+  .footer-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
+  .footer-nav a:hover { color: var(--accent); }
+  .footer-copy { width: 100%; color: var(--muted); font-size: .8rem; margin: 12px 0 0; }
+
+  @media (max-width: 960px) {
+    .nav { display: none; }
+    .gallery { columns: 2; }
+    .packages-grid { grid-template-columns: 1fr; max-width: 560px; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero-meta { display: none; }
+  }
+  @media (max-width: 560px) {
+    .container { padding: 0 16px; }
+    section { padding: 72px 0; }
+    .hero { min-height: min(88svh, 720px); padding-bottom: 48px; }
+    .header .btn { display: none; }
+    .gallery { column-gap: 8px; }
+    .shot { margin-bottom: 8px; border-radius: 10px; }
+    .process-grid { grid-template-columns: 1fr; }
+    .about-facts { gap: 12px; }
+    .about-facts strong { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="draft-bar" data-i18n="draft"><a href="../../index.html" style="text-decoration:underline">← Вернуться в Витрину</a> · Сайт клиента, сделанный в Витрине</div>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="#top" class="logo" dir="ltr">artt<em>.muse</em></a>
+    <nav class="nav" aria-label="Menu">
+      <a href="#portfolio" data-i18n="nav.portfolio">Портфолио</a>
+      <a href="#shoots" data-i18n="nav.shoots">Съёмки</a>
+      <a href="#process" data-i18n="nav.process">Как проходит</a>
+      <a href="#about" data-i18n="nav.about">Обо мне</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+    </nav>
+    <div class="header-end">
+      <div class="lang" role="group" aria-label="Language / Язык / اللغة">
+        <button type="button" data-lang="ru" lang="ru">RU</button>
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="ar" lang="ar">عربي</button>
+      </div>
+      <a href="#booking" class="btn btn-primary" data-i18n="cta.book">Записаться</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Первый экран -->
+  <section class="hero">
+    <div class="hero-bg"><img src="images/hero.jpg" alt="" width="1200" height="1600"></div>
+    <div class="container">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Фотограф в Аммане · personal · family · love story</p>
+      <h1 data-i18n="hero.title">Снимаю вас <em>настоящими</em></h1>
+      <p class="hero-lead" data-i18n="hero.lead">Портретные, семейные и love story съёмки в Аммане. Спокойно и без зажатых поз — с вниманием к свету, эмоциям и деталям.</p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn btn-primary" data-i18n="hero.btn1">Смотреть работы</a>
+        <a href="#booking" class="btn btn-ghost" data-i18n="hero.btn2">Обсудить съёмку</a>
+      </div>
+    </div>
+    <p class="hero-meta" data-i18n="hero.meta">Амман, Иордания<br>Снимаю и в путешествиях</p>
+  </section>
+
+  <!-- Портфолио -->
+  <section id="portfolio">
+    <div class="container">
+      <p class="eyebrow" data-i18n="nav.portfolio">Портфолио</p>
+      <h2 class="section-title" data-i18n="portfolio.title">Истории, которые я <em>сохранила</em></h2>
+      <div class="filters" role="group">
+        <button class="filter active" data-filter="all" data-i18n="cat.all">Все</button>
+        <button class="filter" data-filter="personal" data-i18n="cat.personal">Personal</button>
+        <button class="filter" data-filter="love" data-i18n="cat.love">Love story</button>
+        <button class="filter" data-filter="family" data-i18n="cat.family">Family</button>
+      </div>
+      <div class="gallery" id="gallery">
+        <figure class="shot" data-cat="personal"><img src="images/portrait-05.jpg" alt="Девушка в рубашке и галстуке у окна, чёрно-белый портрет" width="1200" height="1496" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-02.jpg" alt="Невеста с букетом в ретро-кабриолете" width="1200" height="1592" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-07.jpg" alt="Рыжеволосая девушка в поле с лошадьми" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-09.jpg" alt="Девушка в кресле в винтажном интерьере" width="1200" height="1511" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="family"><img src="images/family-01.jpg" alt="Руки на животе будущей мамы, камень-сердце" width="1148" height="1438" loading="lazy"><figcaption data-i18n="cat.family">Family</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-01.jpg" alt="Девушка в белой рубашке на камнях у моря" width="1200" height="1356" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-11.jpg" alt="Девушка в белом костюме в старинном зале" width="1200" height="1599" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-04.jpg" alt="Портрет девушки на песке" width="1200" height="1461" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-10.jpg" alt="Девушка на балконе с видом на Амман" width="1200" height="1511" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-06.jpg" alt="Девушка сидит у окна, чёрно-белый портрет" width="1200" height="1496" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-02.jpg" alt="Профиль девушки у моря, чёрно-белый портрет" width="1200" height="1454" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-08.jpg" alt="Девушка в поле рядом с лошадьми" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-03.jpg" alt="Девушка в белой рубашке лежит на песке у воды" width="1200" height="1452" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-12.jpg" alt="Портрет девушки в белой рубашке в полумраке" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+      </div>
+      <p class="gallery-more" data-i18n="portfolio.more">Больше работ — в Instagram <a href="https://www.instagram.com/artt.muse/" target="_blank" rel="noopener">@artt.muse</a></p>
+    </div>
+  </section>
+
+  <!-- Съёмки -->
+  <section class="packages" id="shoots">
+    <div class="container">
+      <p class="eyebrow" data-i18n="nav.shoots">Съёмки</p>
+      <h2 class="section-title" data-i18n="shoots.title">Выберите формат съёмки</h2>
+      <p class="section-lead" data-i18n="shoots.lead">В каждую съёмку входит помощь с образом и локацией, обработка в цвете или ч/б и онлайн-галерея для скачивания.</p>
+      <div class="packages-grid">
+        <article class="package">
+          <img src="images/portrait-07.jpg" alt="" width="1200" height="1600" loading="lazy">
+          <div class="package-body">
+            <h3 data-i18n="cat.personal">Personal</h3>
+            <div class="package-price" data-i18n="price.tbd">Стоимость уточняется</div>
+            <ul>
+              <li data-i18n="p1.li1">Индивидуальная съёмка</li>
+              <li data-i18n="p1.li2">Город, природа или интерьер</li>
+              <li data-i18n="p1.li3">Подскажу, как двигаться в кадре</li>
+            </ul>
+            <a href="#booking" class="btn btn-ghost" data-i18n="btn.discuss">Обсудить</a>
+          </div>
+        </article>
+        <article class="package">
+          <img src="images/hero.jpg" alt="" width="1200" height="1600" loading="lazy">
+          <div class="package-body">
+            <h3 data-i18n="cat.love">Love story</h3>
+            <div class="package-price" data-i18n="price.tbd">Стоимость уточняется</div>
+            <ul>
+              <li data-i18n="p2.li1">Съёмка для пары</li>
+              <li data-i18n="p2.li2">Годовщина, помолвка или свадьба</li>
+              <li data-i18n="p2.li3">Живые эмоции вместо поз</li>
+            </ul>
+            <a href="#booking" class="btn btn-ghost" data-i18n="btn.discuss">Обсудить</a>
+          </div>
+        </article>
+        <article class="package">
+          <img src="images/family-01.jpg" alt="" width="1148" height="1438" loading="lazy">
+          <div class="package-body">
+            <h3 data-i18n="cat.family">Family</h3>
+            <div class="package-price" data-i18n="price.tbd">Стоимость уточняется</div>
+            <ul>
+              <li data-i18n="p3.li1">Семейная съёмка с детьми</li>
+              <li data-i18n="p3.li2">Съёмка в ожидании малыша</li>
+              <li data-i18n="p3.li3">Дома или на прогулке</li>
+            </ul>
+            <a href="#booking" class="btn btn-ghost" data-i18n="btn.discuss">Обсудить</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Как проходит -->
+  <section id="process">
+    <div class="container">
+      <p class="eyebrow" data-i18n="process.eyebrow">Как проходит съёмка</p>
+      <h2 class="section-title" data-i18n="process.title">Вам не нужно уметь позировать</h2>
+      <div class="process-grid">
+        <div class="process-step"><span>01</span><h3 data-i18n="s1.t">Знакомство</h3><p data-i18n="s1.p">Пишете мне в Instagram — обсуждаем идею, настроение и референсы.</p></div>
+        <div class="process-step"><span>02</span><h3 data-i18n="s2.t">Подготовка</h3><p data-i18n="s2.p">Подбираем локацию и образ. Подскажу, что надеть, и при желании подключу визажиста.</p></div>
+        <div class="process-step"><span>03</span><h3 data-i18n="s3.t">Съёмка</h3><p data-i18n="s3.p">Гуляем, разговариваем, дурачимся. Я подскажу каждое движение.</p></div>
+        <div class="process-step"><span>04</span><h3 data-i18n="s4.t">Результат</h3><p data-i18n="s4.p">Готовые фото приходят в личной онлайн-галерее — удобно скачать и поделиться.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Обо мне -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-photo"><img src="images/tanya.jpg" alt="Фотограф Таня в пустыне Вади-Рам" width="1000" height="1250" loading="lazy"></div>
+      <div class="about-text">
+        <p class="eyebrow" data-i18n="nav.about">Обо мне</p>
+        <h2 class="section-title" data-i18n="about.title">Привет, я <em>Таня</em></h2>
+        <p data-i18n="about.p1">Я фотограф, живу и снимаю в Аммане. Люблю естественный свет, чёрно-белую плёночную эстетику и моменты, когда человек забывает о камере.</p>
+        <p data-i18n="about.p2">Снимала в России, Вьетнаме, Шри-Ланке и Иордании, работала на backstage и fashion week. На съёмке я рядом: подскажу позу, поправлю волосы и сделаю так, чтобы вам было спокойно.</p>
+        <div class="about-facts">
+          <div><strong data-i18n="f1.n">4 страны</strong><span data-i18n="f1.t">съёмок</span></div>
+          <div><strong data-i18n="f2.n">3 жанра</strong><span data-i18n="f2.t">personal, family, love story</span></div>
+          <div><strong data-i18n="f3.n">ч/б и цвет</strong><span data-i18n="f3.t">обработка на выбор</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Вопросы -->
+  <section id="faq">
+    <div class="container">
+      <p class="eyebrow" data-i18n="faq.eyebrow">Частые вопросы</p>
+      <h2 class="section-title" data-i18n="faq.title">Всё, что важно знать</h2>
+      <div class="faq-list">
+        <details><summary data-i18n="q1">Как забронировать дату?</summary><p data-i18n="a1">Напишите мне в Instagram — обсудим идею, дату и локацию. Дата закрепляется после предоплаты.</p></details>
+        <details><summary data-i18n="q2">Как я получу фото?</summary><p data-i18n="a2">Все готовые кадры загружаю в личную онлайн-галерею: их удобно смотреть, скачивать и отправлять близким.</p></details>
+        <details><summary data-i18n="q3">Помогаете ли с образом?</summary><p data-i18n="a3">Да, подскажу, что надеть и какие цвета лучше смотрятся на выбранной локации. По запросу подключу визажиста и стилиста.</p></details>
+        <details><summary data-i18n="q4">Снимаете ли в других городах и странах?</summary><p data-i18n="a4">Да, люблю съёмки в путешествиях. Напишите, куда и когда вы едете, — обсудим детали.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Запись -->
+  <section class="booking" id="booking">
+    <div class="container">
+      <p class="eyebrow" data-i18n="booking.eyebrow">Запись на съёмку</p>
+      <h2 class="section-title" data-i18n="booking.title">Давайте создадим <em>вашу историю</em></h2>
+      <p class="section-lead" data-i18n="booking.lead">Напишите, какую съёмку хотите и на какую дату, — отвечу и предложу идеи.</p>
+      <div class="booking-actions">
+        <a href="https://ig.me/m/artt.muse" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="booking.ig">Написать в Instagram</a>
+        <!-- Черновик: вставить WhatsApp Тани -->
+        <a href="#booking" class="btn btn-ghost">WhatsApp</a>
+      </div>
+      <p class="booking-note" data-i18n="booking.note">Амман, Иордания · @artt.muse</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href="#top" class="logo" dir="ltr">artt<em>.muse</em></a>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#portfolio" data-i18n="nav.portfolio">Портфолио</a>
+      <a href="#shoots" data-i18n="nav.shoots">Съёмки</a>
+      <a href="#process" data-i18n="nav.process">Как проходит</a>
+      <a href="#about" data-i18n="nav.about">Обо мне</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+      <a href="#booking" data-i18n="nav.booking">Запись</a>
+    </nav>
+    <p class="footer-copy" data-i18n="footer.copy">© artt.muse · Таня, фотограф в Аммане</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" aria-label="×">×</button>
+  <img alt="">
+</div>
+
+<script>
+  // Переводы. Русский текст берётся прямо из страницы, здесь только английский и арабский.
+  const IG = '<a href="https://www.instagram.com/artt.muse/" target="_blank" rel="noopener">@artt.muse</a>';
+  const I18N = {
+    en: {
+      "meta.title": "Tanya — photographer in Amman: portraits, love story, family sessions",
+      "meta.desc": "Photographer in Amman: portrait, family and love story sessions. Real emotions, natural light, black-and-white and colour editing.",
+      "draft": '<a href="../../index.html" style="text-decoration:underline">← Back to Vitrina</a> · A client website made by Vitrina',
+      "nav.portfolio": "Portfolio", "nav.shoots": "Sessions", "nav.process": "How it works", "nav.about": "About me", "nav.faq": "FAQ", "nav.booking": "Booking",
+      "cta.book": "Book a session",
+      "hero.eyebrow": "Photographer in Amman · personal · family · love story",
+      "hero.title": "Capturing you <em>as you are</em>",
+      "hero.lead": "Portrait, family and love story sessions in Amman. Relaxed, with no stiff poses — and with attention to light, emotion and detail.",
+      "hero.btn1": "View portfolio", "hero.btn2": "Discuss a session",
+      "hero.meta": "Amman, Jordan<br>Also shooting while travelling",
+      "portfolio.title": "Stories I've <em>kept</em>",
+      "portfolio.more": "More work on Instagram " + IG,
+      "cat.all": "All", "cat.personal": "Personal", "cat.love": "Love story", "cat.family": "Family",
+      "shoots.title": "Choose your session",
+      "shoots.lead": "Every session includes help with styling and location, colour or B&amp;W editing and an online gallery to download your photos.",
+      "price.tbd": "Price on request",
+      "p1.li1": "Individual session", "p1.li2": "City, nature or interior", "p1.li3": "I'll show you how to move in the frame",
+      "p2.li1": "Session for couples", "p2.li2": "Anniversary, engagement or wedding", "p2.li3": "Real emotions instead of poses",
+      "p3.li1": "Family session with kids", "p3.li2": "Maternity session", "p3.li3": "At home or outdoors",
+      "btn.discuss": "Enquire",
+      "process.eyebrow": "How a session goes", "process.title": "You don't need to know how to pose",
+      "s1.t": "Getting to know you", "s1.p": "Message me on Instagram — we'll talk through your idea, mood and references.",
+      "s2.t": "Preparation", "s2.p": "We choose the location and outfit. I'll suggest what to wear and can bring in a make-up artist.",
+      "s3.t": "The shoot", "s3.p": "We walk, talk and have fun. I'll guide every move.",
+      "s4.t": "Your photos", "s4.p": "Your finished photos arrive in a private online gallery — easy to download and share.",
+      "about.title": "Hi, I'm <em>Tanya</em>",
+      "about.p1": "I'm a photographer living and working in Amman. I love natural light, black-and-white film aesthetics and the moments when people forget about the camera.",
+      "about.p2": "I've shot in Russia, Vietnam, Sri Lanka and Jordan, and worked backstage and at fashion week. On set I'm right there with you: I'll suggest a pose, fix your hair and make sure you feel at ease.",
+      "f1.n": "4 countries", "f1.t": "where I've shot", "f2.n": "3 genres", "f2.t": "personal, family, love story", "f3.n": "B&amp;W or colour", "f3.t": "editing of your choice",
+      "faq.eyebrow": "FAQ", "faq.title": "Good to know",
+      "q1": "How do I book a date?", "a1": "Message me on Instagram — we'll agree on the idea, date and location. The date is confirmed once the deposit is paid.",
+      "q2": "How will I receive my photos?", "a2": "I upload all finished photos to a private online gallery: easy to view, download and send to your loved ones.",
+      "q3": "Do you help with styling?", "a3": "Yes — I'll suggest what to wear and which colours work best for the location. On request I can bring in a make-up artist and a stylist.",
+      "q4": "Do you shoot in other cities and countries?", "a4": "Yes, I love shooting while travelling. Tell me where and when you're going, and we'll plan the details.",
+      "booking.eyebrow": "Book a session", "booking.title": "Let's create <em>your story</em>",
+      "booking.lead": "Tell me what kind of session you'd like and when — I'll reply with ideas.",
+      "booking.ig": "Message me on Instagram", "booking.note": "Amman, Jordan · @artt.muse",
+      "footer.copy": "© artt.muse · Tanya, photographer in Amman"
+    },
+    ar: {
+      "meta.title": "تانيا — مصوّرة في عمّان: بورتريه، قصص حب، جلسات عائلية",
+      "meta.desc": "مصوّرة في عمّان: جلسات تصوير شخصية وعائلية وقصص حب. مشاعر حقيقية، ضوء طبيعي، ومعالجة بالأبيض والأسود أو بالألوان.",
+      "draft": '<a href="../../index.html" style="text-decoration:underline">العودة إلى Vitrina</a> · موقع عميل من تصميم Vitrina',
+      "nav.portfolio": "الأعمال", "nav.shoots": "الجلسات", "nav.process": "كيف تتم الجلسة", "nav.about": "عنّي", "nav.faq": "الأسئلة", "nav.booking": "الحجز",
+      "cta.book": "احجز جلسة",
+      "hero.eyebrow": "مصوّرة في عمّان · بورتريه · عائلة · قصة حب",
+      "hero.title": "أصوّرك <em>على طبيعتك</em>",
+      "hero.lead": "جلسات تصوير شخصية وعائلية وقصص حب في عمّان. بهدوء ودون وضعيات متكلّفة — مع اهتمام بالضوء والمشاعر والتفاصيل.",
+      "hero.btn1": "شاهد الأعمال", "hero.btn2": "ناقش جلستك",
+      "hero.meta": "عمّان، الأردن<br>أصوّر أيضاً أثناء السفر",
+      "portfolio.title": "قصص <em>حفظتها</em>",
+      "portfolio.more": "المزيد من الأعمال على إنستغرام " + IG,
+      "cat.all": "الكل", "cat.personal": "بورتريه", "cat.love": "قصة حب", "cat.family": "عائلة",
+      "shoots.title": "اختر نوع الجلسة",
+      "shoots.lead": "تشمل كل جلسة المساعدة في اختيار الإطلالة والمكان، ومعالجة الصور بالألوان أو بالأبيض والأسود، ومعرضاً إلكترونياً لتحميل الصور.",
+      "price.tbd": "السعر عند الطلب",
+      "p1.li1": "جلسة فردية", "p1.li2": "في المدينة أو الطبيعة أو في مكان داخلي", "p1.li3": "سأرشدك إلى الحركة أمام الكاميرا",
+      "p2.li1": "جلسة للثنائي", "p2.li2": "ذكرى سنوية أو خطوبة أو زفاف", "p2.li3": "مشاعر حقيقية بدلاً من الوضعيات",
+      "p3.li1": "جلسة عائلية مع الأطفال", "p3.li2": "جلسة تصوير الحمل", "p3.li3": "في المنزل أو في الهواء الطلق",
+      "btn.discuss": "استفسر",
+      "process.eyebrow": "كيف تتم الجلسة", "process.title": "لا تحتاج إلى خبرة في الوقوف أمام الكاميرا",
+      "s1.t": "التعارف", "s1.p": "راسلني على إنستغرام — نناقش الفكرة والأجواء والأمثلة التي تحبها.",
+      "s2.t": "التحضير", "s2.p": "نختار المكان والإطلالة. سأقترح ما ترتديه، ويمكنني ترتيب خبيرة مكياج.",
+      "s3.t": "التصوير", "s3.p": "نتمشّى ونتحدث ونستمتع، وأرشدك في كل حركة.",
+      "s4.t": "النتيجة", "s4.p": "تصلك الصور الجاهزة في معرض إلكتروني خاص — سهلة التحميل والمشاركة.",
+      "about.title": "مرحباً، أنا <em>تانيا</em>",
+      "about.p1": "أنا مصوّرة أعيش وأعمل في عمّان. أحب الضوء الطبيعي وجمالية أفلام الأبيض والأسود، واللحظات التي ينسى فيها الناس وجود الكاميرا.",
+      "about.p2": "صوّرت في روسيا وفيتنام وسريلانكا والأردن، وعملت خلف الكواليس وفي أسابيع الموضة. أثناء التصوير أكون بجانبك: أقترح الوضعية، وأرتّب شعرك، وأحرص على أن تشعر بالراحة.",
+      "f1.n": "4 دول", "f1.t": "صوّرت فيها", "f2.n": "3 أنواع", "f2.t": "بورتريه، عائلة، قصة حب", "f3.n": "أبيض وأسود أو ألوان", "f3.t": "المعالجة حسب اختيارك",
+      "faq.eyebrow": "أسئلة شائعة", "faq.title": "كل ما يهمك معرفته",
+      "q1": "كيف أحجز موعداً؟", "a1": "راسلني على إنستغرام — نتفق على الفكرة والموعد والمكان. يتم تثبيت الموعد بعد دفع العربون.",
+      "q2": "كيف أستلم الصور؟", "a2": "أرفع جميع الصور الجاهزة إلى معرض إلكتروني خاص، فيسهل مشاهدتها وتحميلها وإرسالها لأحبائك.",
+      "q3": "هل تساعدين في اختيار الإطلالة؟", "a3": "نعم، سأقترح ما ترتديه والألوان الأنسب للمكان. وعند الطلب يمكنني ترتيب خبيرة مكياج ومنسّقة أزياء.",
+      "q4": "هل تصوّرين في مدن ودول أخرى؟", "a4": "نعم، أحب التصوير أثناء السفر. أخبرني إلى أين ومتى ستسافر، وسنرتّب التفاصيل.",
+      "booking.eyebrow": "الحجز", "booking.title": "لنصنع <em>قصتك</em> معاً",
+      "booking.lead": "أخبرني بنوع الجلسة التي تريدها والموعد المناسب — وسأرد عليك بأفكار.",
+      "booking.ig": "راسلني على إنستغرام", "booking.note": "عمّان، الأردن · @artt.muse",
+      "footer.copy": "© artt.muse · تانيا، مصوّرة في عمّان"
+    }
+  };
+
+  const nodes = document.querySelectorAll("[data-i18n]");
+  const metaDesc = document.querySelector('meta[name="description"]');
+  // Запоминаем русский текст из разметки, чтобы к нему можно было вернуться
+  const RU = { "meta.title": document.title, "meta.desc": metaDesc.content };
+  nodes.forEach((el) => { RU[el.dataset.i18n] ??= el.innerHTML; });
+
+  function setLang(lang) {
+    const dict = lang === "ru" ? RU : I18N[lang];
+    const t = (key) => dict[key] ?? RU[key];
+    nodes.forEach((el) => { el.innerHTML = t(el.dataset.i18n); });
+    document.title = t("meta.title");
+    metaDesc.content = t("meta.desc");
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+
+  function initialLang() {
+    const fromUrl = new URLSearchParams(location.search).get("lang");
+    if (["ru", "en", "ar"].includes(fromUrl)) return fromUrl;
+    try { const saved = localStorage.getItem("lang"); if (saved) return saved; } catch (e) {}
+    const browser = (navigator.language || "en").slice(0, 2);
+    if (browser === "ar") return "ar";
+    if (["ru", "uk", "be", "kk"].includes(browser)) return "ru";
+    return "en";
+  }
+
+  document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+  setLang(initialLang());
+
+  // Фильтр портфолио
+  const filters = document.querySelectorAll(".filter");
+  const shots = document.querySelectorAll(".shot");
+  filters.forEach((btn) => btn.addEventListener("click", () => {
+    filters.forEach((b) => b.classList.toggle("active", b === btn));
+    const cat = btn.dataset.filter;
+    shots.forEach((s) => s.classList.toggle("hidden", cat !== "all" && s.dataset.cat !== cat));
+  }));
+
+  // Увеличение фото
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = lightbox.querySelector("img");
+  shots.forEach((s) => s.addEventListener("click", () => {
+    const img = s.querySelector("img");
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("open");
+  }));
+  const closeLightbox = () => lightbox.classList.remove("open");
+  lightbox.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+</script>
+</body>
+</html>

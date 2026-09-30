@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кофейня «Зерно» — кофе и завтраки в Тбилиси</title>
+  <meta name="description" content="Кофейня «Зерно» в Сололаки: кофе свежей обжарки, завтраки до 13:00 и домашняя выпечка. Открыты каждый день с 8:00.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5efe6;
+      --surface: #fffaf3;
+      --ink: #2a1c15;
+      --muted: #7a6a5f;
+      --line: #e6dccd;
+      --accent: #b8743a;
+      --accent-dark: #955a26;
+      --dark: #231712;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: Lora, Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0; }
+    h1 em, h2 em { font-style: italic; font-weight: 500; color: var(--accent); }
+    .container { width: min(1160px, 100% - 32px); margin-inline: auto; }
+    .section { padding: 96px 0; }
+    .eyebrow { display: inline-block; font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .section-head { max-width: 620px; margin-bottom: 44px; }
+    .section-head h2 { font-size: clamp(30px, 4vw, 46px); }
+    .section-head p { color: var(--muted); margin: 14px 0 0; }
+
+    .demo-bar { background: var(--accent); color: #fff; text-align: center; font-size: 13px; padding: 8px 16px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 26px; border-radius: 999px; font: 700 16px Manrope, sans-serif; text-decoration: none; border: 1.5px solid transparent; transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-ghost { border-color: currentColor; }
+
+    .header { position: sticky; top: 0; z-index: 10; background: rgba(245, 239, 230, .9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .header .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 70px; }
+    .logo { font: 600 24px Lora, serif; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+    .logo span { color: var(--accent); font-style: italic; }
+    .nav { display: flex; gap: 28px; }
+    .nav a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--muted); }
+    .nav a:hover { color: var(--ink); }
+    .header-end { display: flex; align-items: center; gap: 12px; }
+
+    /* Переключатель языка */
+    .lang { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+    .lang button { min-width: 44px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: 700 13px Manrope, sans-serif; cursor: pointer; }
+    .lang button:hover { color: var(--ink); }
+    .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+    .lang button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    .hero { position: relative; min-height: min(calc(100svh - 104px), 780px); display: flex; align-items: flex-end; color: #fff; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(35, 23, 18, .88) 0%, rgba(35, 23, 18, .55) 50%, rgba(35, 23, 18, .15) 100%); }
+    .hero .container { position: relative; padding: 80px 0; }
+    .hero .eyebrow { color: #f0c49a; }
+    .hero h1 { font-size: clamp(40px, 6.5vw, 76px); max-width: 700px; }
+    .hero h1 em { color: #f0c49a; }
+    .hero-lead { font-size: 19px; max-width: 480px; margin: 20px 0 32px; opacity: .9; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero .btn-ghost { color: #fff; }
+    .hero .btn-ghost:hover { background: #fff; color: var(--ink); }
+
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .perk { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+    .perk-icon { font-size: 30px; }
+    .perk h3 { font-size: 22px; margin: 14px 0 8px; }
+    .perk p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .menu-col { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .menu-col img { aspect-ratio: 4 / 3; object-fit: cover; }
+    .menu-col-body { padding: 26px 26px 18px; }
+    .menu-col h3 { font-size: 26px; margin-bottom: 10px; }
+    .menu-col ul { list-style: none; padding: 0; margin: 0; }
+    .menu-col li { display: flex; align-items: baseline; gap: 10px; padding: 11px 0; border-bottom: 1px dashed var(--line); }
+    .menu-col li:last-child { border-bottom: 0; }
+    .menu-col li span { flex: 1; }
+    .menu-col li small { display: block; color: var(--muted); font-size: 13px; }
+    .menu-col li b { font-family: Lora, serif; font-size: 18px; color: var(--accent-dark); white-space: nowrap; }
+
+    .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 260px; gap: 16px; }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+    .gallery img:first-child { grid-row: span 2; }
+    .gallery img:nth-child(4) { grid-column: span 2; }
+
+    .dark { background: var(--dark); color: #f5efe6; }
+    .dark .section-head p { color: #bfae9f; }
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .review { border: 1px solid rgba(255, 255, 255, .12); border-radius: var(--radius); padding: 30px; margin: 0; }
+    .review-stars { color: #f0c49a; letter-spacing: 3px; }
+    .review p { font: italic 500 19px/1.5 Lora, serif; margin: 14px 0 18px; }
+    .review cite { font-style: normal; font-weight: 700; font-size: 14px; color: #bfae9f; }
+
+    .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .visit img { border-radius: var(--radius); aspect-ratio: 3 / 2; object-fit: cover; }
+    .visit dl { margin: 28px 0 32px; display: grid; gap: 18px; }
+    .visit dt { font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+    .visit dd { margin: 4px 0 0; font-size: 18px; }
+    .visit-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .footer { border-top: 1px solid var(--line); padding: 44px 0; }
+    .footer .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 0 12px; }
+    .footer-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; text-decoration: none; color: var(--muted); font-size: 15px; }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer small { color: var(--muted); }
+
+    @media (max-width: 960px) {
+      .nav { display: none; }
+      .perks, .menu, .reviews { grid-template-columns: 1fr; max-width: 560px; }
+      .visit { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 180px 180px; }
+      .gallery img:first-child { grid-row: auto; grid-column: span 2; }
+      .gallery img:nth-child(4) { grid-column: span 2; }
+    }
+    @media (max-width: 560px) {
+      .section { padding: 72px 0; }
+      .header .btn { display: none; }
+      .hero .container { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-bar" data-i18n="demo"><a href="../../index.html" style="text-decoration:underline">← Вернуться в Витрину</a> · Демо-сайт: кофейня и все данные вымышлены</div>
+
+  <header class="header">
+    <div class="container">
+      <a href="#top" class="logo"><span data-i18n="brand" style="color:inherit;font-style:normal">Зерно</span><span>.</span></a>
+      <nav class="nav" aria-label="Разделы" data-i18n-label="aria.nav">
+        <a href="#menu" data-i18n="nav.menu">Меню</a>
+        <a href="#atmosphere" data-i18n="nav.atmosphere">Атмосфера</a>
+        <a href="#reviews" data-i18n="nav.reviews">Отзывы</a>
+        <a href="#visit" data-i18n="nav.visit">Как найти</a>
+      </nav>
+      <div class="header-end">
+        <div class="lang" role="group" aria-label="Язык сайта" data-i18n-label="aria.lang">
+          <button type="button" data-lang="ru" lang="ru">RU</button>
+          <button type="button" data-lang="en" lang="en">EN</button>
+        </div>
+        <a href="#visit" class="btn btn-primary" data-i18n="cta.map">Мы на карте</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg"><img src="images/hero.jpg" alt="" width="1200" height="800"></div>
+      <div class="container">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Кофейня в Сололаки · Тбилиси</span>
+        <h1 data-i18n="hero.title">Кофе, ради которого <em>стоит проснуться</em></h1>
+        <p class="hero-lead" data-i18n="hero.lead">Обжариваем зерно сами, печём круассаны каждое утро и подаём завтраки до 13:00. Заходите с ноутбуком или с друзьями.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary" data-i18n="hero.btn1">Смотреть меню</a>
+          <a href="#visit" class="btn btn-ghost" data-i18n="hero.btn2">Как нас найти</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="perks">
+          <div class="perk"><div class="perk-icon" aria-hidden="true">☕</div><h3 data-i18n="perk1.t">Своя обжарка</h3><p data-i18n="perk1.p">Зерно из Эфиопии и Колумбии, обжариваем небольшими партиями раз в неделю.</p></div>
+          <div class="perk"><div class="perk-icon" aria-hidden="true">🥐</div><h3 data-i18n="perk2.t">Свежая выпечка</h3><p data-i18n="perk2.p">Круассаны, синнабоны и мини-аджарули — из печи каждое утро к 8:00.</p></div>
+          <div class="perk"><div class="perk-icon" aria-hidden="true">💻</div><h3 data-i18n="perk3.t">Можно поработать</h3><p data-i18n="perk3.p">Быстрый Wi-Fi, розетки у каждого столика и тихий второй зал.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="nav.menu">Меню</span>
+          <h2 data-i18n="menu.title">Любимое у <em>наших гостей</em></h2>
+          <p data-i18n="menu.lead">Растительное молоко — без доплаты. Любой напиток можно взять с собой.</p>
+        </div>
+        <div class="menu">
+          <article class="menu-col">
+            <img src="images/cappuccino.jpg" alt="Капучино с латте-артом" data-i18n-alt="alt.cappuccino" width="1200" height="1800" loading="lazy">
+            <div class="menu-col-body">
+              <h3 data-i18n="m1.t">Кофе</h3>
+              <ul>
+                <li><span data-i18n="m1.1">Эспрессо</span><b>5 ₾</b></li>
+                <li><span data-i18n="m1.2">Капучино<small>250 мл</small></span><b>8 ₾</b></li>
+                <li><span data-i18n="m1.3">Флэт уайт</span><b>9 ₾</b></li>
+                <li><span data-i18n="m1.4">Раф<small>ванильный или лавандовый</small></span><b>10 ₾</b></li>
+                <li><span data-i18n="m1.5">Фильтр-кофе<small>воронка или кемекс</small></span><b>9 ₾</b></li>
+              </ul>
+            </div>
+          </article>
+          <article class="menu-col">
+            <img src="images/ice-latte.jpg" alt="Айс-латте в стакане" data-i18n-alt="alt.icelatte" width="1200" height="1800" loading="lazy">
+            <div class="menu-col-body">
+              <h3 data-i18n="m2.t">Холодное и не кофе</h3>
+              <ul>
+                <li><span data-i18n="m2.1">Айс-латте</span><b>10 ₾</b></li>
+                <li><span data-i18n="m2.2">Эспрессо-тоник</span><b>10 ₾</b></li>
+                <li><span data-i18n="m2.3">Матча-латте</span><b>12 ₾</b></li>
+                <li><span data-i18n="m2.4">Какао с маршмеллоу</span><b>8 ₾</b></li>
+                <li><span data-i18n="m2.5">Чай в чайнике<small>грузинский чёрный или травяной</small></span><b>7 ₾</b></li>
+              </ul>
+            </div>
+          </article>
+          <article class="menu-col">
+            <img src="images/croissant.jpg" alt="Свежие круассаны" data-i18n-alt="alt.croissant" width="1200" height="960" loading="lazy">
+            <div class="menu-col-body">
+              <h3 data-i18n="m3.t">Выпечка и завтраки</h3>
+              <ul>
+                <li><span data-i18n="m3.1">Круассан<small>классический или с миндалём</small></span><b>6 ₾</b></li>
+                <li><span data-i18n="m3.2">Синнабон</span><b>8 ₾</b></li>
+                <li><span data-i18n="m3.3">Мини-аджарули</span><b>9 ₾</b></li>
+                <li><span data-i18n="m3.4">Сырники со сметаной</span><b>14 ₾</b></li>
+                <li><span data-i18n="m3.5">Баскский чизкейк</span><b>12 ₾</b></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="atmosphere">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="nav.atmosphere">Атмосфера</span>
+          <h2 data-i18n="atm.title">Место, где хочется <em>задержаться</em></h2>
+        </div>
+        <div class="gallery">
+          <img src="images/bar.jpg" alt="Барная стойка кофейни с лампами" data-i18n-alt="alt.bar" width="1200" height="675" loading="lazy">
+          <img src="images/latte-art.jpg" alt="Капучино на столике среди растений" data-i18n-alt="alt.latteart" width="1200" height="1800" loading="lazy">
+          <img src="images/filter.jpg" alt="Бариста заваривает фильтр-кофе" data-i18n-alt="alt.filter" width="1200" height="800" loading="lazy">
+          <img src="images/terrace.jpg" alt="Летняя терраса на улице" data-i18n-alt="alt.terrace" width="1200" height="800" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="nav.reviews">Отзывы</span>
+          <h2 data-i18n="rev.title">Что говорят гости</h2>
+          <p data-i18n="rev.lead">4,9 ★ на Google Картах — более 300 отзывов.</p>
+        </div>
+        <div class="reviews">
+          <blockquote class="review"><div class="review-stars" aria-label="5/5">★★★★★</div><p data-i18n="r1">«Лучший флэт уайт в Сололаки. Прихожу каждое утро перед работой, бариста уже знают мой заказ».</p><cite data-i18n="r1.n">Нино</cite></blockquote>
+          <blockquote class="review"><div class="review-stars" aria-label="5/5">★★★★★</div><p data-i18n="r2">«Работаю тут удалённо пару раз в неделю: тихо, розетки есть, а миндальный круассан — отдельная любовь».</p><cite data-i18n="r2.n">Алексей</cite></blockquote>
+          <blockquote class="review"><div class="review-stars" aria-label="5/5">★★★★★</div><p data-i18n="r3">«Зашли на завтрак всей семьёй — сырники, какао для детей и очень уютная терраса».</p><cite data-i18n="r3.n">Мария</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visit">
+      <div class="container visit">
+        <img src="images/hall.jpg" alt="Зал кофейни со столиками" data-i18n-alt="alt.hall" width="1200" height="823" loading="lazy">
+        <div>
+          <span class="eyebrow" data-i18n="nav.visit">Как найти</span>
+          <h2 data-i18n="visit.title">Ждём вас <em>каждый день</em></h2>
+          <dl>
+            <div><dt data-i18n="visit.addr.t">Адрес</dt><dd data-i18n="visit.addr">Тбилиси, район Сололаки</dd></div>
+            <div><dt data-i18n="visit.hours.t">Часы работы</dt><dd data-i18n="visit.hours">Пн–Пт 8:00–21:00 · Сб–Вс 9:00–22:00</dd></div>
+            <div><dt data-i18n="visit.delivery.t">Доставка</dt><dd data-i18n="visit.delivery">Через Wolt и Glovo</dd></div>
+          </dl>
+          <div class="visit-actions">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Sololaki+Tbilisi" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="visit.map">Открыть на карте</a>
+            <a href="#visit" class="btn btn-ghost">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <a href="#top" class="logo"><span data-i18n="brand" style="color:inherit;font-style:normal">Зерно</span><span>.</span></a>
+      <nav class="footer-nav" aria-label="Разделы в подвале" data-i18n-label="aria.footer">
+        <a href="#menu" data-i18n="nav.menu">Меню</a>
+        <a href="#atmosphere" data-i18n="nav.atmosphere">Атмосфера</a>
+        <a href="#reviews" data-i18n="nav.reviews">Отзывы</a>
+        <a href="#visit" data-i18n="nav.visit">Как найти</a>
+      </nav>
+      <small data-i18n="footer.copy">© 2026 Кофейня «Зерно» · фото: Unsplash</small>
+    </div>
+  </footer>
+
+  <script>
+    // Английский перевод. Русский текст берётся прямо из страницы.
+    const EN = {
+      "brand": "Zerno",
+      "meta.title": "Zerno coffee shop — coffee and breakfast in Tbilisi",
+      "meta.desc": "Zerno coffee shop in Sololaki: freshly roasted coffee, breakfast until 1 pm and homemade pastries. Open every day from 8:00.",
+      "demo": '<a href="../../index.html" style="text-decoration:underline">← Back to Vitrina</a> · Demo website: the coffee shop and all details are fictional',
+      "aria.nav": "Sections", "aria.lang": "Site language", "aria.footer": "Footer sections",
+      "nav.menu": "Menu", "nav.atmosphere": "Atmosphere", "nav.reviews": "Reviews", "nav.visit": "Find us",
+      "cta.map": "Find us on the map",
+      "hero.eyebrow": "Coffee shop in Sololaki · Tbilisi",
+      "hero.title": "Coffee worth <em>waking up for</em>",
+      "hero.lead": "We roast our own beans, bake croissants every morning and serve breakfast until 1 pm. Come with your laptop or your friends.",
+      "hero.btn1": "See the menu", "hero.btn2": "How to find us",
+      "perk1.t": "Our own roast", "perk1.p": "Beans from Ethiopia and Colombia, roasted in small batches once a week.",
+      "perk2.t": "Fresh pastries", "perk2.p": "Croissants, cinnamon rolls and mini adjaruli — out of the oven every morning by 8:00.",
+      "perk3.t": "Good for work", "perk3.p": "Fast Wi-Fi, a socket at every table and a quiet second room.",
+      "menu.title": "Our guests' <em>favourites</em>",
+      "menu.lead": "Plant-based milk at no extra charge. Any drink can be taken away.",
+      "m1.t": "Coffee",
+      "m1.1": "Espresso", "m1.2": "Cappuccino<small>250 ml</small>", "m1.3": "Flat white", "m1.4": "Raf<small>vanilla or lavender</small>", "m1.5": "Filter coffee<small>V60 or Chemex</small>",
+      "m2.t": "Cold drinks & not coffee",
+      "m2.1": "Iced latte", "m2.2": "Espresso tonic", "m2.3": "Matcha latte", "m2.4": "Hot chocolate with marshmallows", "m2.5": "Pot of tea<small>Georgian black or herbal</small>",
+      "m3.t": "Pastries & breakfast",
+      "m3.1": "Croissant<small>classic or almond</small>", "m3.2": "Cinnamon roll", "m3.3": "Mini adjaruli", "m3.4": "Syrniki with sour cream", "m3.5": "Basque cheesecake",
+      "atm.title": "A place where you <em>want to stay</em>",
+      "rev.title": "What our guests say",
+      "rev.lead": "4.9 ★ on Google Maps — more than 300 reviews.",
+      "r1": "“The best flat white in Sololaki. I come every morning before work, and the baristas already know my order.”", "r1.n": "Nino",
+      "r2": "“I work remotely here a couple of times a week: it's quiet, there are sockets, and the almond croissant is a love of its own.”", "r2.n": "Alexey",
+      "r3": "“We came for breakfast with the whole family — syrniki, hot chocolate for the kids and a very cosy terrace.”", "r3.n": "Maria",
+      "visit.title": "See you <em>every day</em>",
+      "visit.addr.t": "Address", "visit.addr": "Sololaki district, Tbilisi",
+      "visit.hours.t": "Opening hours", "visit.hours": "Mon–Fri 8:00–21:00 · Sat–Sun 9:00–22:00",
+      "visit.delivery.t": "Delivery", "visit.delivery": "Via Wolt and Glovo",
+      "visit.map": "Open in Maps",
+      "footer.copy": "© 2026 Zerno coffee shop · photos: Unsplash",
+      "alt.cappuccino": "Cappuccino with latte art", "alt.icelatte": "Iced latte in a glass", "alt.croissant": "Fresh croissants",
+      "alt.bar": "Coffee bar with pendant lamps", "alt.latteart": "Cappuccino on a table among plants", "alt.filter": "Barista brewing filter coffee",
+      "alt.terrace": "Outdoor summer terrace", "alt.hall": "Coffee shop hall with tables"
+    };
+
+    const nodes = document.querySelectorAll("[data-i18n]");
+    const alts = document.querySelectorAll("[data-i18n-alt]");
+    const labels = document.querySelectorAll("[data-i18n-label]");
+    const metaDesc = document.querySelector('meta[name="description"]');
+    // Запоминаем русский текст из разметки, чтобы к нему можно было вернуться
+    const RU = { "meta.title": document.title, "meta.desc": metaDesc.content };
+    nodes.forEach((el) => { RU[el.dataset.i18n] ??= el.innerHTML; });
+    alts.forEach((el) => { RU[el.dataset.i18nAlt] ??= el.alt; });
+    labels.forEach((el) => { RU[el.dataset.i18nLabel] ??= el.getAttribute("aria-label"); });
+
+    function setLang(lang) {
+      const dict = lang === "en" ? EN : RU;
+      const t = (key) => dict[key] ?? RU[key];
+      nodes.forEach((el) => { el.innerHTML = t(el.dataset.i18n); });
+      alts.forEach((el) => { el.alt = t(el.dataset.i18nAlt); });
+      labels.forEach((el) => { el.setAttribute("aria-label", t(el.dataset.i18nLabel)); });
+      document.title = t("meta.title");
+      metaDesc.content = t("meta.desc");
+      document.documentElement.lang = lang;
+      document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    // Язык: из ссылки ?lang=, потом тот, что выбран в «Витрине», потом язык браузера
+    function initialLang() {
+      const fromUrl = new URLSearchParams(location.search).get("lang");
+      if (fromUrl === "ru" || fromUrl === "en") return fromUrl;
+      try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "en") return saved; } catch (e) {}
+      const browser = (navigator.language || "en").slice(0, 2);
+      return ["ru", "uk", "be", "kk"].includes(browser) ? "ru" : "en";
+    }
+
+    document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+    setLang(initialLang());
+  </script>
+</body>
+</html>
