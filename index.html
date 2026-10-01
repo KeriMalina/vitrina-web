@@ -15,21 +15,21 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236c7bff'/%3E%3Crect x='15' y='15' width='34' height='26' rx='7' fill='none' stroke='%23fff' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23d4b47c'/%3E%3Crect x='15' y='15' width='34' height='26' rx='7' fill='none' stroke='%2316120b' stroke-width='5'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #121217;
-      --surface: #1c1c24;
-      --surface-2: #26262f;
-      --ink: #f3f2f7;
-      --muted: #a09fad;
-      --line: #2e2e39;
-      --accent: #6c7bff;
-      --accent-dark: #5463f2;
-      --accent-soft: rgba(108, 123, 255, .16);
+      --bg: #0f1012;
+      --surface: #17181b;
+      --surface-2: #1f2024;
+      --ink: #f3efe7;
+      --muted: #a7a399;
+      --line: #2a2b30;
+      --accent: #d4b47c;
+      --accent-dark: #c4a46c;
+      --accent-soft: rgba(212, 180, 124, .14);
       --radius: 22px;
       --shadow: 0 24px 60px -24px rgba(0, 0, 0, .8);
     }
@@ -62,17 +62,17 @@
     }
     .btn:hover { transform: translateY(-2px); }
     .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 12px 28px -12px rgba(61, 77, 245, .7); }
-    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary { background: linear-gradient(135deg, #ecd5a6, var(--accent) 55%, #b8945a); color: #16120b; box-shadow: 0 12px 28px -12px rgba(212, 180, 124, .55); }
+    .btn-primary:hover { background: linear-gradient(135deg, #f2dfb8, #dcbe88 55%, #c4a46c); }
     .btn-ghost { background: transparent; border-color: var(--ink); color: var(--ink); }
     .btn-ghost:hover { background: var(--ink); color: var(--bg); }
 
     /* Шапка */
-    .header { position: sticky; top: 0; z-index: 10; background: rgba(18, 18, 23, .85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .header { position: sticky; top: 0; z-index: 10; background: rgba(15, 16, 18, .85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
     .header .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; }
     .logo { font: 700 20px Unbounded, sans-serif; text-decoration: none; display: flex; align-items: center; gap: 10px; min-height: 44px; }
-    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); position: relative; }
-    .logo-mark::after { content: ""; position: absolute; inset: 7px 7px 11px; border: 2.5px solid #fff; border-radius: 4px; }
+    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, #ecd5a6, var(--accent) 55%, #b8945a); position: relative; }
+    .logo-mark::after { content: ""; position: absolute; inset: 7px 7px 11px; border: 2.5px solid #16120b; border-radius: 4px; }
     .nav { display: flex; gap: 28px; }
     .nav a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--muted); }
     .nav a:hover { color: var(--ink); }
@@ -106,7 +106,7 @@
     .work { background: var(--surface); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; }
     .work img { aspect-ratio: 1000 / 645; object-fit: cover; border-bottom: 1px solid var(--line); }
     .work-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-    .work-tag { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--accent-soft); color: #b3bbff; }
+    .work-tag { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--accent-soft); color: #ecd5a6; }
     .work-tag.demo { background: var(--surface-2); color: var(--muted); }
     .work h3 { font-size: 20px; }
     .work p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -114,9 +114,9 @@
     /* Цены */
     .prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
     .price { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 30px; display: flex; flex-direction: column; }
-    .price.featured { background: linear-gradient(160deg, #2a2f63 0%, var(--surface) 70%); border-color: var(--accent); position: relative; box-shadow: 0 24px 60px -28px rgba(108, 123, 255, .6); }
-    .price.featured .price-note, .price.featured li::before { color: #a9b1ff; }
-    .price-badge { position: absolute; top: -14px; left: 30px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+    .price.featured { background: linear-gradient(160deg, #2a2418 0%, var(--surface) 70%); border-color: var(--accent); position: relative; box-shadow: 0 24px 60px -28px rgba(212, 180, 124, .4); }
+    .price.featured .price-note, .price.featured li::before { color: #ecd5a6; }
+    .price-badge { position: absolute; top: -14px; left: 30px; background: var(--accent); color: #16120b; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
     .price h3 { font-size: 20px; }
     .price-sum { font: 700 48px Unbounded, sans-serif; margin: 18px 0 4px; }
     .price-note { color: var(--muted); font-size: 14px; }
@@ -155,13 +155,13 @@
     .faq details p { margin: 0 0 20px; color: var(--muted); }
 
     /* Контакты */
-    .cta { background: linear-gradient(135deg, #5463f2 0%, #7b5cf0 100%); color: #fff; border-radius: 32px; padding: 72px 48px; text-align: center; }
+    .cta { background: radial-gradient(circle at 85% 0%, rgba(212, 180, 124, .18), transparent 55%), linear-gradient(160deg, #1c1a16 0%, #121214 75%); border: 1px solid #2f2b24; color: var(--ink); border-radius: 32px; padding: 72px 48px; text-align: center; }
     .cta h2 { font-size: clamp(28px, 4vw, 44px); }
     .cta p { opacity: .85; max-width: 560px; margin: 18px auto 34px; }
     .cta-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
-    .cta .btn { background: #fff; color: var(--bg); }
-    .cta .btn-outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
-    .cta .btn-outline-light:hover { background: rgba(255,255,255,.12); }
+    .cta .btn { background: linear-gradient(135deg, #ecd5a6, var(--accent) 55%, #b8945a); color: #16120b; }
+    .cta .btn-outline-light { background: transparent; color: var(--ink); border-color: rgba(212, 180, 124, .6); }
+    .cta .btn-outline-light:hover { background: rgba(212, 180, 124, .1); }
     .cta-note { font-size: 15px; margin: 22px 0 0; opacity: .8; }
 
     /* Подвал */
