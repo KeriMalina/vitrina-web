@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Витрина — сайты для мастеров и малого бизнеса</title>
   <meta name="description" content="Делаю одностраничные сайты для мастеров красоты, фотографов и малого бизнеса: услуги, цены, работы и онлайн-запись. От $20, готово за 2–7 дней.">
-  <!-- Черновик: убрать noindex при запуске -->
-  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://vitrina-web.com/">
+  <!-- Превью ссылки в Telegram, WhatsApp, Instagram -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vitrina-web.com/">
+  <meta property="og:title" content="Витрина — сайты для мастеров и малого бизнеса">
+  <meta property="og:description" content="Одностраничные сайты с услугами, ценами, работами и онлайн-записью. От $20, готово за 2–7 дней.">
+  <meta property="og:image" content="https://vitrina-web.com/images/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236c7bff'/%3E%3Crect x='15' y='15' width='34' height='26' rx='7' fill='none' stroke='%23fff' stroke-width='5'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +52,6 @@
     .section-head h2 { font-size: clamp(28px, 4vw, 42px); }
     .section-head p { color: var(--muted); margin: 16px 0 0; }
 
-    .draft-bar { background: var(--accent-soft); color: var(--ink); text-align: center; font-size: 13px; padding: 8px 16px; }
 
     /* Кнопки */
     .btn {
@@ -186,7 +193,6 @@
   </style>
 </head>
 <body>
-  <div class="draft-bar" data-i18n="draft">Черновик · отзывы появятся после первых заказов</div>
 
   <header class="header">
     <div class="container">
@@ -468,7 +474,6 @@
     const EN = {
       "meta.title": "Vitrina — websites for beauty pros and small businesses",
       "meta.desc": "One-page websites for beauty pros, photographers and small businesses: services, prices, portfolio and online booking. From $20, ready in 2–7 days.",
-      "draft": "Draft · reviews will appear after the first orders",
       "brand": "Vitrina",
       "nav.works": "Portfolio", "nav.templates": "Templates", "nav.prices": "Prices", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact",
       "cta.header": "Let's talk",
