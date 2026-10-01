@@ -106,6 +106,7 @@
     .work { background: var(--surface); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; }
     .work img { aspect-ratio: 1000 / 645; object-fit: cover; border-bottom: 1px solid var(--line); }
     .work-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    #works .works { grid-template-columns: repeat(2, 1fr); }
     .work-tag { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--accent-soft); color: #ecd5a6; }
     .work-tag.demo { background: var(--surface-2); color: var(--muted); }
     .work h3 { font-size: 20px; }
@@ -177,7 +178,7 @@
       .nav { display: none; }
       .hero .container { grid-template-columns: 1fr; }
       .hero-visual { margin: 0 18px 48px 0; }
-      .works, .prices { grid-template-columns: 1fr; max-width: 560px; }
+      .works, #works .works, .prices { grid-template-columns: 1fr; max-width: 560px; }
       .steps { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 560px) {
@@ -273,6 +274,15 @@
               <h3 data-i18n="w3.t">«Зерно» · кофейня</h3>
               <p data-i18n="w3.p">Тёплый уютный стиль: меню с ценами, фото зала и террасы, отзывы гостей, часы работы и кнопка «Открыть на карте».</p>
               <a href="demo/coffee/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
+            </div>
+          </article>
+          <article class="work">
+            <a href="https://kerimalina.github.io/zelenevsky/" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-zelenevsky.jpg" alt="Главный экран сайта риэлтера Игоря Зеленевского" data-i18n-alt="alt.w4" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="tag.real">Реальный клиент</span>
+              <h3 data-i18n="w4.t">Игорь Зеленевский · риэлтер</h3>
+              <p data-i18n="w4.p">Риэлтер-юрист из Минска: строгий зелёно-белый стиль, услуги по квартирам, шаги сделки, отзывы с realt.by, документы и кнопки звонка, Viber и Telegram.</p>
+              <a href="https://kerimalina.github.io/zelenevsky/" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.site">Открыть сайт ↗</a>
             </div>
           </article>
         </div>
@@ -496,6 +506,8 @@
       "btn.site": "Open website ↗",
       "w3.t": "Zerno · coffee shop",
       "w3.p": "Warm, cosy style: menu with prices, photos of the hall and terrace, guest reviews, opening hours and an “Open in Maps” button.",
+      "w4.t": "Igor Zelenevsky · realtor",
+      "w4.p": "A realtor and lawyer from Minsk: a strict green-and-white style, apartment services, deal steps, reviews from realt.by, credentials and Call, Viber and Telegram buttons.",
       "tpl.eyebrow": "Ready-made templates",
       "tpl.title": "Like a design? I'll make the same one with your photos and prices",
       "tpl.lead": "A template is a ready-made website for your profession. Pick one, send your photos, texts and prices — and your site is ready in 2–3 days. That's the $20 “Starter” package.",
@@ -540,7 +552,8 @@
       "aria.nav": "Sections", "aria.lang": "Site language", "aria.footer": "Footer sections",
       "alt.w1": "Home screen of the LamiDanova website",
       "alt.w2": "Home screen of the artt.muse photographer website",
-      "alt.w3": "Home screen of the demo website for the Zerno coffee shop"
+      "alt.w3": "Home screen of the demo website for the Zerno coffee shop",
+      "alt.w4": "Home screen of realtor Igor Zelenevsky's website"
     };
 
     const nodes = document.querySelectorAll("[data-i18n]");
