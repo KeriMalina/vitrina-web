@@ -160,6 +160,8 @@
     .cta p { opacity: .85; max-width: 560px; margin: 18px auto 34px; }
     .cta-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
     .cta .btn { background: #fff; color: var(--bg); }
+    .cta .btn-outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
+    .cta .btn-outline-light:hover { background: rgba(255,255,255,.12); }
     .cta-note { font-size: 15px; margin: 22px 0 0; opacity: .8; }
 
     /* Подвал */
@@ -443,9 +445,10 @@
       <div class="container">
         <div class="cta">
           <h2 data-i18n="cta.title">Обсудим ваш сайт?</h2>
-          <p data-i18n="cta.lead">Напишите в Telegram, чем вы занимаетесь, и пришлите ссылку на Instagram — отвечу, какой пакет подойдёт и когда смогу начать.</p>
+          <p data-i18n="cta.lead">Ответьте на 8 коротких вопросов в Telegram-боте — это 2 минуты. Я отвечу, какой пакет подойдёт и когда смогу начать. Или просто напишите мне.</p>
           <div class="cta-links">
-            <a href="https://t.me/vitrina_web" target="_blank" rel="noopener" class="btn" data-i18n="cta.tg">Написать в Telegram</a>
+            <a href="https://t.me/vitrina_web_bot?start=site" target="_blank" rel="noopener" class="btn" data-i18n="cta.bot">Оставить заявку в боте</a>
+            <a href="https://t.me/vitrina_web" target="_blank" rel="noopener" class="btn btn-outline-light" data-i18n="cta.tg">Написать в Telegram</a>
           </div>
           <p class="cta-note">@vitrina_web</p>
         </div>
@@ -464,6 +467,7 @@
         <a href="#faq" data-i18n="nav.faq">Вопросы</a>
         <a href="#contact" data-i18n="nav.contact">Контакты</a>
         <a href="https://t.me/vitrina_web" target="_blank" rel="noopener" class="footer-tg">Telegram @vitrina_web</a>
+        <a href="https://t.me/vitrina_web_bot?start=site" target="_blank" rel="noopener" class="footer-tg" data-i18n="footer.bot">Бот для заявок</a>
       </nav>
       <small data-i18n="footer.copy">© 2026 Витрина · сайты для малого бизнеса</small>
     </div>
@@ -528,7 +532,9 @@
       "q4": "How much do changes cost after launch?", "a4": "Changes are free for the first week after launch (a whole month with “All-inclusive”). After that you can pay $3–5 per small change or take support for $10 a month — up to 5 changes. A small change means updating a price, text, phone number or photo, or adding a review. A new section or a redesign is quoted separately. Send changes as one list — I'll do them in 1–2 days.",
       "q5": "How will we communicate?", "a5": "By text in Telegram only — no calls. Everything is online, so it doesn't matter which country you're in.",
       "cta.title": "Shall we talk about your website?",
-      "cta.lead": "Message me on Telegram about what you do and send your Instagram link — I'll tell you which package fits and when I can start.",
+      "cta.lead": "Answer 8 quick questions in our Telegram bot — it takes 2 minutes. I'll tell you which package fits and when I can start. Or just message me.",
+      "cta.bot": "Send a request via the bot",
+      "footer.bot": "Request bot",
       "cta.tg": "Message me on Telegram",
       "footer.copy": "© 2026 Vitrina · websites for small businesses",
       "aria.nav": "Sections", "aria.lang": "Site language", "aria.footer": "Footer sections",
