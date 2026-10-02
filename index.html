@@ -107,6 +107,12 @@
     .work img { aspect-ratio: 1000 / 645; object-fit: cover; border-bottom: 1px solid var(--line); }
     .work-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
     #works .works { grid-template-columns: repeat(2, 1fr); }
+    /* Главная работа — на всю ширину: фото слева, текст справа */
+    .work-wide { grid-column: 1 / -1; flex-direction: row; }
+    .work-wide .work-link { flex: 0 0 60%; }
+    .work-wide img { height: 100%; border-bottom: 0; border-right: 1px solid var(--line); }
+    .work-wide .work-body { padding: 36px; justify-content: center; }
+    .work-wide h3 { font-size: 1.5em; }
     .work-tag { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--accent-soft); color: #ecd5a6; }
     .work-tag.demo { background: var(--surface-2); color: var(--muted); }
     .work h3 { font-size: 20px; }
@@ -179,6 +185,11 @@
       .hero .container { grid-template-columns: 1fr; }
       .hero-visual { margin: 0 18px 48px 0; }
       .works, #works .works, .prices { grid-template-columns: 1fr; max-width: 560px; }
+      .work-wide { flex-direction: column; }
+      .work-wide .work-link { flex: none; }
+      .work-wide img { height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .work-wide .work-body { padding: 24px; }
+      .work-wide h3 { font-size: inherit; }
       .steps { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 560px) {
@@ -235,8 +246,8 @@
           </div>
         </div>
         <div class="hero-visual" aria-hidden="true">
-          <div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><img src="images/work-daria.jpg" alt="" width="1000" height="645"></div>
-          <div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><img src="images/work-tanya.jpg" alt="" width="1000" height="645"></div>
+          <div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><img src="images/work-cars.jpg" alt="" width="1000" height="645"></div>
+          <div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><img src="images/work-zelenevsky.jpg" alt="" width="1000" height="645"></div>
         </div>
       </div>
     </section>
@@ -249,6 +260,15 @@
           <p data-i18n="works.lead">Каждый сайт создаётся под стиль конкретного бизнеса: свои цвета, шрифты и фото, а не один шаблон на всех.</p>
         </div>
         <div class="works">
+          <article class="work work-wide">
+            <a href="work/mtis-gza/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-cars.jpg" alt="Главный экран демо-сайта проката машин Mtis Gza" data-i18n-alt="alt.w5" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag demo" data-i18n="tag.demo">Демо-концепт</span>
+              <h3 data-i18n="w5.t">Mtis Gza · прокат авто в Грузии</h3>
+              <p data-i18n="w5.p">Автопарк от Prius до G-класса с фильтрами, калькулятор цены с доп. услугами, горные маршруты — Трусо, Казбеги, Тушети — и бронирование. Три языка: русский, английский и грузинский.</p>
+              <a href="work/mtis-gza/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
+            </div>
+          </article>
           <article class="work">
             <a href="work/lamidanova/index.html" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-daria.jpg" alt="Главный экран сайта LamiDanova" data-i18n-alt="alt.w1" width="1000" height="645" loading="lazy"></a>
             <div class="work-body">
@@ -256,6 +276,15 @@
               <h3 data-i18n="w1.t">LamiDanova · ламинирование</h3>
               <p data-i18n="w1.p">Мастер из Минска: три комбо-услуги с ценами, работы из Instagram, настоящие отзывы и онлайн-запись через DIKIDI.</p>
               <a href="work/lamidanova/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.site">Открыть сайт ↗</a>
+            </div>
+          </article>
+          <article class="work">
+            <a href="https://kerimalina.github.io/zelenevsky/" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-zelenevsky.jpg" alt="Главный экран сайта риэлтера Игоря Зеленевского" data-i18n-alt="alt.w4" width="1000" height="645" loading="lazy"></a>
+            <div class="work-body">
+              <span class="work-tag" data-i18n="tag.real">Реальный клиент</span>
+              <h3 data-i18n="w4.t">Игорь Зеленевский · риэлтер</h3>
+              <p data-i18n="w4.p">Риэлтер-юрист из Минска: строгий зелёно-белый стиль, услуги по квартирам, шаги сделки, отзывы с realt.by, документы и кнопки звонка, Viber и Telegram.</p>
+              <a href="https://kerimalina.github.io/zelenevsky/" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.site">Открыть сайт ↗</a>
             </div>
           </article>
           <article class="work">
@@ -274,15 +303,6 @@
               <h3 data-i18n="w3.t">«Зерно» · кофейня</h3>
               <p data-i18n="w3.p">Тёплый уютный стиль: меню с ценами, фото зала и террасы, отзывы гостей, часы работы и кнопка «Открыть на карте».</p>
               <a href="demo/coffee/index.html" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.open">Открыть пример ↗</a>
-            </div>
-          </article>
-          <article class="work">
-            <a href="https://kerimalina.github.io/zelenevsky/" target="_blank" rel="noopener" class="work-link" tabindex="-1"><img src="images/work-zelenevsky.jpg" alt="Главный экран сайта риэлтера Игоря Зеленевского" data-i18n-alt="alt.w4" width="1000" height="645" loading="lazy"></a>
-            <div class="work-body">
-              <span class="work-tag" data-i18n="tag.real">Реальный клиент</span>
-              <h3 data-i18n="w4.t">Игорь Зеленевский · риэлтер</h3>
-              <p data-i18n="w4.p">Риэлтер-юрист из Минска: строгий зелёно-белый стиль, услуги по квартирам, шаги сделки, отзывы с realt.by, документы и кнопки звонка, Viber и Telegram.</p>
-              <a href="https://kerimalina.github.io/zelenevsky/" target="_blank" rel="noopener" class="btn btn-ghost work-btn" data-i18n="btn.site">Открыть сайт ↗</a>
             </div>
           </article>
         </div>
@@ -508,6 +528,8 @@
       "w3.p": "Warm, cosy style: menu with prices, photos of the hall and terrace, guest reviews, opening hours and an “Open in Maps” button.",
       "w4.t": "Igor Zelenevsky · realtor",
       "w4.p": "A realtor and lawyer from Minsk: a strict green-and-white style, apartment services, deal steps, reviews from realt.by, credentials and Call, Viber and Telegram buttons.",
+      "w5.t": "Mtis Gza · car rental in Georgia",
+      "w5.p": "A fleet from Prius to G-Class with filters, a price calculator with extras, mountain routes — Truso, Kazbegi, Tusheti — and booking. Three languages: Russian, English and Georgian.",
       "tpl.eyebrow": "Ready-made templates",
       "tpl.title": "Like a design? I'll make the same one with your photos and prices",
       "tpl.lead": "A template is a ready-made website for your profession. Pick one, send your photos, texts and prices — and your site is ready in 2–3 days. That's the $20 “Starter” package.",
@@ -553,7 +575,8 @@
       "alt.w1": "Home screen of the LamiDanova website",
       "alt.w2": "Home screen of the artt.muse photographer website",
       "alt.w3": "Home screen of the demo website for the Zerno coffee shop",
-      "alt.w4": "Home screen of realtor Igor Zelenevsky's website"
+      "alt.w4": "Home screen of realtor Igor Zelenevsky's website",
+      "alt.w5": "Home screen of the Mtis Gza car rental demo website"
     };
 
     const nodes = document.querySelectorAll("[data-i18n]");

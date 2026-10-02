@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mtis Gza — аренда авто в Грузии</title>
+<meta name="description" content="Аренда автомобилей в Грузии: от Toyota Prius до Land Cruiser Prado и Mercedes G-класса. Подача в аэропорты Тбилиси и Кутаиси, безлимитный пробег, машины для Казбеги, Трусо и Тушети.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231f3b2d'/><path d='M5 24 13 11l5 7 3-4 6 10z' fill='%23f5f2ec'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f2ec; --surface: #fff; --sand: #ebe4d6; --ink: #1b1d1a; --ink-2: #4b5049; --muted: #858a81; --line: #e2dbcf;
+    --green: #1f3b2d; --green-2: #2d5340; --accent: #c2552d; --accent-dark: #a2441f;
+    --on-dark: #f5f2ec; --on-dark-2: #b9c4b9;
+    --font: "Onest", "Noto Sans Georgian", system-ui, sans-serif; --mono: "JetBrains Mono", "Noto Sans Georgian", ui-monospace, monospace;
+    --radius: 18px; --wrap: 1200px;
+    --shadow: 0 1px 2px rgba(27,29,26,.05), 0 18px 40px -22px rgba(27,29,26,.35);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3 { margin: 0; line-height: 1.08; letter-spacing: -.025em; font-weight: 800; }
+  p { margin: 0; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .section { padding: 110px 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 44px; flex-wrap: wrap; }
+  .section-title { font-size: clamp(34px, 4.6vw, 56px); max-width: 720px; }
+  .section-lead { color: var(--ink-2); max-width: 420px; font-size: 17px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 26px; border-radius: 999px; font: 600 15px/1 var(--font);
+         text-decoration: none; border: 0; cursor: pointer; transition: background .2s, transform .2s, color .2s; white-space: nowrap; }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-dark { background: var(--ink); color: #fff; }
+  .btn-dark:hover { background: var(--green); }
+  .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+  /* Плашка концепта */
+  .draft-bar { background: var(--green); color: var(--on-dark-2); font-size: 13px; text-align: center; padding: 8px 16px; }
+  .draft-bar a { color: var(--on-dark); }
+
+  /* Шапка */
+  .header { position: sticky; top: 0; z-index: 50; background: rgba(245,242,236,.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .header .wrap { display: flex; align-items: center; gap: 28px; height: 68px; }
+  .logo { display: flex; align-items: baseline; gap: 10px; text-decoration: none; font-weight: 800; font-size: 21px; letter-spacing: -.03em; }
+  .logo small { font-weight: 500; font-size: 13px; color: var(--muted); letter-spacing: 0; }
+  .nav { display: flex; gap: 26px; margin-left: auto; }
+  .nav a { text-decoration: none; font-size: 15px; color: var(--ink-2); font-weight: 500; }
+  .nav a:hover { color: var(--ink); }
+  .lang { display: flex; border: 1.5px solid var(--line); border-radius: 999px; padding: 3px; }
+  .lang button { border: 0; background: none; font: 600 12px/1 var(--font); padding: 7px 10px; border-radius: 999px; cursor: pointer; color: var(--muted); }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  /* Грузинский: заглавные (мтаврули) в подписях не нужны, длинные слова переносим */
+  html[lang="ka"] .mono, html[lang="ka"] .eyebrow, html[lang="ka"] .quick span, html[lang="ka"] .awd-list b { text-transform: none; letter-spacing: .02em; }
+  html[lang="ka"] h1, html[lang="ka"] h2, html[lang="ka"] h3 { letter-spacing: -.01em; overflow-wrap: break-word; }
+  .header .btn { padding: 12px 20px; }
+
+  /* Первый экран */
+  .hero { position: relative; min-height: max(640px, calc(100vh - 105px)); color: #fff; display: flex; overflow: hidden; }
+  .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 10%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,24,48,.66) 0%, rgba(8,24,48,.5) 40%, rgba(8,24,48,.2) 56%, rgba(8,24,48,0) 72%), linear-gradient(180deg, rgba(8,22,40,0) 55%, rgba(10,20,12,.7) 100%); }
+  .hero .wrap { position: relative; z-index: 1; width: 100%; padding-top: 72px; padding-bottom: 36px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+  .hero h1 { font-size: clamp(40px, 4.4vw, 64px); max-width: 640px; letter-spacing: -.035em; text-shadow: 0 2px 24px rgba(6,20,40,.45); }
+  html[lang="ka"] .hero h1 { font-size: clamp(34px, 3.6vw, 52px); }
+  .hero h1 em { font-style: normal; color: #ffd9c7; }
+  .hero-lead { font-size: 19px; max-width: 520px; margin-top: 22px; color: rgba(255,255,255,.92); text-shadow: 0 1px 14px rgba(6,20,40,.35); }
+  .hero-caption { position: absolute; z-index: 1; right: 24px; top: 24px; color: rgba(255,255,255,.75); text-align: right; }
+
+  .quick { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.1fr auto; gap: 0; background: var(--surface); color: var(--ink); border-radius: 22px; padding: 8px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.45); }
+  .quick label { display: flex; flex-direction: column; gap: 4px; padding: 10px 18px; border-right: 1px solid var(--line); min-width: 0; }
+  .quick label:nth-last-of-type(1) { border-right: 0; }
+  .quick span { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .quick select, .quick input { border: 0; padding: 0; font: 600 16px/1.3 var(--font); color: var(--ink); background: transparent; width: 100%; min-width: 0; outline: none; }
+  .quick .btn { margin: 4px; padding: 0 30px; border-radius: 16px; }
+
+  /* Факты */
+  .facts { background: var(--green); color: var(--on-dark); }
+  .facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .fact { padding: 30px 26px; border-left: 1px solid rgba(255,255,255,.12); }
+  .fact:first-child { border-left: 0; padding-left: 0; }
+  .fact b { display: block; font-size: 30px; letter-spacing: -.03em; font-weight: 800; }
+  .fact span { color: var(--on-dark-2); font-size: 14px; }
+
+  /* Автопарк */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter { border: 1.5px solid var(--line); background: var(--surface); padding: 10px 18px; border-radius: 999px; font: 600 14px/1 var(--font); cursor: pointer; color: var(--ink-2); }
+  .filter.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .fleet { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .car { background: var(--surface); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow); transition: transform .25s; }
+  .car:hover { transform: translateY(-4px); }
+  .car.hidden { display: none; }
+  .car-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--sand); }
+  .car-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .car-class { position: absolute; left: 12px; top: 12px; background: rgba(255,255,255,.94); color: var(--ink); padding: 6px 10px; border-radius: 8px; }
+  .car-class.x4 { background: var(--green); color: #fff; }
+  .car-class.lux { background: var(--ink); color: #fff; }
+  .car-body { padding: 18px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+  .car h3 { font-size: 20px; letter-spacing: -.02em; }
+  .car-year { color: var(--muted); font-weight: 500; }
+  .specs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 18px; padding: 0; list-style: none; }
+  .specs li { font-size: 12.5px; color: var(--ink-2); background: var(--bg); padding: 5px 9px; border-radius: 7px; }
+  .car-price { margin-top: auto; display: flex; align-items: end; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .car-price b { font-size: 26px; letter-spacing: -.03em; }
+  .car-price small { display: block; color: var(--muted); font-size: 12.5px; }
+  .car-price .btn { padding: 11px 16px; font-size: 14px; }
+
+  /* Маршруты */
+  .routes-section { background: var(--surface); }
+  .routes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .route { position: relative; border-radius: var(--radius); overflow: hidden; color: #fff; min-height: 380px; display: flex; align-items: flex-end; grid-column: span 2; }
+  .route.big { grid-column: span 3; min-height: 460px; }
+  .route img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .route:hover img { transform: scale(1.04); }
+  .route::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.55) 58%, rgba(0,0,0,.85) 100%); }
+  .route-body { position: relative; z-index: 1; padding: 24px; width: 100%; }
+  .route h3 { font-size: 28px; }
+  .route p { color: rgba(255,255,255,.85); font-size: 15px; margin-top: 8px; max-width: 460px; }
+  .route-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .route-meta span { font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; background: rgba(255,255,255,.16); backdrop-filter: blur(6px); padding: 6px 9px; border-radius: 7px; }
+  .route-meta .need { background: var(--accent); }
+  .route-tag { position: absolute; z-index: 1; top: 18px; left: 18px; font-family: var(--mono); font-size: 11.5px; background: rgba(0,0,0,.45); padding: 6px 9px; border-radius: 7px; }
+
+  /* Полный привод */
+  .awd { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
+  .awd-photo { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 3.3; }
+  .awd-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .awd-photo .mono { position: absolute; left: 16px; bottom: 16px; color: #fff; background: rgba(0,0,0,.5); padding: 7px 10px; border-radius: 8px; }
+  .awd-list { margin: 30px 0 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+  .awd-list li { display: grid; grid-template-columns: 92px 1fr; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .awd-list b { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; padding-top: 3px; }
+  .awd-list .yes { color: var(--accent); }
+  .awd-list .ok { color: var(--green-2); }
+  .awd-list span { color: var(--ink-2); }
+  .awd-list strong { color: var(--ink); }
+
+  /* Условия */
+  .terms-section { background: var(--sand); }
+  .terms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-radius: var(--radius); overflow: hidden; }
+  .term { background: var(--bg); padding: 30px 28px; }
+  .term .mono { color: var(--muted); }
+  .term h3 { font-size: 22px; margin: 12px 0 8px; letter-spacing: -.02em; }
+  .term p { color: var(--ink-2); font-size: 15px; }
+
+  /* Бронирование */
+  .book { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
+  .calc { background: var(--green); color: var(--on-dark); border-radius: 24px; padding: 34px; position: sticky; top: 96px; }
+  .calc .mono { color: var(--on-dark-2); }
+  .calc-car { display: flex; gap: 18px; align-items: center; margin: 18px 0 26px; }
+  .calc-car img { width: 140px; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; }
+  .calc-car b { font-size: 22px; display: block; letter-spacing: -.02em; }
+  .calc-car span { color: var(--on-dark-2); font-size: 14px; }
+  .calc-row { display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.12); font-size: 15px; color: var(--on-dark-2); }
+  .calc-row b { color: var(--on-dark); font-weight: 600; }
+  .calc-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 18px; margin-top: 6px; border-top: 1px solid rgba(255,255,255,.3); }
+  .calc-total b { font-size: 44px; letter-spacing: -.04em; }
+  .calc-note { margin-top: 16px; font-size: 13px; color: var(--on-dark-2); }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field.full { grid-column: 1 / -1; }
+  .field > span { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .field input, .field select, .field textarea { font: 500 16px/1.4 var(--font); color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 14px; width: 100%; outline: none; transition: border-color .2s; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ink); }
+  .field textarea { resize: vertical; min-height: 92px; }
+  .extras { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+  .extras label { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; padding: 9px 14px; font-size: 14px; cursor: pointer; }
+  .extras input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+  .form .btn { grid-column: 1 / -1; padding: 18px; font-size: 16px; }
+  .form-ok { grid-column: 1 / -1; display: none; background: #e6efe8; color: var(--green); border-radius: 12px; padding: 16px 18px; font-size: 15px; }
+  .form-ok.show { display: block; }
+
+  /* Вопросы */
+  .faq { max-width: 860px; }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; padding: 24px 40px 24px 0; font-size: 19px; font-weight: 600; letter-spacing: -.01em; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 4px; top: 18px; font-size: 28px; font-weight: 400; color: var(--accent); transition: transform .2s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding: 0 40px 24px 0; color: var(--ink-2); }
+
+  /* Финал */
+  .final { position: relative; color: #fff; padding: 150px 0 60px; overflow: hidden; }
+  .final > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .final::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,20,14,.25), rgba(10,20,14,.85)); }
+  .final .wrap { position: relative; z-index: 1; }
+  .final h2 { font-size: clamp(40px, 6vw, 80px); max-width: 820px; letter-spacing: -.035em; }
+  .final p { font-size: 18px; color: rgba(255,255,255,.85); margin-top: 18px; max-width: 520px; }
+  .contacts { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+  .contacts .btn-ghost { color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.45); }
+  .contacts .btn-ghost:hover { box-shadow: inset 0 0 0 1.5px #fff; }
+  .offices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 90px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.25); }
+  .offices b { display: block; font-size: 17px; margin: 8px 0 2px; }
+  .offices span { color: rgba(255,255,255,.75); font-size: 14px; }
+  .offices .mono { color: #ffd9c7; }
+
+  /* Подвал */
+  .footer { background: var(--ink); color: #a9ada6; padding: 48px 0 40px; font-size: 14px; }
+  .footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 24px 48px; }
+  .footer .logo { color: #fff; }
+  .footer-nav { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+  .footer-nav a { text-decoration: none; color: #d8dbd4; }
+  .footer-nav a:hover { color: #fff; }
+  .credits { grid-column: 1 / -1; border-top: 1px solid #33362f; padding-top: 20px; }
+  .credits summary { cursor: pointer; color: #d8dbd4; }
+  .credits ul { margin: 14px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 40px; font-size: 12.5px; line-height: 1.7; }
+  .credits a { color: #c9ccc5; }
+
+  @media (max-width: 1080px) {
+    .fleet { grid-template-columns: repeat(2, 1fr); }
+    .nav { display: none; }
+    .header .lang { margin-left: auto; }
+    .lang button { padding: 11px 14px; font-size: 13px; }
+    .quick { grid-template-columns: 1fr 1fr; }
+    .quick label { border-right: 0; border-bottom: 1px solid var(--line); }
+    .quick .btn { grid-column: 1 / -1; padding: 18px; }
+    .routes { grid-template-columns: 1fr 1fr; }
+    .route, .route.big { grid-column: span 1; min-height: 360px; }
+    .awd, .book { grid-template-columns: 1fr; gap: 40px; }
+    .calc { position: static; }
+    .terms { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 680px) {
+    .wrap { padding: 0 16px; }
+    .section { padding: 76px 0; }
+    .header .wrap { gap: 12px; height: 60px; }
+    .logo small { display: none; }
+    .header .btn { display: none; }
+    .hero { min-height: auto; }
+    .hero .wrap { padding-top: 48px; padding-bottom: 16px; gap: 36px; }
+    .hero > img { object-position: 22% 0%; }
+    .hero::after { background: linear-gradient(180deg, rgba(8,24,48,.45) 0%, rgba(8,24,48,.4) 50%, rgba(10,20,12,.8) 100%); }
+    .hero-lead { font-size: 17px; }
+    .hero-caption { display: none; }
+    .quick { grid-template-columns: 1fr; border-radius: 18px; }
+    .facts .wrap { grid-template-columns: 1fr 1fr; }
+    .fact { padding: 22px 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.12); }
+    .fact:nth-child(-n+2) { border-top: 0; }
+    .fact b { font-size: 24px; }
+    .filters { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; scrollbar-width: none; }
+    .filter { flex: none; }
+    .fleet { grid-template-columns: 1fr; }
+    .car-photo { aspect-ratio: 16 / 10; }
+    .routes { grid-template-columns: 1fr; }
+    .route, .route.big { min-height: 340px; }
+    .route h3 { font-size: 24px; }
+    .terms { grid-template-columns: 1fr; }
+    .form { grid-template-columns: 1fr; }
+    .calc { padding: 24px; }
+    .calc-car img { width: 110px; }
+    .calc-total b { font-size: 36px; }
+    .awd-list li { grid-template-columns: 1fr; gap: 4px; }
+    .offices { grid-template-columns: 1fr; margin-top: 56px; }
+    .final { padding: 100px 0 48px; }
+    .footer .wrap { grid-template-columns: 1fr; }
+    .credits ul { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="draft-bar" data-i18n="draft">Концепт-сайт проката для портфолио · сделано в <a href="https://vitrina-web.com" target="_blank" rel="noopener">Витрине</a></div>
+
+<header class="header">
+  <div class="wrap">
+    <a href="#top" class="logo">Mtis Gza <small>მთის გზა</small></a>
+    <nav class="nav">
+      <a href="#fleet" data-i18n="nav.fleet">Автопарк</a>
+      <a href="#routes" data-i18n="nav.routes">Маршруты</a>
+      <a href="#terms" data-i18n="nav.terms">Условия</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+      <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Язык">
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ka" lang="ka">ქარ</button>
+    </div>
+    <a href="#book" class="btn btn-primary" data-i18n="cta.book">Забронировать</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <img src="images/hero-kazbek.jpg" alt="Церковь Гергети и гора Казбек" data-i18n-alt="alt.hero" fetchpriority="high">
+    <div class="hero-caption mono" data-i18n="hero.caption">Гергети · 2170 м<br>Казбек · 5054 м</div>
+    <div class="wrap">
+      <div class="hero-top">
+        <p class="eyebrow" style="color:#ffd9c7" data-i18n="hero.eyebrow">Аренда авто · Тбилиси · Кутаиси · Батуми</p>
+        <h1 data-i18n="hero.title">Грузия, которую не видно <em>из окна экскурсионного автобуса</em></h1>
+        <p class="hero-lead" data-i18n="hero.lead">От Prius для города до Prado и G-класса для Трусо и Тушети. Подача в аэропорт, страховка и пробег без лимита.</p>
+      </div>
+      <form class="quick" id="quick">
+        <label><span data-i18n="q.place">Где забрать</span>
+          <select id="q-place">
+            <option value="tbs" data-i18n="place.tbs">Аэропорт Тбилиси</option>
+            <option value="tbilisi" data-i18n="place.tbilisi">Тбилиси, по адресу</option>
+            <option value="kut" data-i18n="place.kut">Аэропорт Кутаиси</option>
+            <option value="bus" data-i18n="place.bus">Батуми</option>
+          </select></label>
+        <label><span data-i18n="q.from">Получение</span><input type="date" id="q-from"></label>
+        <label><span data-i18n="q.to">Возврат</span><input type="date" id="q-to"></label>
+        <label><span data-i18n="q.trip">Куда едете</span>
+          <select id="q-trip">
+            <option value="all" data-i18n="trip.city">Город и трасса</option>
+            <option value="x4" data-i18n="trip.mountains">Горы: Трусо, Тушети</option>
+            <option value="lux" data-i18n="trip.lux">Хочу G-класс</option>
+          </select></label>
+        <button class="btn btn-primary" type="submit" data-i18n="q.go">Подобрать</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Коротко">
+    <div class="wrap">
+      <div class="fact"><b data-i18n="f1.b">от $30</b><span data-i18n="f1.s">в сутки, Toyota Prius</span></div>
+      <div class="fact"><b data-i18n="f2.b">0 км</b><span data-i18n="f2.s">лимита пробега</span></div>
+      <div class="fact"><b data-i18n="f3.b">24/7</b><span data-i18n="f3.s">подача в аэропорт</span></div>
+      <div class="fact"><b data-i18n="f4.b">15 минут</b><span data-i18n="f4.s">на оформление</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="fleet">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-i18n="fleet.eyebrow">Автопарк</p>
+          <h2 class="section-title" data-i18n="fleet.title">Машина под маршрут, а не наоборот</h2>
+        </div>
+        <div class="filters" role="group">
+          <button class="filter active" data-filter="all" data-i18n="filter.all">Все</button>
+          <button class="filter" data-filter="city" data-i18n="filter.city">Для города</button>
+          <button class="filter" data-filter="suv" data-i18n="filter.suv">Кроссоверы</button>
+          <button class="filter" data-filter="x4" data-i18n="filter.x4">4×4 для гор</button>
+          <button class="filter" data-filter="lux" data-i18n="filter.lux">Премиум</button>
+        </div>
+      </div>
+      <div class="fleet" id="fleet-grid"></div>
+    </div>
+  </section>
+
+  <section class="section routes-section" id="routes">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-i18n="routes.eyebrow">Маршруты</p>
+          <h2 class="section-title" data-i18n="routes.title">Куда ехать и на чём</h2>
+        </div>
+        <p class="section-lead" data-i18n="routes.lead">Расстояния — от Тбилиси. Перед выдачей подскажем, где заправиться и где дорога сложнее, чем кажется по карте.</p>
+      </div>
+      <div class="routes">
+        <article class="route big">
+          <img src="images/truso.jpg" alt="Долина Трусо" data-i18n-alt="alt.truso" loading="lazy">
+          <span class="route-tag" data-i18n="r1.tag">Июнь — октябрь</span>
+          <div class="route-body">
+            <h3 data-i18n="r1.title">Долина Трусо</h3>
+            <p data-i18n="r1.text">Минеральные озёра, заброшенные башни и тишина. От села Коби — грунтовка вдоль Терека, после дождя только на полном приводе.</p>
+            <div class="route-meta"><span data-i18n="r1.m1">170 км · 3,5 ч</span><span data-i18n="r1.m2">грунт 12 км</span><span class="need" data-i18n="need.x4">нужен 4×4</span></div>
+          </div>
+        </article>
+        <article class="route big">
+          <img src="images/gergeti.jpg" alt="Церковь Гергети" data-i18n-alt="alt.gergeti" loading="lazy">
+          <span class="route-tag" data-i18n="r2.tag">Круглый год</span>
+          <div class="route-body">
+            <h3 data-i18n="r2.title">Казбеги и Гергети</h3>
+            <p data-i18n="r2.text">По Военно-Грузинской дороге через перевал Джвари, 2379 м. Летом доедет любая машина, зимой — только с зимней резиной.</p>
+            <div class="route-meta"><span data-i18n="r2.m1">155 км · 3 ч</span><span data-i18n="r2.m2">асфальт</span><span data-i18n="need.any">любая машина</span></div>
+          </div>
+        </article>
+        <article class="route">
+          <img src="images/tusheti-pass.jpg" alt="Перевал Абано, Тушети" data-i18n-alt="alt.tusheti" loading="lazy">
+          <span class="route-tag" data-i18n="r3.tag">Июнь — сентябрь</span>
+          <div class="route-body">
+            <h3 data-i18n="r3.title">Тушети</h3>
+            <p data-i18n="r3.text">Перевал Абано, 2850 м — одна из самых сложных дорог Кавказа. Даём только Prado и Pajero и рассказываем, как ехать.</p>
+            <div class="route-meta"><span data-i18n="r3.m1">230 км · 7 ч</span><span class="need" data-i18n="need.x4">нужен 4×4</span></div>
+          </div>
+        </article>
+        <article class="route">
+          <img src="images/ushguli.jpg" alt="Ушгули, Сванетия" data-i18n-alt="alt.ushguli" loading="lazy">
+          <span class="route-tag" data-i18n="r4.tag">Май — октябрь</span>
+          <div class="route-body">
+            <h3 data-i18n="r4.title">Сванетия и Ушгули</h3>
+            <p data-i18n="r4.text">Сванские башни под Шхарой. До Местии — асфальт, дальше до Ушгули — 45 км серпантина.</p>
+            <div class="route-meta"><span data-i18n="r4.m1">470 км · 8 ч</span><span data-i18n="need.suv">кроссовер</span></div>
+          </div>
+        </article>
+        <article class="route">
+          <img src="images/sighnaghi.jpg" alt="Сигнахи, Кахетия" data-i18n-alt="alt.sighnaghi" loading="lazy">
+          <span class="route-tag" data-i18n="r2.tag">Круглый год</span>
+          <div class="route-body">
+            <h3 data-i18n="r5.title">Кахетия и Сигнахи</h3>
+            <p data-i18n="r5.text">Винодельни, Алазанская долина и город любви. Ровная дорога — Prius хватит с запасом.</p>
+            <div class="route-meta"><span data-i18n="r5.m1">110 км · 2 ч</span><span data-i18n="need.any">любая машина</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap awd">
+      <div class="awd-photo">
+        <img src="images/tusheti-road.jpg" alt="Грунтовая дорога в Тушети" data-i18n-alt="alt.road" loading="lazy">
+        <span class="mono" data-i18n="awd.cap">Дорога на Омало, Тушети</span>
+      </div>
+      <div>
+        <p class="eyebrow" data-i18n="awd.eyebrow">Полный привод</p>
+        <h2 class="section-title" data-i18n="awd.title">Когда без 4×4 не обойтись</h2>
+        <ul class="awd-list">
+          <li><b class="yes" data-i18n="awd.y">нужен</b><span data-i18n="awd.1"><strong>Тушети, Трусо, Шатили, Мутсо.</strong> Грунт, броды и камни — только рамный внедорожник с понижающей передачей.</span></li>
+          <li><b class="ok" data-i18n="awd.w">зимой</b><span data-i18n="awd.2"><strong>Казбеги и Гудаури с декабря по март.</strong> Перевал Джвари иногда закрывают, а без зимней резины туда не пускают.</span></li>
+          <li><b data-i18n="awd.n">не нужен</b><span data-i18n="awd.3"><strong>Тбилиси, Кахетия, Батуми, Боржоми.</strong> Хороший асфальт — берите экономичный седан и тратьте сэкономленное на хинкали.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section terms-section" id="terms">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-i18n="terms.eyebrow">Условия</p>
+          <h2 class="section-title" data-i18n="terms.title">Без мелкого шрифта</h2>
+        </div>
+      </div>
+      <div class="terms">
+        <div class="term"><p class="mono">01</p><h3 data-i18n="t1.h">Документы</h3><p data-i18n="t1.p">Паспорт и права вашей страны. Международные права не нужны. Водителю от 21 года, стаж от 2 лет.</p></div>
+        <div class="term"><p class="mono">02</p><h3 data-i18n="t2.h">Депозит</h3><p data-i18n="t2.p">От $100 за седан до $300 за внедорожник, для G-класса — $1000. Возвращаем в день сдачи машины.</p></div>
+        <div class="term"><p class="mono">03</p><h3 data-i18n="t3.h">Страховка</h3><p data-i18n="t3.p">Базовая включена в цену. Полная без франшизы — +$10 в сутки, и царапина на парковке вас не беспокоит.</p></div>
+        <div class="term"><p class="mono">04</p><h3 data-i18n="t4.h">Подача</h3><p data-i18n="t4.p">Аэропорт Тбилиси и адрес в городе — бесплатно. Кутаиси и Батуми — $30. Встречаем с табличкой в любое время.</p></div>
+        <div class="term"><p class="mono">05</p><h3 data-i18n="t5.h">Топливо</h3><p data-i18n="t5.p">Отдаём с полным баком — возвращаете с полным. Без доплат за «заправку по нашему тарифу».</p></div>
+        <div class="term"><p class="mono">06</p><h3 data-i18n="t6.h">Выезд в Армению</h3><p data-i18n="t6.p">Оформляем доверенность и страховку для границы — $50 за поездку. Предупредите заранее.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-i18n="book.eyebrow">Бронирование</p>
+          <h2 class="section-title" data-i18n="book.title">Посчитайте поездку</h2>
+        </div>
+        <p class="section-lead" data-i18n="book.lead">Ответим в WhatsApp или Telegram в течение 15 минут и пришлём фото именно той машины, которую вы получите.</p>
+      </div>
+      <div class="book">
+        <aside class="calc" aria-live="polite">
+          <p class="mono" data-i18n="calc.label">Ваш расчёт</p>
+          <div class="calc-car"><img id="calc-img" src="images/car-prius.jpg" alt=""><div><b id="calc-name">Toyota Prius</b><span id="calc-spec"></span></div></div>
+          <div class="calc-row"><span data-i18n="calc.days">Срок</span><b id="calc-days"></b></div>
+          <div class="calc-row"><span data-i18n="calc.rate">Цена в сутки</span><b id="calc-rate"></b></div>
+          <div class="calc-row"><span data-i18n="calc.extras">Доп. услуги</span><b id="calc-extras"></b></div>
+          <div class="calc-row"><span data-i18n="calc.deposit">Депозит (вернём)</span><b id="calc-deposit"></b></div>
+          <div class="calc-total"><span data-i18n="calc.total">Итого</span><b id="calc-total"></b></div>
+          <p class="calc-note" data-i18n="calc.note">От 7 суток — скидка 15%, она уже учтена в расчёте.</p>
+        </aside>
+        <form class="form" id="form">
+          <label class="field full"><span data-i18n="form.car">Машина</span><select id="f-car"></select></label>
+          <label class="field"><span data-i18n="q.from">Получение</span><input type="date" id="f-from" required></label>
+          <label class="field"><span data-i18n="q.to">Возврат</span><input type="date" id="f-to" required></label>
+          <label class="field full"><span data-i18n="q.place">Где забрать</span>
+            <select id="f-place">
+              <option value="tbs" data-i18n="place.tbs">Аэропорт Тбилиси</option>
+              <option value="tbilisi" data-i18n="place.tbilisi">Тбилиси, по адресу</option>
+              <option value="kut" data-i18n="place.kut">Аэропорт Кутаиси</option>
+              <option value="bus" data-i18n="place.bus">Батуми</option>
+            </select></label>
+          <div class="extras">
+            <label><input type="checkbox" data-extra="10"> <span data-i18n="x.ins">Полная страховка +$10/сут</span></label>
+            <label><input type="checkbox" data-extra="5"> <span data-i18n="x.seat">Детское кресло +$5/сут</span></label>
+            <label><input type="checkbox" data-extra="0" data-once="50"> <span data-i18n="x.arm">Выезд в Армению +$50</span></label>
+          </div>
+          <label class="field"><span data-i18n="form.name">Имя</span><input type="text" id="f-name" autocomplete="name" required></label>
+          <label class="field"><span data-i18n="form.contact">WhatsApp или Telegram</span><input type="text" id="f-contact" placeholder="+995 … / @username" required></label>
+          <label class="field full"><span data-i18n="form.comment">Комментарий</span><textarea id="f-comment" data-i18n-ph="form.ph" placeholder="Номер рейса, маршрут, пожелания"></textarea></label>
+          <button class="btn btn-primary" type="submit" data-i18n="form.send">Отправить заявку</button>
+          <p class="form-ok" id="form-ok" data-i18n="form.ok">Спасибо! Это демо-версия сайта, поэтому заявка никуда не ушла — но на настоящем сайте она сразу придёт владельцу в Telegram.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-i18n="faq.eyebrow">Вопросы</p>
+          <h2 class="section-title" data-i18n="faq.title">Что обычно спрашивают</h2>
+        </div>
+      </div>
+      <div class="faq">
+        <details><summary data-i18n="q1.q">Нужны ли международные права?</summary><p data-i18n="q1.a">Нет. В Грузии можно ездить по правам большинства стран, включая Россию, Беларусь, Казахстан, Украину и страны ЕС, если они на латинице или кириллице.</p></details>
+        <details><summary data-i18n="q2.q">Можно ли забрать машину ночью в аэропорту?</summary><p data-i18n="q2.a">Да. Большинство рейсов в Тбилиси прилетает ночью, поэтому мы встречаем в любое время. Пришлите номер рейса — если он задержится, мы подождём.</p></details>
+        <details><summary data-i18n="q3.q">Какую машину брать в Казбеги?</summary><p data-i18n="q3.a">С мая по октябрь — любую, дорога асфальтированная. Если в планах Трусо или Джута — берите кроссовер или внедорожник. Зимой — только с зимней резиной, она у нас бесплатно.</p></details>
+        <details><summary data-i18n="q4.q">Что будет, если машина сломается в горах?</summary><p data-i18n="q4.a">Звоните на номер из договора, он работает круглосуточно. Решаем по ситуации: направим механика или привезём замену. Если поломка не по вашей вине — это за наш счёт.</p></details>
+        <details><summary data-i18n="q5.q">Можно ли платить картой?</summary><p data-i18n="q5.a">Да: картой, наличными в лари, долларах или евро. Депозит можно оставить наличными или заморозить на карте.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="contacts">
+    <img src="images/truso-wide.jpg" alt="" loading="lazy">
+    <div class="wrap">
+      <p class="eyebrow" style="color:#ffd9c7" data-i18n="final.eyebrow">Контакты</p>
+      <h2 data-i18n="final.title">Маршрут придумали? Машину подберём</h2>
+      <p data-i18n="final.text">Напишите, куда собираетесь, — посоветуем машину и пришлём точную цену.</p>
+      <div class="contacts">
+        <a class="btn btn-primary" href="#book">WhatsApp</a>
+        <a class="btn btn-ghost" href="#book">Telegram</a>
+        <a class="btn btn-ghost" href="#book" data-i18n="final.call">Позвонить</a>
+      </div>
+      <div class="offices">
+        <div><span class="mono">TBS · 24/7</span><b data-i18n="o1.b">Аэропорт Тбилиси</b><span data-i18n="o1.s">Встреча в зоне прилёта с табличкой</span></div>
+        <div><span class="mono" data-i18n="o2.m">Тбилиси · 9:00–21:00</span><b data-i18n="o2.b">Офис в Ваке</b><span data-i18n="o2.s">Или подача по любому адресу в городе</span></div>
+        <div><span class="mono">KUT · BUS</span><b data-i18n="o3.b">Кутаиси и Батуми</b><span data-i18n="o3.s">Подача по предварительной записи</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="#top" class="logo">Mtis Gza <small>მთის გზა</small></a>
+    <nav class="footer-nav">
+      <a href="#fleet" data-i18n="nav.fleet">Автопарк</a>
+      <a href="#routes" data-i18n="nav.routes">Маршруты</a>
+      <a href="#terms" data-i18n="nav.terms">Условия</a>
+      <a href="#book" data-i18n="nav.book">Бронирование</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+      <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
+    </nav>
+    <details class="credits">
+      <summary data-i18n="credits.title">Фотографии: Wikimedia Commons, свободные лицензии</summary>
+      <ul id="credits"></ul>
+    </details>
+  </div>
+</footer>
+
+<script>
+  // Автопарк: цены в долларах за сутки
+  const CARS = [
+    { id: "prius", cat: "city", name: "Toyota Prius", year: 2018, price: 30, deposit: 100, img: "car-prius.jpg",
+      ru: ["Гибрид", "Автомат", "5 мест", "4 л / 100 км"], en: ["Hybrid", "Automatic", "5 seats", "4 L / 100 km"],
+      ka: ["ჰიბრიდი", "ავტომატიკა", "5 ადგილი", "4 ლ / 100 კმ"] },
+    { id: "elantra", cat: "city", name: "Hyundai Elantra", year: 2023, price: 35, deposit: 100, img: "car-elantra.jpg",
+      ru: ["Бензин", "Автомат", "5 мест", "CarPlay"], en: ["Petrol", "Automatic", "5 seats", "CarPlay"],
+      ka: ["ბენზინი", "ავტომატიკა", "5 ადგილი", "CarPlay"] },
+    { id: "camry", cat: "city", name: "Toyota Camry", year: 2019, price: 45, deposit: 150, img: "car-camry.jpg",
+      ru: ["Бензин 2.5", "Автомат", "5 мест", "Большой багажник"], en: ["Petrol 2.5", "Automatic", "5 seats", "Large trunk"],
+      ka: ["ბენზინი 2.5", "ავტომატიკა", "5 ადგილი", "დიდი საბარგული"] },
+    { id: "sportage", cat: "suv", name: "Kia Sportage", year: 2023, price: 50, deposit: 200, img: "car-sportage.jpg",
+      ru: ["Кроссовер", "Автомат", "5 мест", "Клиренс 18 см"], en: ["Crossover", "Automatic", "5 seats", "18 cm clearance"],
+      ka: ["კროსოვერი", "ავტომატიკა", "5 ადგილი", "კლირენსი 18 სმ"] },
+    { id: "rav4", cat: "suv", name: "Toyota RAV4", year: 2020, price: 55, deposit: 200, img: "car-rav4.jpg",
+      ru: ["Полный привод", "Автомат", "5 мест", "Клиренс 20 см"], en: ["AWD", "Automatic", "5 seats", "20 cm clearance"],
+      ka: ["სრული ამძრავი", "ავტომატიკა", "5 ადგილი", "კლირენსი 20 სმ"] },
+    { id: "pajero", cat: "x4", name: "Mitsubishi Pajero", year: 2014, price: 65, deposit: 300, img: "car-pajero.jpg",
+      ru: ["4×4", "Понижайка", "7 мест", "Для Тушети"], en: ["4×4", "Low range", "7 seats", "Tusheti-ready"],
+      ka: ["4×4", "დაწევის გადაცემა", "7 ადგილი", "თუშეთისთვის"] },
+    { id: "prado", cat: "x4", name: "Toyota Land Cruiser Prado", year: 2017, price: 95, deposit: 300, img: "car-prado.jpg",
+      ru: ["4×4", "Блокировка", "7 мест", "Для Тушети"], en: ["4×4", "Diff lock", "7 seats", "Tusheti-ready"],
+      ka: ["4×4", "დიფერენციალის ბლოკი", "7 ადგილი", "თუშეთისთვის"] },
+    { id: "gclass", cat: "lux", name: "Mercedes-Benz G 500", year: 2021, price: 280, deposit: 1000, img: "car-gclass.jpg",
+      ru: ["4×4", "V8, 422 л.с.", "5 мест", "Можно с водителем"], en: ["4×4", "V8, 422 hp", "5 seats", "Chauffeur available"],
+      ka: ["4×4", "V8, 422 ც.ძ.", "5 ადგილი", "შესაძლებელია მძღოლით"] },
+  ];
+  const CLASS = { city: { ru: "Город", en: "City", ka: "ქალაქი" }, suv: { ru: "Кроссовер", en: "Crossover", ka: "კროსოვერი" },
+    x4: { ru: "4×4", en: "4×4", ka: "4×4" }, lux: { ru: "Премиум", en: "Premium", ka: "პრემიუმი" } };
+  const LONG = 0.85; // скидка от 7 суток
+
+  const CREDITS = [
+    ["Гергети и Казбек", "Adam Jones", "CC BY-SA 2.0", "Gergeti_Trinity_Church_with_Mountain_Backdrop_-_Outside_Kazbegi_-_Georgia_-_02_(18402439269)_(2).jpg"],
+    ["Гергети", "Millodarka", "CC BY-SA 4.0", "Gergeti_Trinity_Church_Panorama.jpg"],
+    ["Долина Трусо", "Alexkom000", "CC BY 4.0", "2024-08-03_Truso_Valley_5.jpg"],
+    ["Долина Трусо", "Alexkom000", "CC BY 4.0", "2024-08-03_Truso_Valley_1.jpg"],
+    ["Перевал Абано", "Moahim", "CC BY-SA 4.0", "2019_-_Tusheti_National_Park_-_the_view_from_Abano_pass.jpg"],
+    ["Дорога в Тушети", "Jelger Groeneveld", "CC BY 2.0", "Sh44_in_Tusheti_NP_near_Khiso.jpg"],
+    ["Ушгули", "Florian Pinel", "CC BY-SA 3.0", "Ushguli_Svaneti_Georgia.JPG"],
+    ["Сигнахи", "lumoplank", "CC0", "Sighnaghi_-_Sighnaghi8090.jpg"],
+    ["Toyota Prius", "Vauxford", "CC BY-SA 4.0", "2018_Toyota_Prius_Excel_VVT-i_CVT_1.8.jpg"],
+    ["Hyundai Elantra", "Dinkun Chen", "CC BY-SA 4.0", "HYUNDAI_ELANTRA_CN7_China_(67).jpg"],
+    ["Toyota Camry", "Dinkun Chen", "CC BY-SA 4.0", "TOYOTA_CAMRY_(XV70)_China_(148).jpg"],
+    ["Kia Sportage", "Benespit", "CC BY-SA 4.0", "Kia_Sportage_(NQ5)_in_White,_front_left.jpg"],
+    ["Toyota RAV4", "Alexander Migl", "CC BY-SA 4.0", "Toyota_RAV4_Hybrid_(XA50)_DSC_2709_(cropped).jpg"],
+    ["Mitsubishi Pajero", "Nikolai Bulykin", "CC BY-SA 4.0", "Алматы,_Mitsubishi_Pajero_во_дворе_Казыбек_би-Наурызбай_батыра.jpg"],
+    ["Toyota Land Cruiser Prado", "Dinkun Chen", "CC BY-SA 4.0", "TOYOTA_LAND_CRUISER_PRADO_(J150)_China_(27).jpg"],
+    ["Mercedes-Benz G-Class", "Dinkun Chen", "CC BY-SA 4.0", "MERCEDES-BENZ_G-CLASS_(W463)_China_(4).jpg"],
+  ];
+
+  // Переводы. Русский текст берётся из страницы, здесь только английский.
+  const I18N = { en: {
+    "meta.title": "Mtis Gza — car rental in Georgia",
+    "meta.desc": "Car rental in Georgia: from Toyota Prius to Land Cruiser Prado and Mercedes G-Class. Delivery to Tbilisi and Kutaisi airports, unlimited mileage, cars ready for Kazbegi, Truso and Tusheti.",
+    "draft": 'Concept rental website for a portfolio · made by <a href="https://vitrina-web.com" target="_blank" rel="noopener">Vitrina</a>',
+    "nav.fleet": "Fleet", "nav.routes": "Routes", "nav.terms": "Terms", "nav.faq": "FAQ", "nav.contacts": "Contacts", "nav.book": "Booking",
+    "cta.book": "Book a car",
+    "alt.hero": "Gergeti Trinity Church and Mount Kazbek",
+    "hero.caption": "Gergeti · 2170 m<br>Kazbek · 5054 m",
+    "hero.eyebrow": "Car rental · Tbilisi · Kutaisi · Batumi",
+    "hero.title": "The Georgia you won’t see <em>from a tour bus window</em>",
+    "hero.lead": "From a Prius for the city to a Prado or G-Class for Truso and Tusheti. Airport delivery, insurance and unlimited mileage.",
+    "q.place": "Pick-up", "q.from": "From", "q.to": "Until", "q.trip": "Where to", "q.go": "Find a car",
+    "place.tbs": "Tbilisi Airport", "place.tbilisi": "Tbilisi, any address", "place.kut": "Kutaisi Airport", "place.bus": "Batumi",
+    "trip.city": "City and highway", "trip.mountains": "Mountains: Truso, Tusheti", "trip.lux": "I want a G-Class",
+    "f1.b": "from $30", "f1.s": "per day, Toyota Prius", "f2.b": "0 km", "f2.s": "mileage limit", "f3.b": "24/7", "f3.s": "airport delivery", "f4.b": "15 min", "f4.s": "paperwork",
+    "fleet.eyebrow": "Fleet", "fleet.title": "A car for your route, not the other way round",
+    "filter.all": "All", "filter.city": "City", "filter.suv": "Crossovers", "filter.x4": "4×4 for mountains", "filter.lux": "Premium",
+    "routes.eyebrow": "Routes", "routes.title": "Where to go and what to drive",
+    "routes.lead": "Distances are from Tbilisi. Before handover we’ll tell you where to refuel and where the road is tougher than it looks on the map.",
+    "alt.truso": "Truso Valley", "alt.gergeti": "Gergeti Trinity Church", "alt.tusheti": "Abano Pass, Tusheti", "alt.ushguli": "Ushguli, Svaneti", "alt.sighnaghi": "Sighnaghi, Kakheti", "alt.road": "Dirt road in Tusheti",
+    "r1.tag": "June — October", "r1.title": "Truso Valley",
+    "r1.text": "Mineral lakes, abandoned towers and silence. From Kobi village it’s a dirt road along the Terek — after rain, 4×4 only.",
+    "r1.m1": "170 km · 3.5 h", "r1.m2": "12 km dirt road",
+    "r2.tag": "All year", "r2.title": "Kazbegi and Gergeti",
+    "r2.text": "Along the Georgian Military Road over Jvari Pass, 2379 m. Any car will do in summer; in winter, winter tyres only.",
+    "r2.m1": "155 km · 3 h", "r2.m2": "asphalt",
+    "r3.tag": "June — September", "r3.title": "Tusheti",
+    "r3.text": "Abano Pass, 2850 m — one of the toughest roads in the Caucasus. We only send a Prado or Pajero and brief you on the route.",
+    "r3.m1": "230 km · 7 h",
+    "r4.tag": "May — October", "r4.title": "Svaneti and Ushguli",
+    "r4.text": "Svan towers below Shkhara. Asphalt to Mestia, then 45 km of switchbacks to Ushguli.", "r4.m1": "470 km · 8 h",
+    "r5.title": "Kakheti and Sighnaghi", "r5.text": "Wineries, the Alazani Valley and the city of love. Smooth roads — a Prius is plenty.", "r5.m1": "110 km · 2 h",
+    "need.x4": "4×4 required", "need.any": "any car", "need.suv": "crossover",
+    "awd.cap": "Road to Omalo, Tusheti", "awd.eyebrow": "Four-wheel drive", "awd.title": "When you really need a 4×4",
+    "awd.y": "required", "awd.w": "in winter", "awd.n": "not needed",
+    "awd.1": "<strong>Tusheti, Truso, Shatili, Mutso.</strong> Dirt, fords and rocks — only a body-on-frame SUV with low range.",
+    "awd.2": "<strong>Kazbegi and Gudauri, December to March.</strong> Jvari Pass sometimes closes, and without winter tyres you won’t be let through.",
+    "awd.3": "<strong>Tbilisi, Kakheti, Batumi, Borjomi.</strong> Good asphalt — take an economical sedan and spend the savings on khinkali.",
+    "terms.eyebrow": "Terms", "terms.title": "No fine print",
+    "t1.h": "Documents", "t1.p": "Passport and your national driving licence. No international permit needed. Driver aged 21+, 2+ years of experience.",
+    "t2.h": "Deposit", "t2.p": "From $100 for a sedan to $300 for an SUV, $1000 for the G-Class. Returned on the day you drop off the car.",
+    "t3.h": "Insurance", "t3.p": "Basic cover is included. Full cover with zero excess is +$10 a day — a parking scratch is not your problem.",
+    "t4.h": "Delivery", "t4.p": "Tbilisi Airport and any city address — free. Kutaisi and Batumi — $30. We meet you with a name sign at any hour.",
+    "t5.h": "Fuel", "t5.p": "Full to full. No surprise “refuelling at our rate” charges.",
+    "t6.h": "Driving to Armenia", "t6.p": "We arrange the power of attorney and border insurance — $50 per trip. Just let us know in advance.",
+    "book.eyebrow": "Booking", "book.title": "Price your trip",
+    "book.lead": "We reply on WhatsApp or Telegram within 15 minutes and send photos of the exact car you’ll get.",
+    "calc.label": "Your estimate", "calc.days": "Rental period", "calc.rate": "Price per day", "calc.extras": "Extras", "calc.deposit": "Deposit (refundable)", "calc.total": "Total",
+    "calc.note": "7+ days — 15% off, already included in the estimate.",
+    "form.car": "Car", "x.ins": "Full insurance +$10/day", "x.seat": "Child seat +$5/day", "x.arm": "Trip to Armenia +$50",
+    "form.name": "Name", "form.contact": "WhatsApp or Telegram", "form.comment": "Comment", "form.ph": "Flight number, route, requests",
+    "form.send": "Send request",
+    "form.ok": "Thank you! This is a demo website, so the request wasn’t sent anywhere — on a real site it would go straight to the owner’s Telegram.",
+    "faq.eyebrow": "FAQ", "faq.title": "What people usually ask",
+    "q1.q": "Do I need an international driving permit?", "q1.a": "No. In Georgia you can drive with a licence from most countries, including the EU, UK, US, Israel and CIS countries, as long as it’s in Latin or Cyrillic script.",
+    "q2.q": "Can I pick up a car at the airport at night?", "q2.a": "Yes. Most flights land in Tbilisi at night, so we meet guests at any hour. Send us your flight number — if it’s delayed, we’ll wait.",
+    "q3.q": "Which car should I take to Kazbegi?", "q3.a": "From May to October, any car — the road is paved. If you plan Truso or Juta, take a crossover or SUV. In winter, winter tyres only — we fit them free.",
+    "q4.q": "What if the car breaks down in the mountains?", "q4.a": "Call the number in your contract, it’s staffed 24/7. We’ll send a mechanic or bring a replacement. If it’s not your fault, it’s on us.",
+    "q5.q": "Can I pay by card?", "q5.a": "Yes: by card or in cash — lari, dollars or euros. The deposit can be left in cash or held on your card.",
+    "final.eyebrow": "Contacts", "final.title": "Got a route? We’ll find the car",
+    "final.text": "Tell us where you’re heading — we’ll suggest a car and send you the exact price.", "final.call": "Call us",
+    "o1.b": "Tbilisi Airport", "o1.s": "Meet & greet in arrivals with a name sign",
+    "o2.m": "Tbilisi · 9:00–21:00", "o2.b": "Office in Vake", "o2.s": "Or delivery to any address in the city",
+    "o3.b": "Kutaisi and Batumi", "o3.s": "Delivery by appointment",
+    "credits.title": "Photos: Wikimedia Commons, free licences",
+  }, ka: {
+    "meta.title": "Mtis Gza — მანქანის ქირაობა საქართველოში",
+    "meta.desc": "მანქანების ქირაობა საქართველოში: Toyota Prius-დან Land Cruiser Prado-მდე და Mercedes G-კლასამდე. მიწოდება თბილისისა და ქუთაისის აეროპორტებში, ულიმიტო გარბენი, მანქანები ყაზბეგის, თრუსოსა და თუშეთისთვის.",
+    "draft": 'ქირაობის საიტის კონცეპტი პორტფოლიოსთვის · ავტორი: <a href="https://vitrina-web.com" target="_blank" rel="noopener">Vitrina</a>',
+    "nav.fleet": "ავტოპარკი", "nav.routes": "მარშრუტები", "nav.terms": "პირობები", "nav.faq": "კითხვები", "nav.contacts": "კონტაქტი", "nav.book": "დაჯავშნა",
+    "cta.book": "დაჯავშნა",
+    "alt.hero": "გერგეტის სამება და მყინვარწვერი",
+    "hero.caption": "გერგეტი · 2170 მ<br>მყინვარწვერი · 5054 მ",
+    "hero.eyebrow": "მანქანის ქირაობა · თბილისი · ქუთაისი · ბათუმი",
+    "hero.title": "საქართველო, რომელიც <em>ტურისტული ავტობუსის ფანჯრიდან</em> არ ჩანს",
+    "hero.lead": "Prius ქალაქისთვის, Prado და G-კლასი — თრუსოსა და თუშეთისთვის. მიწოდება აეროპორტში, დაზღვევა და ულიმიტო გარბენი.",
+    "q.place": "სად აიყვანთ", "q.from": "აყვანა", "q.to": "დაბრუნება", "q.trip": "სად მიდიხართ", "q.go": "შერჩევა",
+    "place.tbs": "თბილისის აეროპორტი", "place.tbilisi": "თბილისი, მისამართზე", "place.kut": "ქუთაისის აეროპორტი", "place.bus": "ბათუმი",
+    "trip.city": "ქალაქი და ტრასა", "trip.mountains": "მთები: თრუსო, თუშეთი", "trip.lux": "მინდა G-კლასი",
+    "f1.b": "$30-დან", "f1.s": "დღეში, Toyota Prius", "f2.b": "0 კმ", "f2.s": "გარბენის ლიმიტი", "f3.b": "24/7", "f3.s": "მიწოდება აეროპორტში", "f4.b": "15 წუთი", "f4.s": "გაფორმება",
+    "fleet.eyebrow": "ავტოპარკი", "fleet.title": "მანქანა თქვენს მარშრუტს ერგება და არა პირიქით",
+    "filter.all": "ყველა", "filter.city": "ქალაქისთვის", "filter.suv": "კროსოვერები", "filter.x4": "4×4 მთისთვის", "filter.lux": "პრემიუმი",
+    "routes.eyebrow": "მარშრუტები", "routes.title": "სად წავიდეთ და რითი",
+    "routes.lead": "მანძილი მითითებულია თბილისიდან. მანქანის გადაცემისას გეტყვით, სად ჩაასხათ საწვავი და სად არის გზა რუკაზე უფრო რთული.",
+    "alt.truso": "თრუსოს ხეობა", "alt.gergeti": "გერგეტის სამება", "alt.tusheti": "აბანოს უღელტეხილი, თუშეთი", "alt.ushguli": "უშგული, სვანეთი", "alt.sighnaghi": "სიღნაღი, კახეთი", "alt.road": "გრუნტის გზა თუშეთში",
+    "r1.tag": "ივნისი — ოქტომბერი", "r1.title": "თრუსოს ხეობა",
+    "r1.text": "მინერალური ტბები, მიტოვებული კოშკები და სიჩუმე. სოფელ კობიდან თერგის გასწვრივ გრუნტის გზაა — წვიმის შემდეგ მხოლოდ 4×4.",
+    "r1.m1": "170 კმ · 3,5 სთ", "r1.m2": "12 კმ გრუნტი",
+    "r2.tag": "მთელი წელი", "r2.title": "ყაზბეგი და გერგეტი",
+    "r2.text": "საქართველოს სამხედრო გზით, ჯვრის უღელტეხილზე (2379 მ). ზაფხულში ნებისმიერი მანქანა გამოდგება, ზამთარში — მხოლოდ ზამთრის საბურავებით.",
+    "r2.m1": "155 კმ · 3 სთ", "r2.m2": "ასფალტი",
+    "r3.tag": "ივნისი — სექტემბერი", "r3.title": "თუშეთი",
+    "r3.text": "აბანოს უღელტეხილი, 2850 მ — კავკასიის ერთ-ერთი ყველაზე რთული გზა. აქ მხოლოდ Prado-ს ან Pajero-ს ვაძლევთ და მარშრუტს წინასწარ გაგაცნობთ.",
+    "r3.m1": "230 კმ · 7 სთ",
+    "r4.tag": "მაისი — ოქტომბერი", "r4.title": "სვანეთი და უშგული",
+    "r4.text": "სვანური კოშკები შხარის ძირში. მესტიამდე ასფალტია, შემდეგ 45 კმ სერპანტინი უშგულამდე.", "r4.m1": "470 კმ · 8 სთ",
+    "r5.title": "კახეთი და სიღნაღი", "r5.text": "მარნები, ალაზნის ველი და სიყვარულის ქალაქი. გზა სწორია — Prius სავსებით საკმარისია.", "r5.m1": "110 კმ · 2 სთ",
+    "need.x4": "საჭიროა 4×4", "need.any": "ნებისმიერი მანქანა", "need.suv": "კროსოვერი",
+    "awd.cap": "გზა ომალოსკენ, თუშეთი", "awd.eyebrow": "სრული ამძრავი", "awd.title": "როდის გჭირდებათ ნამდვილად 4×4",
+    "awd.y": "საჭიროა", "awd.w": "ზამთარში", "awd.n": "არ არის საჭირო",
+    "awd.1": "<strong>თუშეთი, თრუსო, შატილი, მუცო.</strong> გრუნტი, ფონები და ქვები — მხოლოდ ჩარჩოიანი ჯიპი დაწევის გადაცემით.",
+    "awd.2": "<strong>ყაზბეგი და გუდაური, დეკემბრიდან მარტამდე.</strong> ჯვრის უღელტეხილი ზოგჯერ იკეტება, ზამთრის საბურავების გარეშე კი არ გაგატარებენ.",
+    "awd.3": "<strong>თბილისი, კახეთი, ბათუმი, ბორჯომი.</strong> კარგი ასფალტია — აიღეთ ეკონომიური სედანი, დაზოგილი კი ხინკალზე დახარჯეთ.",
+    "terms.eyebrow": "პირობები", "terms.title": "წვრილი შრიფტის გარეშე",
+    "t1.h": "დოკუმენტები", "t1.p": "პასპორტი და თქვენი ქვეყნის მართვის მოწმობა. საერთაშორისო მოწმობა საჭირო არ არის. მძღოლი 21 წლიდან, 2 წლის სტაჟით.",
+    "t2.h": "დეპოზიტი", "t2.p": "სედანზე $100-დან, ჯიპზე $300-მდე, G-კლასზე $1000. გიბრუნდებათ მანქანის დაბრუნების დღესვე.",
+    "t3.h": "დაზღვევა", "t3.p": "საბაზისო დაზღვევა ფასში შედის. სრული, ფრანშიზის გარეშე — +$10 დღეში: პარკინგზე მიღებული ნაკაწრი თქვენი საზრუნავი აღარ არის.",
+    "t4.h": "მიწოდება", "t4.p": "თბილისის აეროპორტში და ქალაქის ნებისმიერ მისამართზე — უფასოდ. ქუთაისსა და ბათუმში — $30. დაგხვდებით სახელიანი დაფით ნებისმიერ საათზე.",
+    "t5.h": "საწვავი", "t5.p": "იღებთ სავსე ავზით, აბრუნებთ სავსე ავზით. „ჩვენი ტარიფით შევსების“ მოულოდნელი ხარჯების გარეშე.",
+    "t6.h": "სომხეთში გასვლა", "t6.p": "მინდობილობასა და სასაზღვრო დაზღვევას ჩვენ ვაფორმებთ — $50 ერთ მოგზაურობაზე. უბრალოდ წინასწარ შეგვატყობინეთ.",
+    "book.eyebrow": "დაჯავშნა", "book.title": "გამოთვალეთ მოგზაურობის ფასი",
+    "book.lead": "WhatsApp-ში ან Telegram-ში 15 წუთში გიპასუხებთ და გამოგიგზავნით სწორედ იმ მანქანის ფოტოებს, რომელსაც მიიღებთ.",
+    "calc.label": "თქვენი გათვლა", "calc.days": "ვადა", "calc.rate": "ფასი დღეში", "calc.extras": "დამატებითი", "calc.deposit": "დეპოზიტი (დაგიბრუნდებათ)", "calc.total": "სულ",
+    "calc.note": "7 დღიდან — 15% ფასდაკლება, უკვე გათვალისწინებულია.",
+    "form.car": "მანქანა", "x.ins": "სრული დაზღვევა +$10/დღე", "x.seat": "ბავშვის სავარძელი +$5/დღე", "x.arm": "სომხეთში გასვლა +$50",
+    "form.name": "სახელი", "form.contact": "WhatsApp ან Telegram", "form.comment": "კომენტარი", "form.ph": "რეისის ნომერი, მარშრუტი, სურვილები",
+    "form.send": "განაცხადის გაგზავნა",
+    "form.ok": "გმადლობთ! ეს საიტის დემო-ვერსიაა, ამიტომ განაცხადი არსად გაიგზავნა — ნამდვილ საიტზე ის მაშინვე მფლობელის Telegram-ში მივიდოდა.",
+    "faq.eyebrow": "კითხვები", "faq.title": "რას გვეკითხებიან ყველაზე ხშირად",
+    "q1.q": "მჭირდება საერთაშორისო მართვის მოწმობა?", "q1.a": "არა. საქართველოში შეგიძლიათ მართოთ მანქანა ქვეყნების უმეტესობის მოწმობით — ევროკავშირის, დიდი ბრიტანეთის, აშშ-ის, ისრაელისა და დსთ-ის ქვეყნების ჩათვლით, თუ ის ლათინურად ან კირილიცით არის შედგენილი.",
+    "q2.q": "შეიძლება აეროპორტში მანქანის აყვანა ღამით?", "q2.a": "კი. რეისების უმეტესობა თბილისში ღამით ჩამოდის, ამიტომ სტუმრებს ნებისმიერ საათზე ვხვდებით. გამოგვიგზავნეთ რეისის ნომერი — თუ დაგვიანდება, დაგელოდებით.",
+    "q3.q": "რომელი მანქანა ავიღო ყაზბეგისთვის?", "q3.a": "მაისიდან ოქტომბრამდე — ნებისმიერი, გზა ასფალტიანია. თუ თრუსოში ან ჯუთაში აპირებთ, აიღეთ კროსოვერი ან ჯიპი. ზამთარში — მხოლოდ ზამთრის საბურავებით, მათ უფასოდ ვაყენებთ.",
+    "q4.q": "რა ვქნა, თუ მანქანა მთაში გაფუჭდა?", "q4.a": "დარეკეთ ხელშეკრულებაში მითითებულ ნომერზე, ის 24/7 მუშაობს. გამოგიგზავნით ხელოსანს ან შემცვლელ მანქანას. თუ ბრალი თქვენი არ არის, ხარჯი ჩვენზეა.",
+    "q5.q": "შეიძლება ბარათით გადახდა?", "q5.a": "კი: ბარათით ან ნაღდი ფულით — ლარით, დოლარით ან ევროთი. დეპოზიტი შეგიძლიათ დატოვოთ ნაღდად ან დაიბლოკოს ბარათზე.",
+    "final.eyebrow": "კონტაქტი", "final.title": "მარშრუტი გაქვთ? მანქანას ჩვენ შევარჩევთ",
+    "final.text": "მოგვწერეთ, სად აპირებთ წასვლას — გირჩევთ მანქანას და გამოგიგზავნით ზუსტ ფასს.", "final.call": "დაგვირეკეთ",
+    "o1.b": "თბილისის აეროპორტი", "o1.s": "შეხვედრა ჩამოსვლის დარბაზში სახელიანი დაფით",
+    "o2.m": "თბილისი · 9:00–21:00", "o2.b": "ოფისი ვაკეში", "o2.s": "ან მიწოდება ქალაქის ნებისმიერ მისამართზე",
+    "o3.b": "ქუთაისი და ბათუმი", "o3.s": "მიწოდება წინასწარი შეთანხმებით",
+    "credits.title": "ფოტოები: Wikimedia Commons, თავისუფალი ლიცენზიები",
+  } };
+
+  const $ = (id) => document.getElementById(id);
+  let lang = "ru";
+  const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+  const T = {
+    ru: { from: "от 7 суток", day: "/ сутки", choose: "Выбрать", days: (n) => n + " " + plural(n, ["сутки", "суток", "суток"]), plates: "номера на фото скрыты", none: "нет" },
+    en: { from: "7+ days", day: "/ day", choose: "Select", days: (n) => n + (n === 1 ? " day" : " days"), plates: "licence plates hidden", none: "none" },
+    ka: { from: "7 დღიდან", day: "/ დღე", choose: "არჩევა", days: (n) => n + " დღე", plates: "ფოტოებზე ნომრები დაფარულია", none: "არა" },
+  };
+  function plural(n, f) { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? f[0] : a >= 2 && a <= 4 && (b < 12 || b > 14) ? f[1] : f[2]; }
+
+  // Карточки машин
+  function renderFleet() {
+    const t = T[lang];
+    $("fleet-grid").innerHTML = CARS.map((c) => `
+      <article class="car" data-cat="${c.cat}">
+        <div class="car-photo"><img src="images/${c.img}" alt="${c.name}" loading="lazy">
+          <span class="car-class mono ${c.cat === "x4" ? "x4" : c.cat === "lux" ? "lux" : ""}">${CLASS[c.cat][lang]}</span></div>
+        <div class="car-body">
+          <h3>${c.name} <span class="car-year">${c.year}</span></h3>
+          <ul class="specs">${c[lang].map((s) => `<li>${s}</li>`).join("")}</ul>
+          <div class="car-price">
+            <div><b>${money(c.price)}</b> <span style="color:var(--muted)">${t.day}</span><small>${t.from} — ${money(c.price * LONG)}</small></div>
+            <button class="btn btn-dark" type="button" data-pick="${c.id}">${t.choose}</button>
+          </div>
+        </div>
+      </article>`).join("");
+    $("f-car").innerHTML = CARS.map((c) => `<option value="${c.id}">${c.name} — ${money(c.price)} ${t.day}</option>`).join("");
+    $("f-car").value = selected;
+    applyFilter(currentFilter);
+  }
+
+  // Фильтр автопарка
+  let currentFilter = "all";
+  function applyFilter(cat) {
+    currentFilter = cat;
+    document.querySelectorAll(".filter").forEach((b) => b.classList.toggle("active", b.dataset.filter === cat));
+    document.querySelectorAll(".car").forEach((el) => el.classList.toggle("hidden", cat !== "all" && el.dataset.cat !== cat));
+  }
+  document.querySelectorAll(".filter").forEach((b) => b.addEventListener("click", () => applyFilter(b.dataset.filter)));
+
+  // Калькулятор
+  let selected = "prius";
+  function calc() {
+    const c = CARS.find((x) => x.id === $("f-car").value) || CARS[0];
+    selected = c.id;
+    const t = T[lang];
+    const from = new Date($("f-from").value), to = new Date($("f-to").value);
+    const days = Math.max(1, Math.round((to - from) / 864e5) || 1);
+    const rate = days >= 7 ? c.price * LONG : c.price;
+    let extras = 0;
+    document.querySelectorAll("[data-extra]").forEach((x) => { if (x.checked) extras += (+x.dataset.extra) * days + (+(x.dataset.once || 0)); });
+    if ($("f-place").value === "kut" || $("f-place").value === "bus") extras += 30;
+    $("calc-img").src = "images/" + c.img;
+    $("calc-name").textContent = c.name;
+    $("calc-spec").textContent = c.year + " · " + c[lang].slice(0, 2).join(" · ");
+    $("calc-days").textContent = t.days(days);
+    $("calc-rate").textContent = money(rate);
+    $("calc-extras").textContent = extras ? money(extras) : t.none;
+    $("calc-deposit").textContent = money(c.deposit);
+    $("calc-total").textContent = money(rate * days + extras);
+  }
+  ["f-car", "f-from", "f-to", "f-place"].forEach((id) => $(id).addEventListener("input", calc));
+  document.querySelectorAll("[data-extra]").forEach((x) => x.addEventListener("change", calc));
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-pick]");
+    if (!b) return;
+    $("f-car").value = b.dataset.pick;
+    calc();
+    $("book").scrollIntoView();
+  });
+
+  // Даты по умолчанию: через неделю, на 5 суток
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const d1 = new Date(Date.now() + 7 * 864e5), d2 = new Date(Date.now() + 12 * 864e5);
+  ["q-from", "f-from"].forEach((id) => { $(id).value = iso(d1); $(id).min = iso(new Date()); });
+  ["q-to", "f-to"].forEach((id) => { $(id).value = iso(d2); $(id).min = iso(new Date()); });
+
+  // Возврат не раньше чем через сутки после получения
+  function keepOrder(fromId, toId) {
+    const from = $(fromId).value;
+    if (!from) return;
+    const next = iso(new Date(new Date(from).getTime() + 864e5));
+    $(toId).min = next;
+    if (!$(toId).value || $(toId).value < next) $(toId).value = next;
+  }
+  [["q-from", "q-to"], ["f-from", "f-to"]].forEach(([a, b]) => {
+    $(a).addEventListener("change", () => { keepOrder(a, b); calc(); });
+    keepOrder(a, b);
+  });
+
+  // Быстрый поиск на первом экране: переносит даты в форму и фильтрует автопарк
+  $("quick").addEventListener("submit", (e) => {
+    e.preventDefault();
+    $("f-from").value = $("q-from").value;
+    $("f-to").value = $("q-to").value;
+    keepOrder("f-from", "f-to");
+    $("f-place").value = $("q-place").value;
+    const trip = $("q-trip").value;
+    applyFilter(trip);
+    if (trip === "x4") $("f-car").value = "prado";
+    if (trip === "lux") $("f-car").value = "gclass";
+    calc();
+    $("fleet").scrollIntoView();
+  });
+
+  $("form").addEventListener("submit", (e) => { e.preventDefault(); $("form-ok").classList.add("show"); });
+
+  // Авторы фото
+  $("credits").innerHTML = CREDITS.map(([what, who, lic, file]) =>
+    `<li>${what} — ${who}, <a href="https://commons.wikimedia.org/wiki/File:${encodeURI(file)}" target="_blank" rel="noopener">${lic}</a></li>`).join("")
+    + `<li id="plates-note"></li>`;
+
+  // Переключение языка
+  const nodes = document.querySelectorAll("[data-i18n]");
+  const altNodes = document.querySelectorAll("[data-i18n-alt]");
+  const phNodes = document.querySelectorAll("[data-i18n-ph]");
+  const metaDesc = document.querySelector('meta[name="description"]');
+  const RU = { "meta.title": document.title, "meta.desc": metaDesc.content };
+  nodes.forEach((el) => { RU[el.dataset.i18n] ??= el.innerHTML; });
+  altNodes.forEach((el) => { RU[el.dataset.i18nAlt] ??= el.alt; });
+  phNodes.forEach((el) => { RU[el.dataset.i18nPh] ??= el.placeholder; });
+
+  function setLang(l) {
+    lang = l;
+    const dict = l === "ru" ? RU : I18N[l];
+    const t = (k) => dict[k] ?? RU[k];
+    nodes.forEach((el) => { el.innerHTML = t(el.dataset.i18n); });
+    altNodes.forEach((el) => { el.alt = t(el.dataset.i18nAlt); });
+    phNodes.forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+    document.title = t("meta.title");
+    metaDesc.content = t("meta.desc");
+    document.documentElement.lang = l;
+    document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === l));
+    $("plates-note").textContent = T[l].plates;
+    renderFleet();
+    calc();
+    try { localStorage.setItem("lang", l); } catch (e) {}
+  }
+
+  function initialLang() {
+    const fromUrl = new URLSearchParams(location.search).get("lang");
+    if (["ru", "en", "ka"].includes(fromUrl)) return fromUrl;
+    try { const saved = localStorage.getItem("lang"); if (["ru", "en", "ka"].includes(saved)) return saved; } catch (e) {}
+    const nav = (navigator.language || "en").slice(0, 2);
+    return nav === "ka" ? "ka" : ["ru", "uk", "be", "kk"].includes(nav) ? "ru" : "en";
+  }
+
+  document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+  setLang(initialLang());
+</script>
+</body>
+</html>
