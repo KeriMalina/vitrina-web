@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Таня — фотограф в Аммане: портреты, love story, семейные съёмки</title>
-<meta name="description" content="Фотограф в Аммане: портретные, семейные и love story съёмки. Живые эмоции, естественный свет, чёрно-белая и цветная обработка.">
+<title>Таня — фотограф в Аммане: портреты, love story и беременность</title>
+<meta name="description" content="Фотограф в Аммане: портретные, love story и pregnancy съёмки. Живые эмоции, естественный свет, чёрно-белая и цветная обработка.">
 <!-- Черновик: убрать noindex при запуске -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,12 +74,35 @@
   /* Первый экран */
   .hero { position: relative; min-height: min(calc(100svh - 106px), 920px); display: flex; align-items: flex-end; padding: 0 0 80px; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; }
-  .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; }
   .hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,16,.1) 0%, rgba(17,17,16,.3) 40%, rgba(17,17,16,.95) 100%); }
   .hero .container { position: relative; }
+  /* На широком экране вертикальное фото справа, текст на тёмном фоне слева — иначе надписи ложатся на лицо.
+     Девушка на фото стоит у левого края кадра, поэтому фото уже и переход короткий */
+  @media (min-width: 961px) {
+    .hero-bg img { position: absolute; inset: 0 0 0 auto; width: 50%; object-position: 50% 25%; }
+    /* Текст занимает только левую половину: начинается там же, где остальной сайт, и заканчивается до фото */
+    .hero .container { width: 50%; max-width: none; margin: 0; padding: 0 40px 0 max(24px, calc(50% - 620px + 24px)); }
+    .hero .container h1 { font-size: min(4.4vw, 4.2rem); }
+    .hero .container > * { max-width: 100%; }
+    [dir="rtl"] .hero .container { margin: 0 0 0 auto; padding: 0 max(24px, calc(50% - 620px + 24px)) 0 40px; }
+    .hero-bg::after { background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 50%, rgba(17,17,16,.3) 56%, rgba(17,17,16,0) 62%),
+                                  linear-gradient(180deg, rgba(17,17,16,.7) 0%, rgba(17,17,16,0) 40%, rgba(17,17,16,0) 60%, rgba(17,17,16,.9) 100%); }
+    /* Арабский читается справа налево: текст справа, значит фото слева */
+    [dir="rtl"] .hero-bg img { inset: 0 auto 0 0; }
+    [dir="rtl"] .hero-bg::after { background: linear-gradient(270deg, var(--bg) 0%, var(--bg) 50%, rgba(17,17,16,.3) 56%, rgba(17,17,16,0) 62%),
+                                  linear-gradient(180deg, rgba(17,17,16,.7) 0%, rgba(17,17,16,0) 40%, rgba(17,17,16,0) 60%, rgba(17,17,16,.9) 100%); }
+  }
+  /* На телефоне и планшете фото сверху, текст всегда начинается под ним — при любой высоте экрана лицо не закрыто */
+  @media (max-width: 960px) {
+    .hero { min-height: 0; padding-top: 47svh; }
+    .hero-bg img { height: 55svh; object-position: 22% 25%; }
+    .hero-bg::after { background: linear-gradient(180deg, rgba(17,17,16,0) 30svh, rgba(17,17,16,.8) 47svh, var(--bg) 55svh); }
+  }
   .hero h1 { font-size: clamp(3rem, 8vw, 6.4rem); max-width: 900px; letter-spacing: -.015em; }
   [lang="ar"] .hero h1 { letter-spacing: 0; }
   .hero h1 em { color: var(--accent); }
+  .hero h1 .nowrap { white-space: nowrap; } /* «По-настоящему» не рвём на дефисе */
   .hero-lead { font-size: 1.15rem; color: var(--text-2); max-width: 540px; margin: 22px 0 34px; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .hero-meta { position: absolute; inset-inline-end: 24px; bottom: 6px; color: var(--text-2); font-size: .85rem; text-align: end; }
@@ -96,6 +119,10 @@
   .shot figcaption { position: absolute; inset-inline-start: 16px; bottom: 14px; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; opacity: 0; transform: translateY(6px); transition: .3s; }
   .shot:hover figcaption { opacity: 1; transform: none; }
   .shot.hidden { display: none; }
+  /* С JS галерея раскладывается по рядам: 1-е фото слева вверху, 2-е справа от него и т. д. (порядок задаёт Таня) */
+  .gallery.rows { columns: auto; display: flex; gap: 14px; align-items: flex-start; }
+  .gallery-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+  .gallery.rows .shot { margin: 0; }
   .gallery-more { margin-top: 28px; color: var(--text-2); }
   .gallery-more a { color: var(--accent); border-bottom: 1px solid currentColor; }
 
@@ -107,7 +134,7 @@
 
   /* Съёмки */
   .packages { background: var(--bg-soft); }
-  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; max-width: 1200px; }
   .package { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; background: var(--surface); }
   .package > img { aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; }
   .package-body { padding: 30px; display: flex; flex-direction: column; flex: 1; }
@@ -168,9 +195,11 @@
   @media (max-width: 560px) {
     .container { padding: 0 16px; }
     section { padding: 72px 0; }
-    .hero { min-height: min(88svh, 720px); padding-bottom: 48px; }
+    .hero { padding-bottom: 48px; }
+    .hero h1 { font-size: min(3rem, 11.5vw); } /* «По-настоящему.» помещается в строку даже на 320 px */
     .header .btn { display: none; }
     .gallery { column-gap: 8px; }
+    .gallery.rows, .gallery-col { gap: 8px; }
     .shot { margin-bottom: 8px; border-radius: 10px; }
     .process-grid { grid-template-columns: 1fr; }
     .about-facts { gap: 12px; }
@@ -206,11 +235,11 @@
 <main id="top">
   <!-- Первый экран -->
   <section class="hero">
-    <div class="hero-bg"><img src="images/hero.jpg" alt="" width="1200" height="1600"></div>
+    <div class="hero-bg"><img src="images/portrait-08.jpg" alt="" width="1200" height="1600"></div>
     <div class="container">
-      <p class="eyebrow" data-i18n="hero.eyebrow">Фотограф в Аммане · personal · family · love story</p>
-      <h1 data-i18n="hero.title">Снимаю вас <em>настоящими</em></h1>
-      <p class="hero-lead" data-i18n="hero.lead">Портретные, семейные и love story съёмки в Аммане. Спокойно и без зажатых поз — с вниманием к свету, эмоциям и деталям.</p>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Фотограф в Аммане · personal · love story · pregnancy</p>
+      <h1 data-i18n="hero.title">Легко. Свободно. <em class="nowrap">По-настоящему.</em></h1>
+      <p class="hero-lead" data-i18n="hero.lead">Портретные, love story и pregnancy съёмки в Аммане. Спокойно и без зажатых поз — с вниманием к свету, эмоциям и деталям.</p>
       <div class="hero-actions">
         <a href="#portfolio" class="btn btn-primary" data-i18n="hero.btn1">Смотреть работы</a>
         <a href="#booking" class="btn btn-ghost" data-i18n="hero.btn2">Обсудить съёмку</a>
@@ -225,23 +254,42 @@
       <p class="eyebrow" data-i18n="nav.portfolio">Портфолио</p>
       <h2 class="section-title" data-i18n="portfolio.title">Истории, которые я <em>сохранила</em></h2>
       <div class="filters" role="group">
-        <button class="filter active" data-filter="all" data-i18n="cat.all">Все</button>
-        <button class="filter" data-filter="personal" data-i18n="cat.personal">Personal</button>
-        <button class="filter" data-filter="love" data-i18n="cat.love">Love story</button>
-        <button class="filter" data-filter="family" data-i18n="cat.family">Family</button>
+        <button type="button" class="filter active" data-filter="all" data-i18n="cat.all">Все</button>
+        <button type="button" class="filter" data-filter="personal" data-i18n="cat.personal">Personal</button>
+        <button type="button" class="filter" data-filter="love" data-i18n="cat.love">Love story</button>
+        <button type="button" class="filter" data-filter="pregnancy" data-i18n="cat.pregnancy">Pregnancy</button>
       </div>
       <div class="gallery" id="gallery">
-        <figure class="shot" data-cat="personal"><img src="images/portrait-05.jpg" alt="Девушка в рубашке и галстуке у окна, чёрно-белый портрет" width="1200" height="1496" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
-        <figure class="shot" data-cat="love"><img src="images/love-02.jpg" alt="Невеста с букетом в ретро-кабриолете" width="1200" height="1592" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
-        <figure class="shot" data-cat="personal"><img src="images/portrait-07.jpg" alt="Рыжеволосая девушка в поле с лошадьми" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
-        <figure class="shot" data-cat="personal"><img src="images/portrait-09.jpg" alt="Девушка в кресле в винтажном интерьере" width="1200" height="1511" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
-        <figure class="shot" data-cat="family"><img src="images/family-01.jpg" alt="Руки на животе будущей мамы, камень-сердце" width="1148" height="1438" loading="lazy"><figcaption data-i18n="cat.family">Family</figcaption></figure>
-        <figure class="shot" data-cat="personal"><img src="images/portrait-01.jpg" alt="Девушка в белой рубашке на камнях у моря" width="1200" height="1356" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-13.jpg" alt="Жених и невеста на свадебном ужине, чёрно-белый кадр" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-14.jpg" alt="Платье и фата невесты, чёрно-белый кадр" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
         <figure class="shot" data-cat="personal"><img src="images/portrait-11.jpg" alt="Девушка в белом костюме в старинном зале" width="1200" height="1599" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
-        <figure class="shot" data-cat="personal"><img src="images/portrait-04.jpg" alt="Портрет девушки на песке" width="1200" height="1461" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
-        <figure class="shot" data-cat="personal"><img src="images/portrait-10.jpg" alt="Девушка на балконе с видом на Амман" width="1200" height="1511" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
-        <figure class="shot" data-cat="personal"><img src="images/portrait-06.jpg" alt="Девушка сидит у окна, чёрно-белый портрет" width="1200" height="1496" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
         <figure class="shot" data-cat="personal"><img src="images/portrait-02.jpg" alt="Профиль девушки у моря, чёрно-белый портрет" width="1200" height="1454" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-04.jpg" alt="Портрет девушки на песке" width="1200" height="1461" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-03.jpg" alt="Пара обнимается на пляже" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-04.jpg" alt="Пара сидит на камнях у моря" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="pregnancy"><img src="images/pregnancy-05.jpg" alt="Пара в ожидании малыша идёт по полю" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.pregnancy">Pregnancy</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-02.jpg" alt="Невеста с букетом в ретро-кабриолете" width="1200" height="1592" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-10.jpg" alt="Поцелуй пары в лучах солнца" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-09.jpg" alt="Пара смеётся на камнях у моря" width="1041" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-09.jpg" alt="Девушка в кресле в винтажном интерьере" width="1200" height="1511" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-06.jpg" alt="Девушка сидит у окна, чёрно-белый портрет" width="1200" height="1496" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="pregnancy"><img src="images/pregnancy-06.jpg" alt="Будущая мама в белом в поле" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.pregnancy">Pregnancy</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-05.jpg" alt="Девушка в рубашке и галстуке у окна, чёрно-белый портрет" width="1200" height="1496" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="pregnancy"><img src="images/pregnancy-01.jpg" alt="Будущая мама обнимает живот, чёрно-белый кадр" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.pregnancy">Pregnancy</figcaption></figure>
+        <figure class="shot" data-cat="pregnancy"><img src="images/pregnancy-02.jpg" alt="Будущая мама у камней на берегу" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.pregnancy">Pregnancy</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-07.jpg" alt="Рыжеволосая девушка в поле с лошадьми" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-05.jpg" alt="Девушка запрыгнула на руки парню на пляже" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="pregnancy"><img src="images/pregnancy-03.jpg" alt="Руки на животе будущей мамы, камень-сердце" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.pregnancy">Pregnancy</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-06.jpg" alt="Пара с доской для сёрфинга на закате" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="pregnancy"><img src="images/pregnancy-04.jpg" alt="Будущая мама в поле, чёрно-белый портрет" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.pregnancy">Pregnancy</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-01.jpg" alt="Девушка в белой рубашке на камнях у моря" width="1200" height="1356" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-07.jpg" alt="Пара бежит к волнам с доской для сёрфинга" width="1600" height="1067" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-15.jpg" alt="Невеста в фате улыбается, чёрно-белый портрет" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-08.jpg" alt="Пара с собакой в поле" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="personal"><img src="images/portrait-10.jpg" alt="Девушка на балконе с видом на Амман" width="1200" height="1511" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-16.jpg" alt="Невеста в профиль под фатой, чёрно-белый портрет" width="1067" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-11.jpg" alt="Пара на крыше ретро-фургона среди гор" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
+        <figure class="shot" data-cat="love"><img src="images/love-12.jpg" alt="Пара дурачится у деревянной арки в поле" width="1280" height="1600" loading="lazy"><figcaption data-i18n="cat.love">Love story</figcaption></figure>
         <figure class="shot" data-cat="personal"><img src="images/portrait-08.jpg" alt="Девушка в поле рядом с лошадьми" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
         <figure class="shot" data-cat="personal"><img src="images/portrait-03.jpg" alt="Девушка в белой рубашке лежит на песке у воды" width="1200" height="1452" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
         <figure class="shot" data-cat="personal"><img src="images/portrait-12.jpg" alt="Портрет девушки в белой рубашке в полумраке" width="1200" height="1600" loading="lazy"><figcaption data-i18n="cat.personal">Personal</figcaption></figure>
@@ -284,14 +332,14 @@
           </div>
         </article>
         <article class="package">
-          <img src="images/family-01.jpg" alt="" width="1148" height="1438" loading="lazy">
+          <img src="images/pregnancy-01.jpg" alt="" width="1280" height="1600" loading="lazy" style="object-position:50% 62%">
           <div class="package-body">
-            <h3 data-i18n="cat.family">Family</h3>
+            <h3 data-i18n="cat.pregnancy">Pregnancy</h3>
             <div class="package-price" data-i18n="price.tbd">Стоимость уточняется</div>
             <ul>
-              <li data-i18n="p3.li1">Семейная съёмка с детьми</li>
-              <li data-i18n="p3.li2">Съёмка в ожидании малыша</li>
-              <li data-i18n="p3.li3">Дома или на прогулке</li>
+              <li data-i18n="p3.li1">Съёмка в ожидании малыша</li>
+              <li data-i18n="p3.li2">Можно вместе с партнёром</li>
+              <li data-i18n="p3.li3">Бережно и в комфортном для вас темпе</li>
             </ul>
             <a href="#booking" class="btn btn-ghost" data-i18n="btn.discuss">Обсудить</a>
           </div>
@@ -325,7 +373,7 @@
         <p data-i18n="about.p2">Снимала в России, Вьетнаме, Шри-Ланке и Иордании, работала на backstage и fashion week. На съёмке я рядом: подскажу позу, поправлю волосы и сделаю так, чтобы вам было спокойно.</p>
         <div class="about-facts">
           <div><strong data-i18n="f1.n">4 страны</strong><span data-i18n="f1.t">съёмок</span></div>
-          <div><strong data-i18n="f2.n">3 жанра</strong><span data-i18n="f2.t">personal, family, love story</span></div>
+          <div><strong data-i18n="f2.n">3 жанра</strong><span data-i18n="f2.t">personal, love story и pregnancy</span></div>
           <div><strong data-i18n="f3.n">ч/б и цвет</strong><span data-i18n="f3.t">обработка на выбор</span></div>
         </div>
       </div>
@@ -377,9 +425,9 @@
   </div>
 </footer>
 
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox-close" aria-label="×">×</button>
-  <img alt="">
+<div class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" aria-label="Закрыть">×</button>
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="">
 </div>
 
 <script>
@@ -387,25 +435,25 @@
   const IG = '<a href="https://www.instagram.com/artt.muse/" target="_blank" rel="noopener">@artt.muse</a>';
   const I18N = {
     en: {
-      "meta.title": "Tanya — photographer in Amman: portraits, love story, family sessions",
-      "meta.desc": "Photographer in Amman: portrait, family and love story sessions. Real emotions, natural light, black-and-white and colour editing.",
+      "meta.title": "Tanya — photographer in Amman: portraits, love story and maternity",
+      "meta.desc": "Photographer in Amman: portrait, love story and maternity sessions. Real emotions, natural light, black-and-white and colour editing.",
       "draft": '<a href="../../index.html" style="text-decoration:underline">← Back to Vitrina</a> · A client website made by Vitrina',
       "nav.portfolio": "Portfolio", "nav.shoots": "Sessions", "nav.process": "How it works", "nav.about": "About me", "nav.faq": "FAQ", "nav.booking": "Booking",
       "cta.book": "Book a session",
-      "hero.eyebrow": "Photographer in Amman · personal · family · love story",
-      "hero.title": "Capturing you <em>as you are</em>",
-      "hero.lead": "Portrait, family and love story sessions in Amman. Relaxed, with no stiff poses — and with attention to light, emotion and detail.",
+      "hero.eyebrow": "Photographer in Amman · personal · love story · pregnancy",
+      "hero.title": "Easy. Free. <em>For real.</em>",
+      "hero.lead": "Portrait, love story and maternity sessions in Amman. Relaxed, with no stiff poses — and with attention to light, emotion and detail.",
       "hero.btn1": "View portfolio", "hero.btn2": "Discuss a session",
       "hero.meta": "Amman, Jordan<br>Also shooting while travelling",
       "portfolio.title": "Stories I've <em>kept</em>",
       "portfolio.more": "More work on Instagram " + IG,
-      "cat.all": "All", "cat.personal": "Personal", "cat.love": "Love story", "cat.family": "Family",
+      "cat.all": "All", "cat.personal": "Personal", "cat.love": "Love story", "cat.pregnancy": "Pregnancy",
       "shoots.title": "Choose your session",
       "shoots.lead": "Every session includes help with styling and location, colour or B&amp;W editing and an online gallery to download your photos.",
       "price.tbd": "Price on request",
       "p1.li1": "Individual session", "p1.li2": "City, nature or interior", "p1.li3": "I'll show you how to move in the frame",
       "p2.li1": "Session for couples", "p2.li2": "Anniversary, engagement or wedding", "p2.li3": "Real emotions instead of poses",
-      "p3.li1": "Family session with kids", "p3.li2": "Maternity session", "p3.li3": "At home or outdoors",
+      "p3.li1": "Maternity session", "p3.li2": "Your partner is welcome to join", "p3.li3": "Gentle and at a pace that suits you",
       "btn.discuss": "Enquire",
       "process.eyebrow": "How a session goes", "process.title": "You don't need to know how to pose",
       "s1.t": "Getting to know you", "s1.p": "Message me on Instagram — we'll talk through your idea, mood and references.",
@@ -415,7 +463,7 @@
       "about.title": "Hi, I'm <em>Tanya</em>",
       "about.p1": "I'm a photographer living and working in Amman. I love natural light, black-and-white film aesthetics and the moments when people forget about the camera.",
       "about.p2": "I've shot in Russia, Vietnam, Sri Lanka and Jordan, and worked backstage and at fashion week. On set I'm right there with you: I'll suggest a pose, fix your hair and make sure you feel at ease.",
-      "f1.n": "4 countries", "f1.t": "where I've shot", "f2.n": "3 genres", "f2.t": "personal, family, love story", "f3.n": "B&amp;W or colour", "f3.t": "editing of your choice",
+      "f1.n": "4 countries", "f1.t": "where I've shot", "f2.n": "3 genres", "f2.t": "personal, love story and maternity", "f3.n": "B&amp;W or colour", "f3.t": "editing of your choice",
       "faq.eyebrow": "FAQ", "faq.title": "Good to know",
       "q1": "How do I book a date?", "a1": "Message me on Instagram — we'll agree on the idea, date and location. The date is confirmed once the deposit is paid.",
       "q2": "How will I receive my photos?", "a2": "I upload all finished photos to a private online gallery: easy to view, download and send to your loved ones.",
@@ -427,25 +475,25 @@
       "footer.copy": "© artt.muse · Tanya, photographer in Amman"
     },
     ar: {
-      "meta.title": "تانيا — مصوّرة في عمّان: بورتريه، قصص حب، جلسات عائلية",
-      "meta.desc": "مصوّرة في عمّان: جلسات تصوير شخصية وعائلية وقصص حب. مشاعر حقيقية، ضوء طبيعي، ومعالجة بالأبيض والأسود أو بالألوان.",
+      "meta.title": "تانيا — مصوّرة في عمّان: بورتريه وقصص حب وتصوير الحمل",
+      "meta.desc": "مصوّرة في عمّان: جلسات تصوير شخصية وقصص حب وتصوير الحمل. مشاعر حقيقية، ضوء طبيعي، ومعالجة بالأبيض والأسود أو بالألوان.",
       "draft": '<a href="../../index.html" style="text-decoration:underline">العودة إلى Vitrina</a> · موقع عميل من تصميم Vitrina',
       "nav.portfolio": "الأعمال", "nav.shoots": "الجلسات", "nav.process": "كيف تتم الجلسة", "nav.about": "عنّي", "nav.faq": "الأسئلة", "nav.booking": "الحجز",
       "cta.book": "احجز جلسة",
-      "hero.eyebrow": "مصوّرة في عمّان · بورتريه · عائلة · قصة حب",
-      "hero.title": "أصوّرك <em>على طبيعتك</em>",
-      "hero.lead": "جلسات تصوير شخصية وعائلية وقصص حب في عمّان. بهدوء ودون وضعيات متكلّفة — مع اهتمام بالضوء والمشاعر والتفاصيل.",
+      "hero.eyebrow": "مصوّرة في عمّان · بورتريه · قصة حب · الحمل",
+      "hero.title": "بسهولة. بحرية. <em>بصدق.</em>",
+      "hero.lead": "جلسات تصوير شخصية وقصص حب وتصوير الحمل في عمّان. بهدوء ودون وضعيات متكلّفة — مع اهتمام بالضوء والمشاعر والتفاصيل.",
       "hero.btn1": "شاهد الأعمال", "hero.btn2": "ناقش جلستك",
       "hero.meta": "عمّان، الأردن<br>أصوّر أيضاً أثناء السفر",
       "portfolio.title": "قصص <em>حفظتها</em>",
       "portfolio.more": "المزيد من الأعمال على إنستغرام " + IG,
-      "cat.all": "الكل", "cat.personal": "بورتريه", "cat.love": "قصة حب", "cat.family": "عائلة",
+      "cat.all": "الكل", "cat.personal": "بورتريه", "cat.love": "قصة حب", "cat.pregnancy": "الحمل",
       "shoots.title": "اختر نوع الجلسة",
       "shoots.lead": "تشمل كل جلسة المساعدة في اختيار الإطلالة والمكان، ومعالجة الصور بالألوان أو بالأبيض والأسود، ومعرضاً إلكترونياً لتحميل الصور.",
       "price.tbd": "السعر عند الطلب",
       "p1.li1": "جلسة فردية", "p1.li2": "في المدينة أو الطبيعة أو في مكان داخلي", "p1.li3": "سأرشدك إلى الحركة أمام الكاميرا",
       "p2.li1": "جلسة للثنائي", "p2.li2": "ذكرى سنوية أو خطوبة أو زفاف", "p2.li3": "مشاعر حقيقية بدلاً من الوضعيات",
-      "p3.li1": "جلسة عائلية مع الأطفال", "p3.li2": "جلسة تصوير الحمل", "p3.li3": "في المنزل أو في الهواء الطلق",
+      "p3.li1": "جلسة تصوير الحمل", "p3.li2": "يمكن أن يشارك الشريك", "p3.li3": "بلطف وبالوتيرة المريحة لكِ",
       "btn.discuss": "استفسر",
       "process.eyebrow": "كيف تتم الجلسة", "process.title": "لا تحتاج إلى خبرة في الوقوف أمام الكاميرا",
       "s1.t": "التعارف", "s1.p": "راسلني على إنستغرام — نناقش الفكرة والأجواء والأمثلة التي تحبها.",
@@ -455,7 +503,7 @@
       "about.title": "مرحباً، أنا <em>تانيا</em>",
       "about.p1": "أنا مصوّرة أعيش وأعمل في عمّان. أحب الضوء الطبيعي وجمالية أفلام الأبيض والأسود، واللحظات التي ينسى فيها الناس وجود الكاميرا.",
       "about.p2": "صوّرت في روسيا وفيتنام وسريلانكا والأردن، وعملت خلف الكواليس وفي أسابيع الموضة. أثناء التصوير أكون بجانبك: أقترح الوضعية، وأرتّب شعرك، وأحرص على أن تشعر بالراحة.",
-      "f1.n": "4 دول", "f1.t": "صوّرت فيها", "f2.n": "3 أنواع", "f2.t": "بورتريه، عائلة، قصة حب", "f3.n": "أبيض وأسود أو ألوان", "f3.t": "المعالجة حسب اختيارك",
+      "f1.n": "4 دول", "f1.t": "صوّرت فيها", "f2.n": "3 أنواع", "f2.t": "بورتريه وقصة حب وتصوير الحمل", "f3.n": "أبيض وأسود أو ألوان", "f3.t": "المعالجة حسب اختيارك",
       "faq.eyebrow": "أسئلة شائعة", "faq.title": "كل ما يهمك معرفته",
       "q1": "كيف أحجز موعداً؟", "a1": "راسلني على إنستغرام — نتفق على الفكرة والموعد والمكان. يتم تثبيت الموعد بعد دفع العربون.",
       "q2": "كيف أستلم الصور؟", "a2": "أرفع جميع الصور الجاهزة إلى معرض إلكتروني خاص، فيسهل مشاهدتها وتحميلها وإرسالها لأحبائك.",
@@ -506,7 +554,26 @@
     filters.forEach((b) => b.classList.toggle("active", b === btn));
     const cat = btn.dataset.filter;
     shots.forEach((s) => s.classList.toggle("hidden", cat !== "all" && s.dataset.cat !== cat));
+    layoutGallery();
   }));
+
+  // Раскладка по рядам: 1-е фото в левую колонку, 2-е в среднюю, 3-е в правую, 4-е снова в левую (под 1-м) и т. д.
+  // Порядок в разметке = порядок, который задала Таня
+  const gallery = document.getElementById("gallery");
+  const narrow = matchMedia("(max-width: 960px)");
+  function layoutGallery() {
+    const n = narrow.matches ? 2 : 3;
+    const cols = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "gallery-col"; return c; });
+    let k = 0;
+    shots.forEach((s) => {
+      if (s.classList.contains("hidden")) { cols[0].appendChild(s); return; }
+      cols[k % n].appendChild(s); k++;
+    });
+    gallery.replaceChildren(...cols);
+    gallery.classList.add("rows");
+  }
+  narrow.addEventListener("change", layoutGallery);
+  layoutGallery();
 
   // Увеличение фото
   const lightbox = document.getElementById("lightbox");
