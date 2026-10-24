@@ -6,6 +6,9 @@
   <title>Сайты и Telegram-боты: сделаю или научу делать так же — Витрина</title>
   <meta name="description" content="Сделаю сайт или Telegram-бота для вашего бизнеса или научу делать так же. Дизайн под вас, любой язык, сайты от $40, запуск за 2–7 дней. Портфолио и цены.">
   <link rel="canonical" href="https://vitrina-web.com/">
+  <link rel="alternate" hreflang="ru" href="https://vitrina-web.com/">
+  <link rel="alternate" hreflang="en" href="https://vitrina-web.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://vitrina-web.com/">
   <!-- Превью ссылки в Telegram, WhatsApp, Instagram -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vitrina-web.com/">
@@ -679,6 +682,10 @@
     alts.forEach((el) => { RU[el.dataset.i18nAlt] ??= el.alt; });
     labels.forEach((el) => { RU[el.dataset.i18nLabel] ??= el.getAttribute("aria-label"); });
 
+    // Язык задаёт адрес страницы: «/» русский, «/en/» английский (у неё в <html> стоит data-page-lang="en").
+    // Перевод скриптом нужен, чтобы собрать английскую страницу (_tools/make_en.py открывает её с ?lang=en).
+    const PAGE_LANG = document.documentElement.dataset.pageLang || "ru";
+
     function setLang(lang) {
       const dict = lang === "en" ? EN : RU;
       const t = (key) => dict[key] ?? RU[key];
@@ -689,18 +696,17 @@
       metaDesc.content = t("meta.desc");
       document.documentElement.lang = lang;
       document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === lang));
-      try { localStorage.setItem("lang", lang); } catch (e) {}
     }
 
     function initialLang() {
       const fromUrl = new URLSearchParams(location.search).get("lang");
-      if (fromUrl === "ru" || fromUrl === "en") return fromUrl;
-      try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "en") return saved; } catch (e) {}
-      const browser = (navigator.language || "en").slice(0, 2);
-      return ["ru", "uk", "be", "kk"].includes(browser) ? "ru" : "en";
+      return fromUrl === "ru" || fromUrl === "en" ? fromUrl : PAGE_LANG;
     }
 
-    document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+    // Кнопки RU / EN ведут на нужный адрес, а не переключают текст на месте
+    document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => {
+      if (b.dataset.lang !== PAGE_LANG) location.href = b.dataset.lang === "en" ? "/en/" : "/";
+    }));
     setLang(initialLang());
   </script>
 </body>

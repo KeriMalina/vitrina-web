@@ -415,8 +415,15 @@ for slug, html_text in OUT.items():
     d.mkdir(exist_ok=True)
     (d / "index.html").write_text(html_text, encoding="utf-8")
 
-urls = [f"{SITE}/"] + [f"{SITE}/{s}/" for s, _ in PAGES]
+urls = [f"{SITE}/", f"{SITE}/en/"] + [f"{SITE}/{s}/" for s, _ in PAGES]
+# Русская и английская главные ссылаются друг на друга (hreflang): так Google понимает, какую показывать кому
+ALT = (f'    <xhtml:link rel="alternate" hreflang="ru" href="{SITE}/"/>\n'
+       f'    <xhtml:link rel="alternate" hreflang="en" href="{SITE}/en/"/>\n'
+       f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}/"/>\n')
+def url_entry(u):
+    alt = ALT if u in (f"{SITE}/", f"{SITE}/en/") else ""
+    return f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n{alt}  </url>\n"
 (ROOT / "sitemap.xml").write_text(
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + "".join(f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n  </url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+    + "".join(url_entry(u) for u in urls) + "</urlset>\n", encoding="utf-8")
 print("готово:", ", ".join(OUT))
